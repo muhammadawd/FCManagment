@@ -58,7 +58,7 @@
   .card-title {
     margin: $none;
     color: $card-black-color;
-    font-weight: $font-weight-light;
+    font-weight: $font-weight-bold;
   }
   .avatar {
     width: 50px;
@@ -120,13 +120,13 @@
   .table {
 		tbody td:first-child,
 		tfoot th:first-child, tfoot td:first-child,
-		thead th:first-child, thead td:first-child, {
+		thead th:first-child, thead td:first-child {
 			padding-left: 15px;
 		}
 
 		tbody td:last-child,
 		tfoot th:last-child, tfoot td:last-child,
-		thead th:last-child, thead td:last-child, {
+		thead th:last-child, thead td:last-child {
 			padding-right: 15px;
 		}
 	}
@@ -201,7 +201,7 @@
     }
   }
   .card-title {
-    font-weight: 600;
+    font-weight: bold;
     line-height: 24px;
   }
   .description {

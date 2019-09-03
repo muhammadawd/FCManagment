@@ -1,16 +1,31 @@
 <template>
   <div :class="{'nav-open': $sidebar.showSidebar}">
+    <Loader :ref="'loader'"/>
     <notifications></notifications>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+  import Loader from './components/Loader'
+
   export default {
+    data() {
+      return {
+        show: true,
+      }
+    },
     mounted() {
-      if (this.$ml.current == 'ar') {
+      let vm = this;
+      if (vm.$ml.current == 'ar') {
         import("@/assets/css/app.css")
       }
+      setTimeout(() => {
+        vm.$refs.loader.show_loader = false;
+      }, 1000)
+    },
+    components: {
+      Loader
     }
   };
 </script>

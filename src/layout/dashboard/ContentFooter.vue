@@ -11,8 +11,8 @@
       <div class="copyright d-flex flex-wrap">
         &copy; Coded with
         <i class="fa fa-heart heart"></i> by
-        <a href="" target="_blank"> &nbsp; Approc </a>&nbsp;
-        <a href="" target="_blank">&nbsp; Faculty Of Computer & Information</a>
+        <a href="" target="_blank"> &nbsp; Muhammad Awd </a>&nbsp;
+        <a href="" target="_blank">&nbsp; Al Rights Are Reserved </a>
       </div>
     </div>
   </footer>
