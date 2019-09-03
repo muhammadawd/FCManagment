@@ -16,6 +16,7 @@
     "es6-promise": "^4.2.4",
     "vue": "^2.6.10",
     "vue-clickaway": "^2.1.0",
+    "vue-multilanguage": "^4.0.9",
     "vue-notifyjs": "^0.3.0",
     "vue-router": "^3.0.1"
   },

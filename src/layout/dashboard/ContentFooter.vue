@@ -4,21 +4,21 @@
       <nav>
         <ul>
           <li>
-            <router-link :to="{path:'/admin'}">Dashboard</router-link>
+            <router-link :to="{path:'/admin'}">{{$ml.get('dashboard')}}</router-link>
           </li>
         </ul>
       </nav>
       <div class="copyright d-flex flex-wrap">
         &copy; Coded with
         <i class="fa fa-heart heart"></i> by
-        <a href="https://github.com/cristijora" target="_blank"> &nbsp; Cristi Jora.</a>&nbsp;
-        Designed by <a href="https://www.creative-tim.com/?ref=pdf-vuejs" target="_blank">&nbsp; Creative Tim.</a>
+        <a href="" target="_blank"> &nbsp; Approc </a>&nbsp;
+        <a href="" target="_blank">&nbsp; Faculty Of Computer & Information</a>
       </div>
     </div>
   </footer>
 </template>
 <script>
-export default {};
+  export default {};
 </script>
 <style>
 </style>

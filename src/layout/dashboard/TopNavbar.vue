@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">{{routeName}}</a>
+    <div class="container-fluid direction">
+      <a class="navbar-brand" href="#">{{$ml.get(routeName)}}</a>
       <button class="navbar-toggler navbar-burger"
               type="button"
               @click="toggleSidebar"
@@ -12,15 +12,15 @@
         <span class="navbar-toggler-bar"></span>
       </button>
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto direction">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" @click="changeLang()">
               <i class="ti-panel"></i>
-              <p>Stats</p>
+              <b class="p-t-5">{{$ml.get($ml.current)}}</b>
             </a>
           </li>
           <drop-down class="nav-item"
-                     title="5 Notifications"
+                     :title="$ml.get('notification')"
                      title-classes="nav-link"
                      icon="ti-bell">
             <a class="dropdown-item" href="#">Notification 1</a>
@@ -33,45 +33,56 @@
             <a href="#" class="nav-link">
               <i class="ti-settings"></i>
               <p>
-                Settings
+                {{$ml.get('settings')}}
               </p>
             </a>
           </li>
         </ul>
       </div>
-    </div></nav>
+    </div>
+  </nav>
 </template>
 <script>
-export default {
-  computed: {
-    routeName() {
-      const { name } = this.$route;
-      return this.capitalizeFirstLetter(name);
+  export default {
+    computed: {
+      routeName() {
+        const {name} = this.$route;
+
+        return name;
+        // return this.capitalizeFirstLetter(name);
+      }
+    },
+    data() {
+      return {
+        activeNotifications: false
+      };
+    },
+    methods: {
+      changeLang() {
+        if (this.$ml.current == 'ar') {
+          this.$ml.change('en')
+        } else {
+          this.$ml.change('ar');
+        }
+        location.reload()
+      },
+      capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      },
+      toggleNotificationDropDown() {
+        this.activeNotifications = !this.activeNotifications;
+      },
+      closeDropDown() {
+        this.activeNotifications = false;
+      },
+      toggleSidebar() {
+        this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+      },
+      hideSidebar() {
+        this.$sidebar.displaySidebar(false);
+      }
     }
-  },
-  data() {
-    return {
-      activeNotifications: false
-    };
-  },
-  methods: {
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    },
-    toggleNotificationDropDown() {
-      this.activeNotifications = !this.activeNotifications;
-    },
-    closeDropDown() {
-      this.activeNotifications = false;
-    },
-    toggleSidebar() {
-      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
-    },
-    hideSidebar() {
-      this.$sidebar.displaySidebar(false);
-    }
-  }
-};
+  };
 </script>
 <style>
 </style>

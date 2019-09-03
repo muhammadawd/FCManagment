@@ -13,7 +13,7 @@
             <div class="logo-img">
                 <img src="@/assets/img/vue-logo.png" alt="">
             </div>
-          {{title}}
+          {{$ml.get('dashboard')}}
         </a>
       </div>
       <slot>
