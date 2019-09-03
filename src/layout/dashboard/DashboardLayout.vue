@@ -3,7 +3,7 @@
     <side-bar>
       <template slot="links">
         <sidebar-link :to="{name:'dashboard'}" :name="$ml.get('dashboard')" icon="ti-panel"/>
-        <sidebar-link :to="{name:'stats'}" :name="$ml.get('stats')" icon="ti-user"/>
+        <sidebar-link :to="{name:'lecturer'}" :name="$ml.get('lecturer')" icon="ti-user"/>
 <!--        <sidebar-link to="/table-list" name="Table List" icon="ti-view-list-alt"/>-->
 <!--        <sidebar-link to="/typography" name="Typography" icon="ti-text"/>-->
 <!--        <sidebar-link to="/icons" name="Icons" icon="ti-pencil-alt2"/>-->

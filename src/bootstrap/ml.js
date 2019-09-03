@@ -14,7 +14,7 @@ export default new MLCreate({
       notification: 'Notification',
       settings: 'Settings',
       dashboard: 'dashboard',
-      stats: 'stats',
+      lecturer: 'lecturer',
     }),
 
     new MLanguage('ar').create({
@@ -23,7 +23,7 @@ export default new MLCreate({
       notification: 'الاشعارات',
       settings: 'الاعدادات',
       dashboard: 'لوحة التحكم',
-      stats: '  حالات الطلاب',
+      lecturer: 'قسم المحاضرين',
     })
   ]
 })

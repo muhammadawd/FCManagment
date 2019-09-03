@@ -4,7 +4,7 @@
       <nav>
         <ul>
           <li>
-            <router-link :to="{path:'/admin'}">{{$ml.get('dashboard')}}</router-link>
+            <router-link :to="{name:'dashboard'}">{{$ml.get('dashboard')}}</router-link>
           </li>
         </ul>
       </nav>

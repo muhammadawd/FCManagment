@@ -8,14 +8,6 @@
       <slot>
         <i v-if="icon" :class="icon"></i>
         <p>{{name}}</p>
-        <div>
-          <ul class="nav" data-old-padding-top="" data-old-padding-bottom="" data-old-overflow="" style="display: none;">
-            <li class=""><!----> <!----> <a href="/admin/overview" class=""><span class="sidebar-mini">O</span> <span
-              class="sidebar-normal">Overview</span></a></li>
-            <li class=""><!----> <!----> <a href="/admin/stats" class=""><span class="sidebar-mini">S</span> <span
-              class="sidebar-normal">Stats</span></a></li>
-          </ul>
-        </div>
       </slot>
     </a>
   </component>
