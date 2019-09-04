@@ -12,6 +12,7 @@ import EditLecturer from "@/pages/views/Lecturer/EditLecturer.vue";
 import Programs from "@/pages/views/Programs/Programs.vue";
 import AddProgram from "@/pages/views/Programs/AddProgram.vue";
 import EditProgram from "@/pages/views/Programs/EditProgram.vue";
+import ShowProgram from "@/pages/views/Programs/ShowProgram.vue";
 import ProgramsGrades from "@/pages/views/Programs/ProgramGrades/ProgramsGrades.vue";
 import AddProgramGrades from "@/pages/views/Programs/ProgramGrades/AddProgramGrades.vue";
 import EditProgramGrades from "@/pages/views/Programs/ProgramGrades/EditProgramGrades.vue";
@@ -22,9 +23,17 @@ import ProgramRequires from "@/pages/views/Programs/ProgramRequires/ProgramRequi
 import AddProgramRequires from "@/pages/views/Programs/ProgramRequires/AddProgramRequires.vue";
 import EditProgramRequires from "@/pages/views/Programs/ProgramRequires/EditProgramRequires.vue";
 
+import Term from "@/pages/views/Terms/Term.vue";
+import AddTerm from "@/pages/views/Terms/AddTerm.vue";
+import EditTerm from "@/pages/views/Terms/EditTerm.vue";
+
 import Students from "@/pages/views/Students/Students.vue";
 import AddStudent from "@/pages/views/Students/AddStudent.vue";
 import EditStudent from "@/pages/views/Students/EditStudent.vue";
+
+import Courses from "@/pages/views/Courses/Courses.vue";
+import AddCourse from "@/pages/views/Courses/AddCourse.vue";
+import EditCourse from "@/pages/views/Courses/EditCourse.vue";
 
 import Country from "@/pages/views/Country/Country.vue";
 import AddCountry from "@/pages/views/Country/AddCountry.vue";
@@ -113,6 +122,11 @@ const routes = [
         component: Programs
       },
       {
+        path: "programs/show_program/:id",
+        name: "show_program",
+        component: ShowProgram
+      },
+      {
         path: "programs/edit_program/:id",
         name: "edit_program",
         component: EditProgram
@@ -129,18 +143,18 @@ const routes = [
         component: ProgramsGrades
       },
       {
-        path: "programs/add_program_grades",
+        path: "programs/add_program_grades/program/:program_id",
         name: "add_program_grades",
         component: AddProgramGrades
       },
       {
-        path: "programs/edit_program_grades/:id",
+        path: "programs/edit_program_grades/:id/program/:program_id",
         name: "edit_program_grades",
         component: EditProgramGrades
       },
 
       {
-        path: "programs/add_program_levels",
+        path: "programs/add_program_levels/program/:program_id",
         name: "add_program_levels",
         component: AddProgramLevels
       },
@@ -150,13 +164,13 @@ const routes = [
         component: ProgramsLevels
       },
       {
-        path: "programs/edit_program_levels/:id",
+        path: "programs/edit_program_levels/:id/program/:program_id",
         name: "edit_program_levels",
         component: EditProgramLevels
       },
 
       {
-        path: "programs/add_program_requires",
+        path: "programs/add_program_requires/program/:program_id",
         name: "add_program_requires",
         component: AddProgramRequires
       },
@@ -166,7 +180,7 @@ const routes = [
         component: ProgramRequires
       },
       {
-        path: "programs/edit_program_requires/:id",
+        path: "programs/edit_program_requires/:id/program/:program_id",
         name: "edit_program_requires",
         component: EditProgramRequires
       },
@@ -185,6 +199,38 @@ const routes = [
         path: "students/add_student",
         name: "add_student",
         component: AddStudent
+      },
+
+      {
+        path: "courses",
+        name: "courses",
+        component: Courses
+      },
+      {
+        path: "courses/edit_course/:id",
+        name: "edit_course",
+        component: EditCourse
+      },
+      {
+        path: "courses/add_student",
+        name: "add_course",
+        component: AddCourse
+      },
+
+      {
+        path: "terms",
+        name: "terms",
+        component: Term
+      },
+      {
+        path: "terms/edit_term/:id",
+        name: "edit_term",
+        component: EditTerm
+      },
+      {
+        path: "terms/add_term",
+        name: "add_term",
+        component: AddTerm
       },
     ]
   },

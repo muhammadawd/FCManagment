@@ -60,6 +60,9 @@
                     <button class="btn btn-danger">
                       <i class="ti-trash"></i>
                     </button>
+                    <router-link :to="{name:'show_program',params:{'id':1}}" class="btn btn-warning">
+                      <i class="ti-eye"></i>
+                    </router-link>
                     <router-link :to="{name:'edit_program',params:{'id':1}}" class="btn btn-info">
                       <i class="ti-save"></i>
                     </router-link>
@@ -77,6 +80,9 @@
                     <button class="btn btn-danger">
                       <i class="ti-trash"></i>
                     </button>
+                    <router-link :to="{name:'show_program',params:{'id':1}}" class="btn btn-warning">
+                      <i class="ti-eye"></i>
+                    </router-link>
                     <router-link :to="{name:'edit_program',params:{'id':1}}" class="btn btn-info">
                       <i class="ti-save"></i>
                     </router-link>
@@ -102,36 +108,36 @@
     },
     data() {
       return {
-        // statsCards: [],
-        statsCards: [
-          {
-            route: "program_grades",
-            type: "warning",
-            icon: "ti-pulse",
-            title: this.$ml.get('program_grades'),
-            value: "0",
-            footerText: this.$ml.get('show'),
-            footerIcon: "ti-eye"
-          },
-          {
-            route: "program_requires",
-            type: "danger",
-            icon: "ti-pulse",
-            title: this.$ml.get('program_requires'),
-            value: "0",
-            footerText: this.$ml.get('show'),
-            footerIcon: "ti-eye"
-          },
-          {
-            route: "program_levels",
-            type: "info",
-            icon: "ti-pulse",
-            title: this.$ml.get('program_levels'),
-            value: "0",
-            footerText: this.$ml.get('show'),
-            footerIcon: "ti-eye"
-          }
-        ],
+        statsCards: [],
+        // statsCards: [
+        //   {
+        //     route: "program_grades",
+        //     type: "warning",
+        //     icon: "ti-pulse",
+        //     title: this.$ml.get('program_grades'),
+        //     value: "0",
+        //     footerText: this.$ml.get('show'),
+        //     footerIcon: "ti-eye"
+        //   },
+        //   {
+        //     route: "program_requires",
+        //     type: "danger",
+        //     icon: "ti-pulse",
+        //     title: this.$ml.get('program_requires'),
+        //     value: "0",
+        //     footerText: this.$ml.get('show'),
+        //     footerIcon: "ti-eye"
+        //   },
+        //   {
+        //     route: "program_levels",
+        //     type: "info",
+        //     icon: "ti-pulse",
+        //     title: this.$ml.get('program_levels'),
+        //     value: "0",
+        //     footerText: this.$ml.get('show'),
+        //     footerIcon: "ti-eye"
+        //   }
+        // ],
       }
     }
   }
