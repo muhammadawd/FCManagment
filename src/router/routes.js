@@ -12,6 +12,19 @@ import EditLecturer from "@/pages/views/Lecturer/EditLecturer.vue";
 import Programs from "@/pages/views/Programs/Programs.vue";
 import AddProgram from "@/pages/views/Programs/AddProgram.vue";
 import EditProgram from "@/pages/views/Programs/EditProgram.vue";
+import ProgramsGrades from "@/pages/views/Programs/ProgramGrades/ProgramsGrades.vue";
+import AddProgramGrades from "@/pages/views/Programs/ProgramGrades/AddProgramGrades.vue";
+import EditProgramGrades from "@/pages/views/Programs/ProgramGrades/EditProgramGrades.vue";
+import ProgramsLevels from "@/pages/views/Programs/ProgramLevels/ProgramsLevels.vue";
+import AddProgramLevels from "@/pages/views/Programs/ProgramLevels/AddProgramLevels.vue";
+import EditProgramLevels from "@/pages/views/Programs/ProgramLevels/EditProgramLevels.vue";
+import ProgramRequires from "@/pages/views/Programs/ProgramRequires/ProgramRequires.vue";
+import AddProgramRequires from "@/pages/views/Programs/ProgramRequires/AddProgramRequires.vue";
+import EditProgramRequires from "@/pages/views/Programs/ProgramRequires/EditProgramRequires.vue";
+
+import Students from "@/pages/views/Students/Students.vue";
+import AddStudent from "@/pages/views/Students/AddStudent.vue";
+import EditStudent from "@/pages/views/Students/EditStudent.vue";
 
 import Country from "@/pages/views/Country/Country.vue";
 import AddCountry from "@/pages/views/Country/AddCountry.vue";
@@ -42,12 +55,12 @@ const routes = [
         component: Lecturer
       },
       {
-        path: "edit_lecturer/:id",
+        path: "lecturer/edit_lecturer/:id",
         name: "edit_lecturer",
         component: EditLecturer
       },
       {
-        path: "add_lecturer",
+        path: "lecturer/add_lecturer",
         name: "add_lecturer",
         component: AddLecturer
       },
@@ -58,22 +71,22 @@ const routes = [
         component: Country
       },
       {
-        path: "edit_country/:id",
+        path: "countries/edit_country/:id",
         name: "edit_country",
         component: EditCountry
       },
       {
-        path: "edit_government/:id",
+        path: "countries/edit_government/:id",
         name: "edit_government",
         component: EditGovernment
       },
       {
-        path: "add_country",
+        path: "countries/add_country",
         name: "add_country",
         component: AddCountry
       },
       {
-        path: "add_government",
+        path: "countries/add_government",
         name: "add_government",
         component: AddGovernment
       },
@@ -84,12 +97,12 @@ const routes = [
         component: Sec_Sections
       },
       {
-        path: "edit_sec_section/:id",
+        path: "sec_section/edit_sec_section/:id",
         name: "edit_sec_section",
         component: EditSec_Sections
       },
       {
-        path: "add_sec_section",
+        path: "sec_section/add_sec_section",
         name: "add_sec_section",
         component: AddSec_Sections
       },
@@ -100,14 +113,78 @@ const routes = [
         component: Programs
       },
       {
-        path: "edit_program/:id",
+        path: "programs/edit_program/:id",
         name: "edit_program",
         component: EditProgram
       },
       {
-        path: "add_program",
+        path: "programs/add_program",
         name: "add_program",
         component: AddProgram
+      },
+
+      {
+        path: "programs/program_grades",
+        name: "program_grades",
+        component: ProgramsGrades
+      },
+      {
+        path: "programs/add_program_grades",
+        name: "add_program_grades",
+        component: AddProgramGrades
+      },
+      {
+        path: "programs/edit_program_grades/:id",
+        name: "edit_program_grades",
+        component: EditProgramGrades
+      },
+
+      {
+        path: "programs/add_program_levels",
+        name: "add_program_levels",
+        component: AddProgramLevels
+      },
+      {
+        path: "programs/program_levels",
+        name: "program_levels",
+        component: ProgramsLevels
+      },
+      {
+        path: "programs/edit_program_levels/:id",
+        name: "edit_program_levels",
+        component: EditProgramLevels
+      },
+
+      {
+        path: "programs/add_program_requires",
+        name: "add_program_requires",
+        component: AddProgramRequires
+      },
+      {
+        path: "programs/program_requires",
+        name: "program_requires",
+        component: ProgramRequires
+      },
+      {
+        path: "programs/edit_program_requires/:id",
+        name: "edit_program_requires",
+        component: EditProgramRequires
+      },
+
+      {
+        path: "students",
+        name: "students",
+        component: Students
+      },
+      {
+        path: "students/edit_student/:id",
+        name: "edit_student",
+        component: EditStudent
+      },
+      {
+        path: "students/add_student",
+        name: "add_student",
+        component: AddStudent
       },
     ]
   },

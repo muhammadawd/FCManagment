@@ -1,14 +1,27 @@
 <template>
 
-  <card class="card" :title="$ml.get('add_country')">
+  <card class="card" :title="$ml.get('add_program_requires')">
     <div>
       <form @submit.prevent>
+
         <div class="row">
           <div class="col-md-4">
             <fg-input type="text"
                       :label="$ml.get('name')"
                       :placeholder="$ml.get('name')">
             </fg-input>
+          </div>
+          <div class="col-md-3">
+            <fg-input type="text"
+                      :label="$ml.get('count_hours')"
+                      :placeholder="$ml.get('count_hours')">
+            </fg-input>
+          </div>
+          <div class="col-md-3 text-left">
+            <label>{{$ml.get('under_requires')}}</label>
+            <select class="form-control">
+              <option value="">-- choose --</option>
+            </select>
           </div>
         </div>
 

@@ -1,13 +1,20 @@
 <template>
 
-  <card class="card" :title="$ml.get('add_country')">
+  <card class="card" :title="$ml.get('edit_program_levels')">
     <div>
       <form @submit.prevent>
+
         <div class="row">
           <div class="col-md-4">
             <fg-input type="text"
                       :label="$ml.get('name')"
                       :placeholder="$ml.get('name')">
+            </fg-input>
+          </div>
+          <div class="col-md-3">
+            <fg-input type="text"
+                      :label="$ml.get('min_hour_level')"
+                      :placeholder="$ml.get('min_hour_level')">
             </fg-input>
           </div>
         </div>
@@ -16,7 +23,7 @@
           <p-button type="info"
                     round
                     @click.native.prevent="updateLecturer">
-            {{$ml.get('add')}}
+            {{$ml.get('edit')}}
           </p-button>
         </div>
         <div class="clearfix"></div>
@@ -27,7 +34,12 @@
 
 <script>
   export default {
-    name: "AddLecturer"
+    name: "EditLecturer",
+    methods: {
+      updateLecturer() {
+        alert('test')
+      }
+    }
   }
 </script>
 

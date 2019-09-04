@@ -6,6 +6,7 @@
         <sidebar-link :to="{name:'lecturer'}" :name="$ml.get('lecturer')" icon="ti-user"/>
         <sidebar-link :to="{name:'sec_section'}" :name="$ml.get('sec_section')" icon="ti-bookmark-alt"/>
         <sidebar-link :to="{name:'country'}" :name="$ml.get('country_section')" icon="ti-location-pin"/>
+        <sidebar-link :to="{name:'students'}" :name="$ml.get('students')" icon="ti-user"/>
         <sidebar-link :to="{name:'programs'}" :name="$ml.get('program')" icon="ti-server"/>
 <!--        <sidebar-link to="/table-list" name="Table List" icon="ti-view-list-alt"/>-->
 <!--        <sidebar-link to="/typography" name="Typography" icon="ti-text"/>-->

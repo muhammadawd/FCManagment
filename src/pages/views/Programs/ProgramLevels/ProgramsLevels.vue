@@ -1,34 +1,11 @@
 <template>
   <div>
-
-    <div class="row">
-      <div class="col-xl-8 offset-xl-2">
-        <div class="row">
-          <div class="col-md-6 col-xl-4" v-for="stats in statsCards" :key="stats.title">
-            <router-link :to="{name:stats.route}">
-              <stats-card>
-                <div class="icon-big text-center" :class="`icon-${stats.type}`" slot="header">
-                  <i :class="stats.icon"></i>
-                </div>
-                <div class="numbers" slot="content">
-                  <p>{{stats.title}}</p>
-                  {{stats.value}}
-                </div>
-                <div class="stats text-center" slot="footer">
-                  <i :class="stats.footerIcon"></i> {{stats.footerText}}
-                </div>
-              </stats-card>
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </div>
     <card class="card-user">
       <div class="row">
         <div class="col-md-9 text-left">
-          <router-link :to="{name:'add_program'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+          <router-link :to="{name:'add_program_levels'}" class="btn btn-wd btn-default btn-fill btn-rotate">
             <i class="ti-plus"></i>
-            {{$ml.get('add_program')}}
+            {{$ml.get('add_program_levels')}}
           </router-link>
         </div>
         <div class="col-md-3 text-right">
@@ -42,42 +19,21 @@
               <thead>
               <th width="50">#</th>
               <th>{{$ml.get('name')}}</th>
-              <th>{{$ml.get('hours_need_grade')}}</th>
-              <th>{{$ml.get('min_number_grade')}}</th>
-              <th>{{$ml.get('max_fail_percent')}}</th>
+              <th>{{$ml.get('min_hour_level')}}</th>
               <th width="50"></th>
               </thead>
               <tbody>
               <!--<tr v-for="(item, index) in data" :key="index">-->
               <tr>
                 <td>1</td>
-                <td><b>Computer Science DBMS Edition</b></td>
+                <td><b>Level One</b></td>
                 <td><b>120</b></td>
-                <td><b>15</b></td>
-                <td><b>80</b></td>
                 <td>
                   <div class="btn-group direction-inverse">
                     <button class="btn btn-danger">
                       <i class="ti-trash"></i>
                     </button>
-                    <router-link :to="{name:'edit_program',params:{'id':1}}" class="btn btn-info">
-                      <i class="ti-save"></i>
-                    </router-link>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><b>Oracle DBMS Edition</b></td>
-                <td><b>110</b></td>
-                <td><b>19</b></td>
-                <td><b>89</b></td>
-                <td>
-                  <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger">
-                      <i class="ti-trash"></i>
-                    </button>
-                    <router-link :to="{name:'edit_program',params:{'id':1}}" class="btn btn-info">
+                    <router-link :to="{name:'edit_program_levels',params:{'id':1}}" class="btn btn-info">
                       <i class="ti-save"></i>
                     </router-link>
                   </div>

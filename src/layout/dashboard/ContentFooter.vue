@@ -4,7 +4,7 @@
       <nav>
         <ul>
           <li>
-            <router-link :to="{name:'dashboard'}">{{$ml.get('dashboard')}}</router-link>
+            <!--            <router-link :to="{name:'dashboard'}">{{$ml.get('dashboard')}}</router-link>-->
           </li>
         </ul>
       </nav>
@@ -12,7 +12,7 @@
         &copy; Coded with
         <i class="fa fa-heart heart"></i> by
         <a href="" target="_blank"> &nbsp; Muhammad Awd </a>&nbsp;
-        <a href="" target="_blank">&nbsp; Al Rights Are Reserved </a>
+        <!--        <a href="" target="_blank">&nbsp; Al Rights Are Reserved </a>-->
       </div>
     </div>
   </footer>
