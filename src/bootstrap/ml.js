@@ -4,7 +4,7 @@ import {MLInstaller, MLCreate, MLanguage} from 'vue-multilanguage'
 Vue.use(MLInstaller);
 
 export default new MLCreate({
-  initial: 'ar',
+  initial: 'en',
   // development  , production
   save: process.env.NODE_ENV === 'development',
   languages: [

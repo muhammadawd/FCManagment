@@ -1,7 +1,7 @@
 <template>
   <div class="loader_overlay" v-if="showLoader">
     <div class="content">
-      <img src="/images/loader.gif" alt="">
+      <img src="@/assets/img/loader.gif" alt="">
       <h4 class="p-0 m-0 text-black">{{$ml.get('loading')}}</h4>
     </div>
   </div>
