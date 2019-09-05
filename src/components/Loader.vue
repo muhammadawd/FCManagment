@@ -2,7 +2,7 @@
   <div class="loader_overlay" v-if="showLoader">
     <div class="content">
       <img src="/images/loader.gif" alt="">
-      <h4 class="p-0 m-0 text-white">{{$ml.get('loading')}}</h4>
+      <h4 class="p-0 m-0 text-black">{{$ml.get('loading')}}</h4>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@
 
 <style scoped>
   .loader_overlay {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(255,255,255, 0.7);
     z-index: 9999;
     position: fixed;
     left: 0;
@@ -40,11 +40,11 @@
 
   .loader_overlay .content {
     width: 210px;
-    height: 200px;
+    height: 220px;
     border-radius: 18px;
     margin: 300px auto;
     font-weight: bold;
-    background-color: #1d1d1d;
+    background-color: #fff;
   }
 
   .loader_overlay .content img {

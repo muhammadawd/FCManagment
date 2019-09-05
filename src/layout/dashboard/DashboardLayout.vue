@@ -36,7 +36,7 @@
         <li class="nav-item">
           <a class="nav-link">
             <i class="ti-settings"></i>
-            <p>Settings</p>
+            <p>logout</p>
           </a>
         </li>
         <li class="divider"></li>

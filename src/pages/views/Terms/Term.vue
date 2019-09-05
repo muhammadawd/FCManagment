@@ -29,11 +29,13 @@
                 <b>Term <span class="text-success">#1</span> 2019 - 2020</b>
               </td>
               <td>
-                <router-link to="" class="btn btn-outline-secondary">
+                <router-link :to="{name:'term_subject_hours',params:{term_id:1,program_id:1}}"
+                             class="btn btn-outline-info">
                   {{$ml.get('hours')}}
                 </router-link>
                 &nbsp;
-                <router-link to="" class="btn btn-outline-secondary">
+                <router-link :to="{name:'term_subjects',params:{term_id:1,program_id:1}}"
+                             class="btn btn-outline-primary">
                   {{$ml.get('subjects')}}
                 </router-link>
               </td>
@@ -54,11 +56,13 @@
                 <b>Term <span class="text-success">#2</span> 2020 - 2020</b>
               </td>
               <td>
-                <router-link to="" class="btn btn-outline-secondary">
+                <router-link :to="{name:'term_subject_hours',params:{term_id:1,program_id:1}}"
+                             class="btn btn-outline-info">
                   {{$ml.get('hours')}}
                 </router-link>
                 &nbsp;
-                <router-link to="" class="btn btn-outline-secondary">
+                <router-link :to="{name:'term_subjects',params:{term_id:1,program_id:1}}"
+                             class="btn btn-outline-primary">
                   {{$ml.get('subjects')}}
                 </router-link>
               </td>

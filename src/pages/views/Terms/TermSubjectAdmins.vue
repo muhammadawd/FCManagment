@@ -1,16 +1,17 @@
 <template>
-  <card class="card-user">
+  <card class="card-user" :title="$ml.get('admins')">
     <div class="row">
-      <div class="col-md-9 text-left">
-        <router-link :to="{name:'add_course'}" class="btn btn-wd btn-default btn-fill btn-rotate">
-          <i class="ti-plus"></i>
-          {{$ml.get('add_course')}}
-        </router-link>
-      </div>
-      <div class="col-md-3 text-right">
-        <fg-input type="text"
-                  :placeholder="$ml.get('search')">
-        </fg-input>
+      <div class="col-md-4 text-left">
+        <label>{{$ml.get('name')}}</label>
+        <select class="form-control">
+          <option value="">-- choose --</option>
+        </select>
+        <label class="mt-2">{{$ml.get('is_admin')}}</label>
+        <select class="form-control">
+          <option value="">{{$ml.get('yes')}}</option>
+          <option value="">{{$ml.get('no')}}</option>
+        </select>
+        <button class="btn btn-black mt-2">{{$ml.get('add')}}</button>
       </div>
       <div class="col-md-12 text-left">
         <div class="table-responsive">
@@ -18,7 +19,7 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('name')}}</th>
-            <th>{{$ml.get('requires')}}</th>
+            <th>{{$ml.get('is_admin')}}</th>
             <th width="50"></th>
             </thead>
             <tbody>
@@ -26,44 +27,32 @@
             <tr>
               <td>1</td>
               <td>
-                <b>JAVA SE</b>
+                <b>Mohamed Awd</b>
               </td>
               <td>
-                <router-link :to="{name:'course_requirement',params:{'course_id':1,program_id:1}}"
-                             class="btn btn-outline-primary">
-                  <b>{{$ml.get('requires')}}</b>
-                </router-link>
+                <b><span class="text-danger">{{$ml.get('no')}}</span></b>
               </td>
               <td>
                 <div class="btn-group direction-inverse">
                   <button class="btn btn-danger">
                     <i class="ti-trash"></i>
                   </button>
-                  <router-link :to="{name:'edit_course',params:{'id':1}}" class="btn btn-info">
-                    <i class="ti-save"></i>
-                  </router-link>
                 </div>
               </td>
             </tr>
             <tr>
               <td>2</td>
               <td>
-                <b>C#</b>
+                <b>Mohamed Moustafa</b>
               </td>
               <td>
-                <router-link :to="{name:'course_requirement',params:{'course_id':1,program_id:1}}"
-                             class="btn btn-outline-primary">
-                  <b>{{$ml.get('requires')}}</b>
-                </router-link>
+                <b><span class="text-black">{{$ml.get('yes')}}</span></b>
               </td>
               <td>
                 <div class="btn-group direction-inverse">
                   <button class="btn btn-danger">
                     <i class="ti-trash"></i>
                   </button>
-                  <router-link :to="{name:'edit_course',params:{'id':2}}" class="btn btn-info">
-                    <i class="ti-save"></i>
-                  </router-link>
                 </div>
               </td>
             </tr>

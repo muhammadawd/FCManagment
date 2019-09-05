@@ -26,12 +26,16 @@ import EditProgramRequires from "@/pages/views/Programs/ProgramRequires/EditProg
 import Term from "@/pages/views/Terms/Term.vue";
 import AddTerm from "@/pages/views/Terms/AddTerm.vue";
 import EditTerm from "@/pages/views/Terms/EditTerm.vue";
+import TermSubject from "@/pages/views/Terms/TermSubject.vue";
+import TermSubjectAdmins from "@/pages/views/Terms/TermSubjectAdmins.vue";
+import TermSubjectHours from "@/pages/views/Terms/TermSubjectHours.vue";
 
 import Students from "@/pages/views/Students/Students.vue";
 import AddStudent from "@/pages/views/Students/AddStudent.vue";
 import EditStudent from "@/pages/views/Students/EditStudent.vue";
 
 import Courses from "@/pages/views/Courses/Courses.vue";
+import CoursesRequirement from "@/pages/views/Courses/CoursesRequirement.vue";
 import AddCourse from "@/pages/views/Courses/AddCourse.vue";
 import EditCourse from "@/pages/views/Courses/EditCourse.vue";
 
@@ -207,6 +211,11 @@ const routes = [
         component: Courses
       },
       {
+        path: "courses/course_requirement/:course_id/program/:program_id",
+        name: "course_requirement",
+        component: CoursesRequirement
+      },
+      {
         path: "courses/edit_course/:id",
         name: "edit_course",
         component: EditCourse
@@ -221,6 +230,21 @@ const routes = [
         path: "terms",
         name: "terms",
         component: Term
+      },
+      {
+        path: "terms/term_subjects/:term_id/program/:program_id",
+        name: "term_subjects",
+        component: TermSubject
+      },
+      {
+        path: "terms/term_subject_admin/:subject_id/program/:program_id",
+        name: "term_subject_admin",
+        component: TermSubjectAdmins
+      },
+      {
+        path: "terms/term_subject_hours/:term_id/program/:program_id",
+        name: "term_subject_hours",
+        component: TermSubjectHours
       },
       {
         path: "terms/edit_term/:id",

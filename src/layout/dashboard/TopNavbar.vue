@@ -31,9 +31,9 @@
           </drop-down>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="ti-settings"></i>
+              <i class="ti-export"></i>
               <p>
-                {{$ml.get('settings')}}
+                {{$ml.get('logout')}}
               </p>
             </a>
           </li>
