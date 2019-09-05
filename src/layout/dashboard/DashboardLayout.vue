@@ -18,9 +18,9 @@
       </template>
       <mobile-menu>
         <li class="nav-item">
-          <a class="nav-link">
+          <a class="nav-link"  @click="changeLang()">
             <i class="ti-panel"></i>
-            <p>Stats</p>
+            <p>{{$ml.get($ml.current)}}</p>
           </a>
         </li>
         <drop-down class="nav-item"
@@ -36,7 +36,9 @@
         <li class="nav-item">
           <a class="nav-link">
             <i class="ti-settings"></i>
-            <p>logout</p>
+            <p>
+              {{$ml.get('logout')}}
+            </p>
           </a>
         </li>
         <li class="divider"></li>
@@ -69,6 +71,14 @@
       MobileMenu
     },
     methods: {
+      changeLang() {
+        if (this.$ml.current == 'ar') {
+          this.$ml.change('en')
+        } else {
+          this.$ml.change('ar');
+        }
+        location.reload()
+      },
       toggleSidebar() {
         if (this.$sidebar.showSidebar) {
           this.$sidebar.displaySidebar(false);

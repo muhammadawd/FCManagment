@@ -2,6 +2,8 @@ import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
 // GeneralViews
 import NotFound from "@/pages/NotFoundPage.vue";
 
+import Login from "@/pages/views/Login.vue";
+
 // Admin pages
 import Dashboard from "@/pages/views/Dashboard.vue";
 
@@ -52,6 +54,12 @@ import EditSec_Sections from "@/pages/views/Sec_Sections/EditSec_Sections.vue";
 
 const routes = [
   {
+    path: "/login",
+    name: "login",
+    component: Login,
+    meta: {requiresAuth: false}
+  },
+  {
     path: "/",
     component: DashboardLayout,
     redirect: "/dashboard",
@@ -59,71 +67,89 @@ const routes = [
       {
         path: "dashboard",
         name: "dashboard",
-        component: Dashboard
+        component: Dashboard,
+        // a meta field
+        meta: {requiresAuth: true}
       },
 
       {
         path: "lecturer",
         name: "lecturer",
-        component: Lecturer
+        component: Lecturer,
+        // a meta field
+        meta: {requiresAuth: true}
       },
       {
         path: "lecturer/edit_lecturer/:id",
         name: "edit_lecturer",
-        component: EditLecturer
+        component: EditLecturer,
+        // a meta field
+        meta: {requiresAuth: true}
       },
       {
         path: "lecturer/add_lecturer",
         name: "add_lecturer",
-        component: AddLecturer
+        component: AddLecturer,
+        // a meta field
+        meta: {requiresAuth: true}
       },
 
       {
         path: "countries",
         name: "country",
-        component: Country
+        component: Country,
+        // a meta field
+        meta: {requiresAuth: true}
       },
       {
         path: "countries/edit_country/:id",
         name: "edit_country",
-        component: EditCountry
+        component: EditCountry,
+        meta: {requiresAuth: true}
       },
       {
         path: "countries/edit_government/:id",
         name: "edit_government",
-        component: EditGovernment
+        component: EditGovernment,
+        meta: {requiresAuth: true}
       },
       {
         path: "countries/add_country",
         name: "add_country",
-        component: AddCountry
+        component: AddCountry,
+        meta: {requiresAuth: true}
       },
       {
         path: "countries/add_government",
         name: "add_government",
-        component: AddGovernment
+        component: AddGovernment,
+        meta: {requiresAuth: true}
       },
 
       {
         path: "sec_section",
         name: "sec_section",
-        component: Sec_Sections
+        component: Sec_Sections,
+        meta: {requiresAuth: true}
       },
       {
         path: "sec_section/edit_sec_section/:id",
         name: "edit_sec_section",
-        component: EditSec_Sections
+        component: EditSec_Sections,
+        meta: {requiresAuth: true}
       },
       {
         path: "sec_section/add_sec_section",
         name: "add_sec_section",
-        component: AddSec_Sections
+        component: AddSec_Sections,
+        meta: {requiresAuth: true}
       },
 
       {
         path: "programs",
         name: "programs",
-        component: Programs
+        component: Programs,
+        meta: {requiresAuth: true}
       },
       {
         path: "programs/show_program/:id",
@@ -138,123 +164,148 @@ const routes = [
       {
         path: "programs/add_program",
         name: "add_program",
-        component: AddProgram
+        component: AddProgram,
+        // a meta field
+        meta: {requiresAuth: true}
       },
 
       {
         path: "programs/program_grades",
         name: "program_grades",
-        component: ProgramsGrades
+        component: ProgramsGrades,
+        // a meta field
+        meta: {requiresAuth: true}
       },
       {
         path: "programs/add_program_grades/program/:program_id",
         name: "add_program_grades",
-        component: AddProgramGrades
+        component: AddProgramGrades,
+        meta: {requiresAuth: true}
       },
       {
         path: "programs/edit_program_grades/:id/program/:program_id",
         name: "edit_program_grades",
-        component: EditProgramGrades
+        component: EditProgramGrades,
+        meta: {requiresAuth: true}
       },
 
       {
         path: "programs/add_program_levels/program/:program_id",
         name: "add_program_levels",
-        component: AddProgramLevels
+        component: AddProgramLevels,
+        meta: {requiresAuth: true}
       },
       {
         path: "programs/program_levels",
         name: "program_levels",
-        component: ProgramsLevels
+        component: ProgramsLevels,
+        meta: {requiresAuth: true}
       },
       {
         path: "programs/edit_program_levels/:id/program/:program_id",
         name: "edit_program_levels",
-        component: EditProgramLevels
+        component: EditProgramLevels,
+        meta: {requiresAuth: true}
       },
 
       {
         path: "programs/add_program_requires/program/:program_id",
         name: "add_program_requires",
-        component: AddProgramRequires
+        component: AddProgramRequires,
+        meta: {requiresAuth: true}
       },
       {
         path: "programs/program_requires",
         name: "program_requires",
-        component: ProgramRequires
+        component: ProgramRequires,
+        meta: {requiresAuth: true}
       },
       {
         path: "programs/edit_program_requires/:id/program/:program_id",
         name: "edit_program_requires",
-        component: EditProgramRequires
+        component: EditProgramRequires,
+        meta: {requiresAuth: true}
       },
 
       {
         path: "students",
         name: "students",
-        component: Students
+        component: Students,
+        meta: {requiresAuth: true}
       },
       {
         path: "students/edit_student/:id",
         name: "edit_student",
-        component: EditStudent
+        component: EditStudent,
+        meta: {requiresAuth: true}
       },
       {
         path: "students/add_student",
         name: "add_student",
-        component: AddStudent
+        component: AddStudent,
+        meta: {requiresAuth: true}
       },
 
       {
         path: "courses",
         name: "courses",
-        component: Courses
+        component: Courses,
+        meta: {requiresAuth: true}
       },
       {
         path: "courses/course_requirement/:course_id/program/:program_id",
         name: "course_requirement",
-        component: CoursesRequirement
+        component: CoursesRequirement,
+        meta: {requiresAuth: true}
       },
       {
         path: "courses/edit_course/:id",
         name: "edit_course",
-        component: EditCourse
+        component: EditCourse,
+        meta: {requiresAuth: true}
       },
       {
         path: "courses/add_student",
         name: "add_course",
-        component: AddCourse
+        component: AddCourse,
+        meta: {requiresAuth: true}
       },
 
       {
         path: "terms",
         name: "terms",
-        component: Term
+        component: Term,
+        meta: {requiresAuth: true}
       },
       {
         path: "terms/term_subjects/:term_id/program/:program_id",
         name: "term_subjects",
-        component: TermSubject
+        component: TermSubject,
+        meta: {requiresAuth: true}
       },
       {
         path: "terms/term_subject_admin/:subject_id/program/:program_id",
         name: "term_subject_admin",
-        component: TermSubjectAdmins
+        component: TermSubjectAdmins,
+        meta: {requiresAuth: true}
       },
       {
         path: "terms/term_subject_hours/:term_id/program/:program_id",
         name: "term_subject_hours",
-        component: TermSubjectHours
+        component: TermSubjectHours,
+        meta: {requiresAuth: true}
       },
       {
         path: "terms/edit_term/:id",
         name: "edit_term",
-        component: EditTerm
+        component: EditTerm,
+        meta: {requiresAuth: true}
       },
       {
         path: "terms/add_term",
         name: "add_term",
-        component: AddTerm
+        component: AddTerm,
+        meta: {requiresAuth: true}
       },
     ]
   },
