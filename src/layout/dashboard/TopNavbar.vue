@@ -30,12 +30,12 @@
             <a class="dropdown-item" href="#">Another notification</a>
           </drop-down>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link :to="{name:'login'}" class="nav-link">
               <i class="ti-export"></i>
               <p>
                 {{$ml.get('logout')}}
               </p>
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>

@@ -6,7 +6,7 @@ Vue.use(MLInstaller);
 export default new MLCreate({
   initial: 'en',
   // development  , production
-  save: process.env.NODE_ENV === 'production',
+  save: process.env.NODE_ENV === 'development',
   languages: [
     new MLanguage('en').create({
       ar: 'Arabic language',
@@ -80,7 +80,8 @@ export default new MLCreate({
       year_working_success_percent: 'Year Working Success Percent',
       final_success_percent: 'Final Success Percent',
       final_degree: 'Final Degree',
-
+      get_started: 'Get Start',
+      login: 'Login',
       term_start: 'Term Start',
       term_end: 'Term End',
       term_start_register: 'Term Start Register',
@@ -106,6 +107,10 @@ export default new MLCreate({
       min_hours: 'Min Hours',
       special_max_hours: 'Max Hours In Special Cases',
       special_min_hours: 'Min Hours In Special Cases',
+      city: 'City',
+      full_address: 'Full Address',
+      type_to_search: 'Type To Search',
+      no_data: 'No Data',
     }),
 
     new MLanguage('ar').create({
@@ -180,7 +185,8 @@ export default new MLCreate({
       terms: '  ادراة التيرمات',
       add_term: 'اضافة تيرم',
       edit_term: 'تعديل تيرم',
-
+      get_started: 'ابدأ الان',
+      login: 'تسجيل الدخول',
       term_start: 'بداية التيرم',
       term_end: 'نهاية التيرم',
       term_start_register: 'بداية التسجيل',
@@ -206,6 +212,10 @@ export default new MLCreate({
       min_hours: 'عدد الساعات الادني',
       special_max_hours: 'عدد الساعات القصوي فى الحالات الخاصة',
       special_min_hours: 'عدد الساعات الادني فى الحالات الخاصة',
+      city: 'المدينة',
+      full_address: 'العنوان',
+      type_to_search: 'اكتب للبحث',
+      no_data: 'ﻻ توجد بيانات',
     })
   ]
 })

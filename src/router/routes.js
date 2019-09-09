@@ -68,7 +68,6 @@ const routes = [
         path: "dashboard",
         name: "dashboard",
         component: Dashboard,
-        // a meta field
         meta: {requiresAuth: true}
       },
 
@@ -76,21 +75,18 @@ const routes = [
         path: "lecturer",
         name: "lecturer",
         component: Lecturer,
-        // a meta field
         meta: {requiresAuth: true}
       },
       {
         path: "lecturer/edit_lecturer/:id",
         name: "edit_lecturer",
         component: EditLecturer,
-        // a meta field
         meta: {requiresAuth: true}
       },
       {
         path: "lecturer/add_lecturer",
         name: "add_lecturer",
         component: AddLecturer,
-        // a meta field
         meta: {requiresAuth: true}
       },
 
@@ -98,7 +94,6 @@ const routes = [
         path: "countries",
         name: "country",
         component: Country,
-        // a meta field
         meta: {requiresAuth: true}
       },
       {
@@ -165,7 +160,6 @@ const routes = [
         path: "programs/add_program",
         name: "add_program",
         component: AddProgram,
-        // a meta field
         meta: {requiresAuth: true}
       },
 
@@ -173,7 +167,6 @@ const routes = [
         path: "programs/program_grades",
         name: "program_grades",
         component: ProgramsGrades,
-        // a meta field
         meta: {requiresAuth: true}
       },
       {
