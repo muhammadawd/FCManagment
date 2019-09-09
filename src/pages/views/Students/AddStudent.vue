@@ -23,9 +23,6 @@
         <div class="row text-left">
           <div class="col-md-3">
             <label>{{$ml.get('country')}}</label>
-            <!--            <select class="form-control">-->
-            <!--              <option value="">&#45;&#45; choose &#45;&#45;</option>-->
-            <!--            </select>-->
             <multi-select v-model="selectedCountries" id="ajax" label="name" track-by="code"
                           :placeholder="$ml.get('type_to_search')"
                           open-direction="bottom" :options="countries" :multiple="false" :searchable="true"
@@ -69,9 +66,8 @@
         <div class="row text-left">
           <div class="col-md-3">
             <label>{{$ml.get('sec_section')}}</label>
-            <select class="form-control">
-              <option value="">-- choose --</option>
-            </select>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedSecondary"
+                          :options="secSecondary"></multi-select>
           </div>
 
         </div>
@@ -104,7 +100,9 @@
         selectedCountries: [],
         countries: [],
         selectedGovernment: null,
-        governments: ['Cairo', 'Alexandria', 'Al-Menofia']
+        governments: ['Cairo', 'Alexandria', 'Al-Menofia'],
+        selectedSecondary: null,
+        secSecondary: ['Math', 'Science']
       }
     },
     methods: {
@@ -118,36 +116,12 @@
         setTimeout(() => {
           vm.countries = [
             {
-              "name": "مصر",
+              "name": "Egypt",
               "code": "EG"
             },
             {
-              "name": "الجزائر",
-              "code": "DZ"
-            },
-            {
-              "name": "الارجنتين",
-              "code": "AI"
-            },
-            {
-              "name": "الكويت",
-              "code": "AW"
-            },
-            {
-              "name": "استراليا",
-              "code": "AT"
-            },
-            {
-              "name": "البحرين",
-              "code": "BH"
-            },
-            {
-              "name": "السعودية  ",
-              "code": "AS"
-            },
-            {
-              "name": "الامارات",
-              "code": "AL"
+              "name": "Kuwati",
+              "code": "KWD"
             }
           ];
           vm.isLoading = false
