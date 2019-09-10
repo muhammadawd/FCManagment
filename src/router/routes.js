@@ -56,6 +56,13 @@ import Sec_Sections from "@/pages/views/Sec_Sections/Sec_Sections.vue";
 import AddSec_Sections from "@/pages/views/Sec_Sections/AddSec_Sections.vue";
 import EditSec_Sections from "@/pages/views/Sec_Sections/EditSec_Sections.vue";
 
+import Degrees from "@/pages/views/Degrees/Degrees.vue";
+import EditDegrees from "@/pages/views/Degrees/EditDegrees.vue";
+
+import StudentSubjects from "@/pages/views/StudentSubjects/StudentSubjects.vue";
+import AddStudentSubjects from "@/pages/views/StudentSubjects/AddStudentSubjects.vue";
+import EditStudentSubjects from "@/pages/views/StudentSubjects/EditStudentSubjects.vue";
+
 
 const routes = [
   {
@@ -77,6 +84,19 @@ const routes = [
       },
 
       {
+        path: "degrees",
+        name: "degrees",
+        component: Degrees,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "degrees/edit_degrees/:id",
+        name: "edit_degrees",
+        component: EditDegrees,
+        meta: {requiresAuth: true}
+      },
+
+      {
         path: "lecturer",
         name: "lecturer",
         component: Lecturer,
@@ -92,6 +112,25 @@ const routes = [
         path: "lecturer/add_lecturer",
         name: "add_lecturer",
         component: AddLecturer,
+        meta: {requiresAuth: true}
+      },
+
+      {
+        path: "student_subject",
+        name: "student_subject",
+        component: StudentSubjects,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "student_subject/edit_student_subject/:id",
+        name: "edit_student_subject",
+        component: EditStudentSubjects,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "student_subject/add_student_subject",
+        name: "add_student_subject",
+        component: AddStudentSubjects,
         meta: {requiresAuth: true}
       },
 

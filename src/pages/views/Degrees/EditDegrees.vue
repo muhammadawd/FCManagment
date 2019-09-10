@@ -1,43 +1,49 @@
 <template>
 
-  <card class="card" :title="$ml.get('edit_excuses')">
+  <card class="card" :title="$ml.get('edit_degree')">
     <div>
       <form @submit.prevent>
+
         <div class="row">
 
-          <div class="col-md-3 text-left">
+          <div class="col-md-4 text-left">
             <label> {{$ml.get('student_name')}} </label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedStudent"
                           :options="[]"></multi-select>
           </div>
 
-          <div class="col-md-3 text-left">
+          <div class="col-md-4 text-left">
             <label> {{$ml.get('course_name')}} </label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedCourse"
                           :options="[]"></multi-select>
           </div>
-
         </div>
 
         <div class="row">
-
-          <div class="col-md-3 text-left">
-            <label> {{$ml.get('date')}} </label>
-            <flat-pickr v-model="date" class="form-control"></flat-pickr>
+          <div class="col-md-3">
+            <fg-input type="text"
+                      :label="$ml.get('final')"
+                      :placeholder="$ml.get('final')">
+            </fg-input>
           </div>
-
-          <div class="col-md-3 text-left">
-            <label> {{$ml.get('status')}} </label>
-            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedStatus"
-                          :options="[]"></multi-select>
+          <div class="col-md-4">
+            <fg-input type="text"
+                      :label="$ml.get('working_task')"
+                      :placeholder="$ml.get('working_task')">
+            </fg-input>
           </div>
-
         </div>
 
         <div class="row">
-          <div class="col-md-7 text-left">
-            <label> {{$ml.get('notes')}} </label>
-            <textarea class="form-control" rows="5"></textarea>
+          <div class="col-md-3">
+            <fg-input type="text"
+                      :label="$ml.get('absence_percent')"
+                      :placeholder="$ml.get('absence_percent')">
+            </fg-input>
+          </div>
+          <div class="col-md-4 text-left">
+            <label>{{$ml.get('student_status')}}</label>
+            <select name="" class="form-control"></select>
           </div>
         </div>
 
@@ -95,7 +101,6 @@
             </table>
           </div>
         </div>
-
         <div class="clearfix"></div>
       </form>
     </div>
@@ -105,13 +110,11 @@
 <script>
   import multiSelect from 'vue-multiselect'
   import 'vue-multiselect/dist/vue-multiselect.min.css';
-  import flatPickr from 'vue-flatpickr-component';
 
   export default {
     name: "AddLecturer",
     components: {
-      multiSelect,
-      flatPickr
+      multiSelect
     },
     methods: {
       convertSize(size) {
@@ -130,8 +133,6 @@
     data() {
       return {
         filesToUpload: [],
-        selectedStatus: null,
-        date: new Date(),
         selectedStudent: null,
         selectedCourse: null,
       }

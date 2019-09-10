@@ -30,10 +30,17 @@
                       :placeholder="$ml.get('actual_hours_per_lecture')">
             </fg-input>
           </div>
+          <div class="col-md-12"></div>
           <div class="col-md-4">
             <fg-input type="text"
                       :label="$ml.get('activity_hours_per_lecture')"
                       :placeholder="$ml.get('activity_hours_per_lecture')">
+            </fg-input>
+          </div>
+          <div class="col-md-4">
+            <fg-input type="text"
+                      :label="$ml.get('un_activity_hours_per_lecture')"
+                      :placeholder="$ml.get('un_activity_hours_per_lecture')">
             </fg-input>
           </div>
           <div class="col-md-4">
