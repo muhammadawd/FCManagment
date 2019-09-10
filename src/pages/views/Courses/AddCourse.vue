@@ -18,9 +18,8 @@
           </div>
           <div class="col-md-3 text-left">
             <label> {{$ml.get('require_type')}} </label>
-            <select class="form-control">
-              <option value="">-- choose --</option>
-            </select>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedUnder"
+                          :options="[]"></multi-select>
           </div>
         </div>
 
@@ -107,11 +106,18 @@
 </template>
 
 <script>
+  import multiSelect from 'vue-multiselect'
+  import 'vue-multiselect/dist/vue-multiselect.min.css';
   export default {
-    name: "AddLecturer"
+    name: "AddLecturer",
+    components: {
+      multiSelect
+    },
+    data() {
+      return {selectedUnder: null}
+    }
   }
 </script>
-
 <style scoped>
 
 </style>

@@ -10,6 +10,7 @@
         <sidebar-link :to="{name:'programs'}" :name="$ml.get('program')" icon="ti-server"/>
         <sidebar-link :to="{name:'courses'}" :name="$ml.get('courses')" icon="ti-agenda"/>
         <sidebar-link :to="{name:'terms'}" :name="$ml.get('terms')" icon="ti-desktop"/>
+        <sidebar-link :to="{name:'excuses'}" :name="$ml.get('excuses')" icon="ti-alert"/>
 <!--        <sidebar-link to="/table-list" name="Table List" icon="ti-view-list-alt"/>-->
 <!--        <sidebar-link to="/typography" name="Typography" icon="ti-text"/>-->
 <!--        <sidebar-link to="/icons" name="Icons" icon="ti-pencil-alt2"/>-->

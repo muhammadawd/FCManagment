@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Tajawal|El+Messiri|Reem+Kufi|Baloo+Bhaijaan|Lateef|Mada');
 
-body, .section, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, div, .ui-input, input, a, p, td, th {
+body, .section, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, div, .ui-input, input, a, p, td, th, button {
   font-family: 'Tajawal', sans-serif !important;
 }
 
 .card-title {
-  font-weight: bold!important;
+  font-weight: bold !important;
 }
 
 .card .card-header, .form-group {

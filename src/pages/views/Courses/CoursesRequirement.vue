@@ -3,9 +3,8 @@
     <div class="row">
       <div class="col-md-4 text-left">
         <label>{{$ml.get('name')}}</label>
-        <select class="form-control">
-          <option value="">-- choose --</option>
-        </select>
+        <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedUnder"
+                      :options="[]"></multi-select>
         <button class="btn btn-black mt-2">{{$ml.get('add')}}</button>
       </div>
       <div class="col-md-12 text-left">
@@ -53,10 +52,15 @@
 </template>
 
 <script>
+  import multiSelect from 'vue-multiselect'
+  import 'vue-multiselect/dist/vue-multiselect.min.css';
   export default {
-    name: "Lecturer",
+    name: "AddLecturer",
+    components: {
+      multiSelect
+    },
     data() {
-      return {}
+      return {selectedUnder: null}
     }
   }
 </script>

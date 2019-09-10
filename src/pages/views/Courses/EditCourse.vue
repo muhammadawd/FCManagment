@@ -1,6 +1,6 @@
 <template>
 
-  <card class="card" :title="$ml.get('edit_lecturer')">
+  <card class="card" :title="$ml.get('edit_course')">
     <div>
       <form @submit.prevent>
         <div class="row">
@@ -18,9 +18,8 @@
           </div>
           <div class="col-md-3 text-left">
             <label> {{$ml.get('require_type')}} </label>
-            <select class="form-control">
-              <option value="">-- choose --</option>
-            </select>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedUnder"
+                          :options="[]"></multi-select>
           </div>
         </div>
 
@@ -107,16 +106,19 @@
 </template>
 
 <script>
+  import multiSelect from 'vue-multiselect'
+  import 'vue-multiselect/dist/vue-multiselect.min.css';
+
   export default {
-    name: "EditLecturer",
-    methods: {
-      updateLecturer() {
-        alert('test')
-      }
+    name: "AddLecturer",
+    components: {
+      multiSelect
+    },
+    data() {
+      return {selectedUnder: null}
     }
   }
 </script>
-
 <style scoped>
 
 </style>

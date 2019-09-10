@@ -2,6 +2,7 @@ import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
 // GeneralViews
 import NotFound from "@/pages/NotFoundPage.vue";
 
+// guest pages
 import Login from "@/pages/views/Login.vue";
 
 // Admin pages
@@ -35,6 +36,10 @@ import TermSubjectHours from "@/pages/views/Terms/TermSubjectHours.vue";
 import Students from "@/pages/views/Students/Students.vue";
 import AddStudent from "@/pages/views/Students/AddStudent.vue";
 import EditStudent from "@/pages/views/Students/EditStudent.vue";
+
+import Excuses from "@/pages/views/Excuses/Excuses.vue";
+import AddExcuses from "@/pages/views/Excuses/AddExcuses.vue";
+import EditExcuses from "@/pages/views/Excuses/EditExcuses.vue";
 
 import Courses from "@/pages/views/Courses/Courses.vue";
 import CoursesRequirement from "@/pages/views/Courses/CoursesRequirement.vue";
@@ -87,6 +92,25 @@ const routes = [
         path: "lecturer/add_lecturer",
         name: "add_lecturer",
         component: AddLecturer,
+        meta: {requiresAuth: true}
+      },
+
+      {
+        path: "excuses",
+        name: "excuses",
+        component: Excuses,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "excuses/edit_excuses/:id",
+        name: "edit_excuses",
+        component: EditExcuses,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "excuses/add_excuses",
+        name: "add_excuses",
+        component: AddExcuses,
         meta: {requiresAuth: true}
       },
 

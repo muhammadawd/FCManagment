@@ -1,29 +1,28 @@
 <template>
 
-  <card class="card" :title="$ml.get('edit_program_requires')">
+  <card class="card" :title="$ml.get('edit_excuses')">
     <div>
       <form @submit.prevent>
-
         <div class="row">
-          <div class="col-md-4">
-            <fg-input type="text"
-                      :label="$ml.get('name')"
-                      :placeholder="$ml.get('name')">
-            </fg-input>
-          </div>
-          <div class="col-md-3">
-            <fg-input type="text"
-                      :label="$ml.get('count_hours')"
-                      :placeholder="$ml.get('count_hours')">
-            </fg-input>
-          </div>
+
           <div class="col-md-3 text-left">
-            <label>{{$ml.get('under_requires')}}</label>
-            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedUnder"
+            <label> {{$ml.get('student_name')}} </label>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedStudent"
+                          :options="[]"></multi-select>
+          </div>
+
+          <div class="col-md-3 text-left">
+            <label> {{$ml.get('course_name')}} </label>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedCourse"
                           :options="[]"></multi-select>
           </div>
         </div>
-
+        <div class="row">
+          <div class="col-md-7 text-left">
+            <label> {{$ml.get('notes')}} </label>
+            <textarea class="form-control" rows="5"></textarea>
+          </div>
+        </div>
 
         <div class="text-center">
           <p-button type="info"
@@ -48,11 +47,9 @@
       multiSelect
     },
     data() {
-      return {selectedUnder: null}
-    },
-    methods: {
-      updateLecturer() {
-        alert('test')
+      return {
+        selectedStudent: null,
+        selectedCourse: null,
       }
     }
   }
