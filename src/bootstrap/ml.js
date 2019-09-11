@@ -154,7 +154,11 @@ export default new MLCreate({
       from_student: 'From Student',
       from_course: 'Course',
       amount: 'Amount',
-      data: 'Date'
+      register: 'Register',
+      register_new: 'Register New Account',
+      have_account: 'Having Account',
+      data: 'Date',
+      image: 'Image'
     }),
 
     new MLanguage('ar').create({
@@ -304,7 +308,11 @@ export default new MLCreate({
       from_student: 'من الطالب',
       from_course: 'مادة',
       amount: 'مبلغ',
-      data: 'تاريخ'
+      register: 'تسجيل حساب',
+      register_new: 'تسجيل حساب جديد',
+      have_account: 'لدي حساب بالفعل',
+      data: 'تاريخ',
+      image: 'صورة'
     })
   ]
 })

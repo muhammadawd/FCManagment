@@ -9,8 +9,8 @@
         <div class="row">
           <div class="col-md-6">
             <fg-input type="text"
-                      :label="$ml.get('semester_name')"
-                      :placeholder="$ml.get('semester_name')">
+                      :label="$ml.get('term')"
+                      :placeholder="$ml.get('term')">
             </fg-input>
           </div>
           <div class="col-md-6">

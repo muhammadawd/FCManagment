@@ -124,15 +124,15 @@
           </tbody>
           <tfoot>
           <tr>
-            <td class="text-black font-weight-bold text-left">{{$ml.get('sub_total')}}</td>
-            <td class="text-black font-weight-bold text-left">2800.00 ج م</td>
+            <td class="text-secondary font-weight-bold text-left">{{$ml.get('sub_total')}}</td>
+            <td class="text-secondary font-weight-bold text-left">2800.00 ج م</td>
           </tr>
           <tr>
-            <td class="text-black font-weight-bold text-left">{{$ml.get('discount')}}</td>
+            <td class="text-danger font-weight-bold text-left">{{$ml.get('discount')}}</td>
             <td class="text-danger font-weight-bold text-left">(0.00) ج م</td>
           </tr>
           <tr>
-            <td class="text-black font-weight-bold text-left">{{$ml.get('total')}}</td>
+            <td class="text-info font-weight-bold text-left">{{$ml.get('total')}}</td>
             <td class="text-info font-weight-bold text-left">2800.00 ج م</td>
           </tr>
           </tfoot>
@@ -151,7 +151,7 @@
 <script>
   import multiSelect from 'vue-multiselect'
   import 'vue-multiselect/dist/vue-multiselect.min.css';
-  import {SweetModal, SweetModalTab, Sweet} from 'sweet-modal-vue'
+  import {SweetModal, SweetModalTab} from 'sweet-modal-vue'
 
   export default {
     components: {

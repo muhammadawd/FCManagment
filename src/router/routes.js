@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFoundPage.vue";
 
 // guest pages
 import Login from "@/pages/views/Login.vue";
+import Register from "@/pages/views/Register.vue";
 
 // Admin pages
 import Dashboard from "@/pages/views/Dashboard.vue";
@@ -70,6 +71,12 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+    meta: {requiresAuth: false}
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register,
     meta: {requiresAuth: false}
   },
   {

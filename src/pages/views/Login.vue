@@ -8,7 +8,8 @@
               <div class="col-lg-4 col-md-6 ml-auto mr-auto">
                 <form>
                   <div class="card card-login">
-                    <div class="card-header"><h3 class="header text-center font-weight-bold">{{$ml.get('login')}}</h3></div>
+                    <div class="card-header"><h3 class="header text-center font-weight-bold">{{$ml.get('login')}}</h3>
+                    </div>
                     <div class="card-body">
                       <div class="form-group input-group"><!---->
                         <div class="input-group-prepend"><span
@@ -29,6 +30,8 @@
                         {{$ml.get('get_started')}}
                       </button>
                     </div>
+                    <router-link class="font-weight-bold" :to="{name:'register'}">{{$ml.get('register_new')}}
+                    </router-link>
                   </div>
                 </form>
               </div>

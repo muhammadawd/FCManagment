@@ -50,10 +50,9 @@
           </div>
 
           <div class="col-md-3">
-            <fg-input type="text"
-                      :label="$ml.get('city')"
-                      :placeholder="$ml.get('city')">
-            </fg-input>
+            <label>{{$ml.get('city')}}</label>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedSecondary"
+                          :options="secSecondary"></multi-select>
           </div>
 
           <div class="col-md-3">
@@ -71,6 +70,12 @@
                           :options="secSecondary"></multi-select>
           </div>
 
+          <div class="col-md-4">
+            <fg-input type="file"
+                      :label="$ml.get('image')"
+                      :placeholder="$ml.get('image')">
+            </fg-input>
+          </div>
         </div>
 
         <div class="text-center">
