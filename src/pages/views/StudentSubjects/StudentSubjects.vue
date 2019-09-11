@@ -9,6 +9,11 @@
               <i class="ti-plus"></i>
               {{$ml.get('add_student_subject')}}
             </router-link>
+            &nbsp;
+            <router-link :to="{name:'confirm_payment_student_subject'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+              <i class="ti-money"></i>
+              {{$ml.get('confirm_payment_student_subject')}}
+            </router-link>
           </div>
           <div class="col-md-6 text-left">
             <label> {{$ml.get('student_name')}} </label>

@@ -141,8 +141,20 @@ export default new MLCreate({
       hour_price: 'hour price',
       lecturer_name: 'lecturer name',
       note: 'Note',
-      get_back: 'get back',
       note_hint: 'All materials are calculated by the number of hours as the number of hours for each article 300 pounds ',
+      get_back: 'get back',
+      price: 'Price',
+      sub_total: 'Sub Total',
+      discount: 'Discount',
+      total: 'Total',
+      pay: 'Pay',
+      invoice_payment: 'Payment Invoice',
+      confirm_payment_student_subject: 'Confirm Payment',
+      i_get: 'I Have Recieved',
+      from_student: 'From Student',
+      from_course: 'Course',
+      amount: 'Amount',
+      data: 'Date'
     }),
 
     new MLanguage('ar').create({
@@ -281,6 +293,18 @@ export default new MLCreate({
       paid: 'مدفوع',
       note: 'ملاحظة',
       note_hint: 'جميع المواد تحسب عن طريق عدد الساعات حيث ان عدد الساعات الخاصة بكل مادة ساعة 300 جنيه',
+      price: 'السعر',
+      sub_total: 'اجمالى المواد',
+      total: 'الاجمالي النهائي',
+      discount: 'الخصم',
+      confirm_payment_student_subject: 'تأكيد الدفع',
+      invoice_payment: 'ايصال الدفع',
+      pay: 'دفع',
+      i_get: 'استلمت انا',
+      from_student: 'من الطالب',
+      from_course: 'مادة',
+      amount: 'مبلغ',
+      data: 'تاريخ'
     })
   ]
 })

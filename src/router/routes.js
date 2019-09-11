@@ -62,6 +62,7 @@ import EditDegrees from "@/pages/views/Degrees/EditDegrees.vue";
 import StudentSubjects from "@/pages/views/StudentSubjects/StudentSubjects.vue";
 import AddStudentSubjects from "@/pages/views/StudentSubjects/AddStudentSubjects.vue";
 import EditStudentSubjects from "@/pages/views/StudentSubjects/EditStudentSubjects.vue";
+import ConfirmPaymentStudentSubjects from "@/pages/views/StudentSubjects/ConfirmPaymentStudentSubjects.vue";
 
 
 const routes = [
@@ -131,6 +132,13 @@ const routes = [
         path: "student_subject/add_student_subject",
         name: "add_student_subject",
         component: AddStudentSubjects,
+        meta: {requiresAuth: true}
+      },
+
+      {
+        path: "student_subject/confirm_payment_student_subject",
+        name: "confirm_payment_student_subject",
+        component: ConfirmPaymentStudentSubjects,
         meta: {requiresAuth: true}
       },
 

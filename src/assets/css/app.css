@@ -6282,14 +6282,6 @@ button.close {
   font-style: italic !important
 }
 
-.text-danger {
-  color: #000 !important
-}
-
-a.text-danger:focus, a.text-danger:hover {
-  color: #000 !important
-}
-
 .text-light {
   color: #f8f9fa !important
 }
