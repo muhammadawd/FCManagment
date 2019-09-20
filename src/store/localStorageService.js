@@ -13,10 +13,13 @@ const checkStorage = key => {
 
 const saveToStorage = (key, value) => window.localStorage.setItem(key, JSON.stringify(value))
 
+const getFromStorage = (key) => window.localStorage.getItem(key)
+
 const clearAllStorage = (key) => window.localStorage.removeItem(key)
 
 export default {
   checkStorage,
   clearAllStorage,
+  getFromStorage,
   saveToStorage
 }

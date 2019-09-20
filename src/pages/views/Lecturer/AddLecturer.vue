@@ -22,7 +22,7 @@
         <div class="text-center">
           <p-button type="info"
                     round
-                    @click.native.prevent="updateLecturer">
+                    @click.native.prevent="addLecturer">
             {{$ml.get('add')}}
           </p-button>
         </div>
@@ -34,7 +34,51 @@
 
 <script>
   export default {
-    name: "AddLecturer"
+    name: "AddLecturer",
+    methods:{
+      addLecturer() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        let request_data = {
+          email: vm.email,
+          password: vm.password,
+        };
+        request_data = window.helper.prepareObjectToSend(request_data);
+
+        try {
+          window.serviceAPI.API().post(window.serviceAPI.AUTH_ACCOUNT, request_data)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                alert('login success');
+                return 0;
+              }
+              vm.$notify({
+                icon: "ti-info",
+                title: `Server Error Code : ${response.code}`,
+                message: `${response.message}`,
+                type: 'danger'
+              });
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+
+            vm.$notify({
+              icon: "ti-info",
+              title: `Server Error Code : ${error.response.status}`,
+              message: `${error.response.data.message}`,
+              type: 'danger'
+            });
+
+            console.log(error.response.data, error.response.status, error.response.headers);
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    }
   }
 </script>
 

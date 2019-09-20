@@ -14,14 +14,14 @@
                       <div class="form-group input-group"><!---->
                         <div class="input-group-prepend"><span
                           class="input-group-text"><i
-                          class="ti-user"></i></span></div>
-                        <input aria-describedby="addon-right addon-left" placeholder="User Name..."
+                          class="ti-email"></i></span></div>
+                        <input aria-describedby="addon-right addon-left" placeholder="Email..." v-model="email"
                                class="form-control"></div>
                       <div class="form-group input-group"><!---->
                         <div class="input-group-prepend"><span
                           class="input-group-text"><i
                           class="ti-lock"></i></span></div>
-                        <input aria-describedby="addon-right addon-left" placeholder="Password"
+                        <input aria-describedby="addon-right addon-left" placeholder="Password" v-model="password"
                                type="password" class="form-control"></div>
                       <br>
                     </div><!---->
@@ -71,27 +71,17 @@
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;
               if (response.status) {
-                alert('login success');
+
+                ls.saveToStorage('auth_data', response.data);
+                vm.$router.push({name: 'dashboard'});
+
                 return 0;
               }
-              vm.$notify({
-                icon: "ti-info",
-                title: `Server Error Code : ${response.code}`,
-                message: `${response.message}`,
-                type: 'danger'
-              });
+              alert('Validation Error');
 
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
-
-            vm.$notify({
-              icon: "ti-info",
-              title: `Server Error Code : ${error.response.status}`,
-              message: `${error.response.data.message}`,
-              type: 'danger'
-            });
-
-            console.log(error.response.data, error.response.status, error.response.headers);
+            window.helper.handleError(error, vm);
           });
         } catch (e) {
           console.log(e)

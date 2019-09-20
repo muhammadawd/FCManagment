@@ -108,19 +108,14 @@
               response = response.data;
               if (response.status) {
                 vm.$router.push({name: 'login'});
+                alert('Register Success');
                 return 0;
               }
+              alert('Validation Error');
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
-
-            vm.$notify({
-              icon: "ti-info",
-              title: `Server Error Code : ${error.response.status}`,
-              message: `${error.response.data.message}`,
-              type: 'danger'
-            });
-
-            console.log(error.response.data, error.response.status, error.response.headers);
+            window.helper.handleError(error, vm);
+            // console.log(error.response.data, error.response.status, error.response.headers);
           });
         } catch (e) {
           console.log(e)

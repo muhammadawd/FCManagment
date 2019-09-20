@@ -70,6 +70,35 @@
     name: "Lecturer",
     data() {
       return {}
+    },
+    methods: {
+      getAllStuffMembers() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_STUFF_MEMBERS)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              console.log(response)
+              if (response.status) {
+                return 0;
+              }
+
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    },
+    mounted() {
+      let vm = this;
+      vm.getAllStuffMembers();
     }
   }
 </script>
