@@ -60,59 +60,113 @@
               </div>
             </div>
           </div>
-          <div class="full-page-background"
-               :style="'background-image:'+ `url('@/assets/img/background-2.jpg`"></div>
+          <div class="full-page-background-overlay"></div>
+          <div class="full-page-background"></div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import config from '@/bootstrap/config'
+  import {mapState} from 'vuex'
 
   export default {
     components: {},
+    computed: {
+      ...mapState({
+        userModule: state => state.userModule,
+      })
+    },
     data() {
       return {
         firstName: null,
         lastName: null,
         email: null,
         password: null,
-        permissionLevel: 1
+        permissionLevel: 1,
+        response: null
       };
     },
     methods: {
       registerAccount() {
         let vm = this;
-        axios.post(config.BASE_URL + config.REGISTER_NEW_ACCOUNT, {
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        let request_data = {
           firstName: vm.firstName,
           lastName: vm.lastName,
           email: vm.email,
           password: vm.password,
           permissionLevel: vm.permissionLevel
-        })
-          .then((response) => {
-            console.log(response)
-          })
-          .catch((error) => {
+        };
+        request_data = window.helper.prepareObjectToSend(request_data);
 
-            console.log(error)
-          })
+        try {
+          window.serviceAPI.API().post(window.serviceAPI.REGISTER_NEW_ACCOUNT, request_data)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                vm.$router.push({name: 'login'});
+                return 0;
+              }
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+
+            vm.$notify({
+              icon: "ti-info",
+              title: `Server Error Code : ${error.response.status}`,
+              message: `${error.response.data.message}`,
+              type: 'danger'
+            });
+
+            console.log(error.response.data, error.response.status, error.response.headers);
+          });
+        } catch (e) {
+          console.log(e)
+        }
+        // vm.$store.dispatch('registerAuthUser', request_data, {root: true});
+      },
+      validationMessages(errors) {
+        console.log(errors)
       }
+    },
+    mounted() {
+      let vm = this;
+      // vm.$store.watch(
+      //   (stat) => state.userModule.response_data,
+      //   (newValue, oldValue) => {
+      //     console.log(oldValue);
+      //     console.log(newValue);
+      //   }
+      // )
     }
   };
 </script>
 <style scoped>
   .login-pt-5 {
     padding-top: 120px;
+    z-index: 99;
+    position: relative;
   }
 
   .full-page-background {
     /*background: url("@/assets/img/background-2.jpg");*/
-    background: #5a5a5a;
+    background: #5a5a5a url("https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center center no-repeat;
+    background-size: cover;
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
+  }
+
+  .full-page-background-overlay {
+    background: #000;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    width: 100%;
+    height: 100%;
   }
 </style>

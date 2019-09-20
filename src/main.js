@@ -3,6 +3,9 @@ import App from "./App";
 import router from "./router/index";
 import './bootstrap/bootstrap'
 import "./bootstrap/ml";
+import {store} from "./store/store";
+
+
 // import Vuelidate from 'vuelidate';
 import VueHtmlToPaper from 'vue-html-to-paper';
 
@@ -28,5 +31,6 @@ Vue.use(PaperDashboard);
 /* eslint-disable no-new */
 new Vue({
   router,
+  store: store,
   render: h => h(App)
 }).$mount("#app");

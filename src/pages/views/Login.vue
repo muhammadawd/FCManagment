@@ -26,9 +26,10 @@
                       <br>
                     </div><!---->
                     <div class="card-footer">
-                      <button type="submit" class="btn mb-3 btn-round btn-block btn-warning">
+                      <p-button type="submit" class="btn mb-3 btn-round btn-block btn-warning"
+                                @click.native.prevent="loginAccount()">
                         {{$ml.get('get_started')}}
-                      </button>
+                      </p-button>
                     </div>
                     <router-link class="font-weight-bold" :to="{name:'register'}">{{$ml.get('register_new')}}
                     </router-link>
@@ -37,8 +38,8 @@
               </div>
             </div>
           </div>
-          <div class="full-page-background"
-               :style="'background-image:'+ `url('@/assets/img/background-2.jpg`"></div>
+          <div class="full-page-background-overlay"></div>
+          <div class="full-page-background"></div>
         </div>
       </div>
     </div>
@@ -48,21 +49,82 @@
   export default {
     components: {},
     data() {
-      return {};
+      return {
+        email: null,
+        password: null,
+      };
+    },
+    methods: {
+      loginAccount() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        let request_data = {
+          email: vm.email,
+          password: vm.password,
+        };
+        request_data = window.helper.prepareObjectToSend(request_data);
+
+        try {
+          window.serviceAPI.API().post(window.serviceAPI.AUTH_ACCOUNT, request_data)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                alert('login success');
+                return 0;
+              }
+              vm.$notify({
+                icon: "ti-info",
+                title: `Server Error Code : ${response.code}`,
+                message: `${response.message}`,
+                type: 'danger'
+              });
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+
+            vm.$notify({
+              icon: "ti-info",
+              title: `Server Error Code : ${error.response.status}`,
+              message: `${error.response.data.message}`,
+              type: 'danger'
+            });
+
+            console.log(error.response.data, error.response.status, error.response.headers);
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      }
     }
   };
 </script>
 <style scoped>
   .login-pt-5 {
-    padding-top: 200px;
+    padding-top: 120px;
+    z-index: 99;
+    position: relative;
   }
 
   .full-page-background {
     /*background: url("@/assets/img/background-2.jpg");*/
-    background: #5a5a5a;
+    background: #5a5a5a url("https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center center no-repeat;
+    background-size: cover;
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
   }
+
+  .full-page-background-overlay {
+    background: #000;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
+

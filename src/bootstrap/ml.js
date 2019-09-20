@@ -158,7 +158,11 @@ export default new MLCreate({
       register_new: 'Register New Account',
       have_account: 'Having Account',
       data: 'Date',
-      image: 'Image'
+      image: 'Image',
+      success: 'Success',
+      error: 'Error',
+      success_msg: 'Operation Completed Successfully',
+      error_msg: 'Error !!',
     }),
 
     new MLanguage('ar').create({
@@ -312,7 +316,11 @@ export default new MLCreate({
       register_new: 'تسجيل حساب جديد',
       have_account: 'لدي حساب بالفعل',
       data: 'تاريخ',
-      image: 'صورة'
+      image: 'صورة',
+      success: 'نجاح',
+      error: 'خطأ',
+      success_msg: 'تمت العملية بنجاح',
+      error_msg: 'حدث خطأ',
     })
   ]
 })
