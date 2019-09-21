@@ -7,12 +7,14 @@
           <div class="col-md-3">
 
             <fg-input type="text"
+                      v-model="nationalNum"
                       :label="$ml.get('id')"
                       :placeholder="$ml.get('id')">
             </fg-input>
           </div>
           <div class="col-md-4">
             <fg-input type="text"
+                      v-model="name"
                       :label="$ml.get('name')"
                       :placeholder="$ml.get('name')">
             </fg-input>
@@ -35,19 +37,27 @@
 <script>
   export default {
     name: "AddLecturer",
-    methods:{
+    data() {
+      return {
+        nationalNum: null,
+        name: null,
+        type: 0
+      }
+    },
+    methods: {
       addLecturer() {
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
 
         let request_data = {
-          email: vm.email,
-          password: vm.password,
+          nationalNum: vm.nationalNum,
+          name: vm.name,
+          type: vm.type,
         };
         request_data = window.helper.prepareObjectToSend(request_data);
 
         try {
-          window.serviceAPI.API().post(window.serviceAPI.AUTH_ACCOUNT, request_data)
+          window.serviceAPI.API().post(window.serviceAPI.ADD_STUFF_MEMBER, request_data)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;
@@ -55,24 +65,10 @@
                 alert('login success');
                 return 0;
               }
-              vm.$notify({
-                icon: "ti-info",
-                title: `Server Error Code : ${response.code}`,
-                message: `${response.message}`,
-                type: 'danger'
-              });
-
+              alert('validation Error')
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
-
-            vm.$notify({
-              icon: "ti-info",
-              title: `Server Error Code : ${error.response.status}`,
-              message: `${error.response.data.message}`,
-              type: 'danger'
-            });
-
-            console.log(error.response.data, error.response.status, error.response.headers);
+            window.helper.handleError(error, vm);
           });
         } catch (e) {
           console.log(e)

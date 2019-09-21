@@ -69,7 +69,9 @@
   export default {
     name: "Lecturer",
     data() {
-      return {}
+      return {
+        all_lectures: []
+      }
     },
     methods: {
       getAllStuffMembers() {
@@ -81,15 +83,17 @@
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;
-              console.log(response)
+              // console.log(response)
               if (response.status) {
-                return 0;
+                vm.all_lectures = response.data.result;
+                return null;
               }
-
+              vm.all_lectures = [];
 
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);
+            vm.all_lectures = [];
           });
         } catch (e) {
           console.log(e)
