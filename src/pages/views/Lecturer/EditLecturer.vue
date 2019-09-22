@@ -7,12 +7,14 @@
           <div class="col-md-3">
 
             <fg-input type="text"
+                      v-model="nationalNum"
                       :label="$ml.get('id')"
                       :placeholder="$ml.get('id')">
             </fg-input>
           </div>
           <div class="col-md-4">
             <fg-input type="text"
+                      v-model="name"
                       :label="$ml.get('name')"
                       :placeholder="$ml.get('name')">
             </fg-input>
@@ -22,7 +24,7 @@
         <div class="text-center">
           <p-button type="info"
                     round
-                    @click.native.prevent="updateLecturer">
+                    @click.native.prevent="editLecturer">
             {{$ml.get('edit')}}
           </p-button>
         </div>
@@ -35,9 +37,69 @@
 <script>
   export default {
     name: "EditLecturer",
+    data() {
+      return {
+        nationalNum: null,
+        name: null,
+        type: 0,
+        currentLecturer: null
+      }
+    },
+    mounted() {
+      let vm = this;
+      vm.findLecturer();
+    },
     methods: {
-      updateLecturer() {
-        alert('test')
+      findLecturer() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        let id = vm.$route.params.id;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.FIND_STUFF_MEMBER + `/${id}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                alert('login success');
+                return 0;
+              }
+              alert('validation Error')
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      editLecturer() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        let request_data = {
+          nationalNum: vm.nationalNum,
+          name: vm.name,
+          type: vm.type,
+        };
+        request_data = window.helper.prepareObjectToSend(request_data);
+
+        try {
+          window.serviceAPI.API().post(window.serviceAPI.ADD_STUFF_MEMBER, request_data)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                alert('login success');
+                return 0;
+              }
+              alert('validation Error')
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          console.log(e)
+        }
       }
     }
   }

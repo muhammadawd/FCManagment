@@ -8,6 +8,7 @@ export default {
 
   ALL_STUFF_MEMBERS: 'stuffMembers', // get
   ADD_STUFF_MEMBER: 'stuffMembers', // post , [name , nationalNum , type => 0]
+  FIND_STUFF_MEMBER: 'stuffMembers', // get +/id
 
   API: () => {
     let token = null;

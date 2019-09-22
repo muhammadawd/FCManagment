@@ -33,10 +33,10 @@ const userModule = {
     // services
     async registerAuthUserService({state, commit, dispatch}) {
       let request_data = state.request_data;
-      await serviceAPI.API().post(serviceAPI.REGISTER_NEW_ACCOUNT)
-        .then((response) => {
-          commit('setResponseData', response.data)
-        });
+      return serviceAPI.API().post(serviceAPI.REGISTER_NEW_ACCOUNT, request_data);
+      // .then((response) => {
+      //   commit('setResponseData', response.data)
+      // });
     },
   }
 };
