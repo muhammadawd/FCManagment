@@ -73,11 +73,11 @@
               if (response.status) {
 
                 ls.saveToStorage('auth_data', response.data);
+                window.helper.showMessage('success', vm);
                 vm.$router.push({name: 'dashboard'});
-
                 return 0;
               }
-              alert('Validation Error');
+              window.helper.showMessage('danger', 'Validation Error');
 
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;

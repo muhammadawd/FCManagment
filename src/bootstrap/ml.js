@@ -163,6 +163,11 @@ export default new MLCreate({
       error: 'Error',
       success_msg: 'Operation Completed Successfully',
       error_msg: 'Error !!',
+      confirm_warning: 'Warning',
+      are_you_sure: 'Are You Sure ?',
+      countries: 'Countries',
+      governments: 'Governments',
+      cities: 'Cities',
     }),
 
     new MLanguage('ar').create({
@@ -321,6 +326,11 @@ export default new MLCreate({
       error: 'خطأ',
       success_msg: 'تمت العملية بنجاح',
       error_msg: 'حدث خطأ',
+      confirm_warning: 'تنبيه',
+      are_you_sure: 'هل انت متأكد ؟',
+      countries: 'الدول',
+      governments: 'المحافظات',
+      cities: 'المدن',
     })
   ]
 })

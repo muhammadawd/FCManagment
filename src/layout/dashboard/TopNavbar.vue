@@ -30,12 +30,12 @@
             <a class="dropdown-item" href="#">Another notification</a>
           </drop-down>
           <li class="nav-item">
-            <router-link :to="{name:'login'}" class="nav-link">
+            <a href="#" @click="logout()" class="nav-link">
               <i class="ti-export"></i>
               <p>
                 {{$ml.get('logout')}}
               </p>
-            </router-link>
+            </a>
           </li>
         </ul>
       </div>
@@ -58,6 +58,10 @@
       };
     },
     methods: {
+      logout(){
+        ls.clearAllStorage('auth_data');
+        this.$router.push({name: 'login'});
+      },
       changeLang() {
         if (this.$ml.current == 'ar') {
           this.$ml.change('en')

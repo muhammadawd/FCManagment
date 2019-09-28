@@ -9,6 +9,18 @@ export default {
   ALL_STUFF_MEMBERS: 'stuffMembers', // get
   ADD_STUFF_MEMBER: 'stuffMembers', // post , [name , nationalNum , type => 0]
   FIND_STUFF_MEMBER: 'stuffMembers', // get +/id
+  UPDATE_STUFF_MEMBER: 'stuffMembers', // put +/id
+  DELETE_STUFF_MEMBER: 'stuffMembers', // delete +/id
+
+  ALL_COUNTRIES: 'countries', // get
+  ADD_COUNTRIES: 'countries', // post [name]
+  FIND_COUNTRIES: 'countries', // get +/id
+  UPDATE_COUNTRIES: 'countries', // put +/id
+  DELETE_COUNTRIES: 'countries', // delete +/id
+
+  ALL_GOVERNRATES: 'governorates', // get ?idcountries
+  ADD_GOVERNRATES: 'governorates', // post [name]
+  DELETE_GOVERNRATES: 'governorates', // delete +/id
 
   API: () => {
     let token = null;
@@ -24,10 +36,10 @@ export default {
       baseURL: BASE_URL,
       withCredentials: false,
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': "application/json",
         'Authorization': token ? `Bearer ${token}` : '',
-        // 'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
+        // 'Content-Type': "application/json",
         // 'Content-Type': 'application/json'
       }
     })

@@ -4,6 +4,7 @@ import router from "./router/index";
 import './bootstrap/bootstrap'
 import "./bootstrap/ml";
 import {store} from "./store/store";
+import VueSweetalert2 from 'vue-sweetalert2';
 
 
 // import Vuelidate from 'vuelidate';
@@ -25,8 +26,10 @@ Vue.use(VueHtmlToPaper, {
 
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.use(PaperDashboard);
+Vue.use(VueSweetalert2);
 
 /* eslint-disable no-new */
 new Vue({

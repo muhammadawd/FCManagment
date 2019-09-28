@@ -11,6 +11,7 @@
                       :label="$ml.get('id')"
                       :placeholder="$ml.get('id')">
             </fg-input>
+            <div class="text-left text-danger" id="nationalNum_error"></div>
           </div>
           <div class="col-md-4">
             <fg-input type="text"
@@ -18,6 +19,7 @@
                       :label="$ml.get('name')"
                       :placeholder="$ml.get('name')">
             </fg-input>
+            <div class="text-left text-danger" id="name_error"></div>
           </div>
         </div>
 
@@ -41,8 +43,7 @@
       return {
         nationalNum: null,
         name: null,
-        type: 0,
-        currentLecturer: null
+        type: 0
       }
     },
     mounted() {
@@ -58,41 +59,49 @@
           window.serviceAPI.API().get(window.serviceAPI.FIND_STUFF_MEMBER + `/${id}`)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
-              response = response.data;
-              if (response.status) {
-                alert('login success');
-                return 0;
-              }
-              alert('validation Error')
+              response = response.data.data.result;
+              vm.name = response[0].name;
+              vm.nationalNum = response[0].nationalNum;
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.showMessage('danger', vm);
+            vm.$router.push({name: 'lecturer'});
             window.helper.handleError(error, vm);
           });
         } catch (e) {
+          window.helper.showMessage('danger', vm);
+          vm.$router.push({name: 'lecturer'});
           console.log(e)
         }
+      },
+      prepareData() {
+        let vm = this;
+        return {
+          nationalNum: vm.nationalNum,
+          name: vm.name,
+          type: vm.type,
+        };
+      },
+      prepareValidationInputs() {
+        return {
+          nationalNum: 'input',
+          name: 'input',
+        };
       },
       editLecturer() {
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
 
-        let request_data = {
-          nationalNum: vm.nationalNum,
-          name: vm.name,
-          type: vm.type,
-        };
+        let id = vm.$route.params.id;
+        let request_data = vm.prepareData();
         request_data = window.helper.prepareObjectToSend(request_data);
 
         try {
-          window.serviceAPI.API().post(window.serviceAPI.ADD_STUFF_MEMBER, request_data)
+          window.serviceAPI.API().put(window.serviceAPI.UPDATE_STUFF_MEMBER + `/${id}`, request_data)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
-              response = response.data;
-              if (response.status) {
-                alert('login success');
-                return 0;
-              }
-              alert('validation Error')
+              window.helper.showMessage('success', vm);
+              vm.$router.push({name: 'lecturer'});
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);

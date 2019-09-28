@@ -22,13 +22,13 @@
             <th width="50"></th>
             </thead>
             <tbody>
-            <tr v-for="(lecture, index) in all_lectures" :key="index">
+            <tr v-for="(lecture, index) in all_lectures" :key="index" :id="'stuff_members'+lecture.idstuff_members">
               <td><b>{{index+1}}</b></td>
               <td><b>{{lecture.nationalNum}}</b></td>
               <td><b>{{lecture.name}}</b></td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger">
+                  <button class="btn btn-danger" @click="deleteSuffMember(lecture)">
                     <i class="ti-trash"></i>
                   </button>
                   <router-link :to="{name:'edit_lecturer',params:{'id':lecture.idstuff_members}}" class="btn btn-info">
@@ -54,16 +54,38 @@
       }
     },
     methods: {
+      deleteSuffMember(lecture) {
+        let vm = this;
+        vm.$swal({
+          title: vm.$ml.get('confirm_warning'),
+          text: vm.$ml.get('are_you_sure'),
+          type: 'warning',
+          showLoaderOnConfirm: true,
+          showCancelButton: true,
+          confirmButtonText: vm.$ml.get('yes'),
+          cancelButtonText: vm.$ml.get('no')
+        }).then((result) => {
+          if (result.value) {
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_STUFF_MEMBER + `/${lecture.idstuff_members}`)
+              .then((response) => {
+                vm.$root.$children[0].$refs.loader.show_loader = false;
+                $(`#stuff_members${lecture.idstuff_members}`).remove()
+              }).catch((error) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.handleError(error, vm);
+            });
+
+          }
+        });
+      },
       getAllStuffMembers() {
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
-
         try {
           window.serviceAPI.API().get(window.serviceAPI.ALL_STUFF_MEMBERS)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;
-              // console.log(response)
               if (response.status) {
                 vm.all_lectures = response.data.result;
                 return null;

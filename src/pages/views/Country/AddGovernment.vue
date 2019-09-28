@@ -6,36 +6,26 @@
         <div class="row">
           <div class="col-md-3 text-left">
             <label>{{$ml.get('country')}}</label>
-            <multi-select v-model="selectedCountries" id="ajax" label="name" track-by="code"
-                          :placeholder="$ml.get('type_to_search')"
-                          open-direction="bottom" :options="countries" :multiple="false" :searchable="true"
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedCountry" label="name"
+                          track-by="code"
+                          :options="countries" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
-                          :close-on-select="true"
-                          :options-limit="300" :limit="3" :limit-text="limitText" :max-height="600"
-                          :show-no-results="false" :hide-selected="true" @search-change="asyncFind">
-              <template slot="tag" slot-scope="{ option, remove }"><span
-                class="custom__tag"><span>{{ option.name }}</span><span class="custom__remove"
-                                                                        @click="remove(option)">❌</span></span>
-              </template>
-              <template slot="clear" slot-scope="props">
-                <div class="multiselect__clear" v-if="selectedCountries.length"
-                     @mousedown.prevent.stop="clearAll(props.search)"></div>
-              </template>
-              <span slot="noResult">{{$ml.get('no_data')}}</span>
-            </multi-select>
+                          :close-on-select="true"></multi-select>
           </div>
           <div class="col-md-4">
             <fg-input type="text"
+                      v-model="name"
                       :label="$ml.get('name')"
                       :placeholder="$ml.get('name')">
             </fg-input>
+            <div class="text-danger text-left" id="name_error"></div>
           </div>
         </div>
 
         <div class="text-center">
           <p-button type="info"
                     round
-                    @click.native.prevent="updateLecturer">
+                    @click.native.prevent="addGovernment">
             {{$ml.get('add')}}
           </p-button>
         </div>
@@ -50,46 +40,86 @@
   import 'vue-multiselect/dist/vue-multiselect.min.css';
 
   export default {
-    name: "AddLecturer",
+    name: "AddGovernment",
     components: {
       multiSelect
     },
     data() {
       return {
         isLoading: false,
-        selectedCountries: [],
+        selectedCountry: null,
+        name: null,
         countries: [],
-        selectedGovernment: null,
-        governments: ['Cairo', 'Alexandria', 'Al-Menofia'],
-        selectedSecondary: null,
-        secSecondary: ['Math', 'Science']
       }
+    },
+    mounted() {
+      this.getAllCountries();
     },
     methods: {
       limitText(count) {
         return `and ${count} other countries`
       },
-      asyncFind(query) {
+      getAllCountries() {
         let vm = this;
+        // vm.$root.$children[0].$refs.loader.show_loader = true;
         vm.isLoading = true
-        // ajaxFindCountry(query).then(response => {
-        setTimeout(() => {
-          vm.countries = [
-            {
-              "name": "Egypt",
-              "code": "EG"
-            },
-            {
-              "name": "Kuwati",
-              "code": "KWD"
-            }
-          ];
-          vm.isLoading = false
-        }, 1000)
-        // })
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_COUNTRIES)
+            .then((response) => {
+              // vm.$root.$children[0].$refs.loader.show_loader = false;
+              vm.isLoading = false
+              response = response.data;
+              if (response.status) {
+                vm.countries = response.data.result;
+                return null;
+              }
+              vm.countries = [];
+
+            }).catch((error) => {
+            // vm.$root.$children[0].$refs.loader.show_loader = false;
+            vm.isLoading = false;
+            window.helper.handleError(error, vm);
+            vm.countries = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      prepareData() {
+        let vm = this;
+        return {
+          name: vm.name,
+          idcountries: vm.selectedCountry ? vm.selectedCountry.idcountries : null,
+        };
+      },
+      prepareValidationInputs() {
+        return {
+          name: 'input',
+        };
+      },
+      addGovernment() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        let _request_data = vm.prepareData();
+        let request_data = window.helper.prepareObjectToSend(_request_data);
+        console.log(request_data)
+        try {
+          window.serviceAPI.API().post(window.serviceAPI.ADD_GOVERNRATES + `?idcountries=${_request_data.idcountries}`, request_data)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.showMessage('success', vm);
+              vm.$router.push({name: 'country'});
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          console.log(e)
+        }
       },
       clearAll() {
-        this.selectedCountries = []
+        this.selectedCountry = null
       },
     }
   }

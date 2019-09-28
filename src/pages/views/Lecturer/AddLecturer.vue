@@ -5,12 +5,12 @@
       <form @submit.prevent>
         <div class="row">
           <div class="col-md-3">
-
             <fg-input type="text"
                       v-model="nationalNum"
                       :label="$ml.get('id')"
                       :placeholder="$ml.get('id')">
             </fg-input>
+            <div class="text-left text-danger" id="nationalNum_error"></div>
           </div>
           <div class="col-md-4">
             <fg-input type="text"
@@ -18,6 +18,7 @@
                       :label="$ml.get('name')"
                       :placeholder="$ml.get('name')">
             </fg-input>
+            <div class="text-left text-danger" id="name_error"></div>
           </div>
         </div>
 
@@ -45,27 +46,33 @@
       }
     },
     methods: {
-      addLecturer() {
+      prepareData() {
         let vm = this;
-        vm.$root.$children[0].$refs.loader.show_loader = true;
-
-        let request_data = {
+        return {
           nationalNum: vm.nationalNum,
           name: vm.name,
           type: vm.type,
         };
+      },
+      prepareValidationInputs() {
+        return {
+          nationalNum: 'input',
+          name: 'input',
+        };
+      },
+      addLecturer() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        let request_data = vm.prepareData();
         request_data = window.helper.prepareObjectToSend(request_data);
 
         try {
           window.serviceAPI.API().post(window.serviceAPI.ADD_STUFF_MEMBER, request_data)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
-              response = response.data;
-              if (response.status) {
-                alert('login success');
-                return 0;
-              }
-              alert('validation Error')
+              window.helper.showMessage('success', vm);
+              vm.$router.push({name: 'lecturer'});
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);
