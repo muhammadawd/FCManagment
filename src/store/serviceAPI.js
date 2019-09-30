@@ -51,7 +51,21 @@ export default {
 
   ADD_PROGRAM_GRADES: 'grades', // get [idprogram]
   FIND_PROGRAM_GRADES: 'grades', // get [idprogram]
+  GET_PROGRAM_GRADES: 'grades', // get  +/id
+  UPDATE_PROGRAMS_GRADES: 'grades',  // put +/id
   DELETE_PROGRAM_GRADE: 'grades', // delete +/id
+
+  ALL_PROGRAM_LEVELS: 'programLevels', // get [idprogram]
+  ADD_PROGRAM_LEVELS: 'programLevels', // post
+  FIND_PROGRAM_LEVELS: 'programLevels', // get  +/id
+  UPDATE_PROGRAMS_LEVELS: 'programLevels',  // put +/id
+  DELETE_PROGRAM_LEVELS: 'programLevels', // delete +/id
+
+  ALL_PROGRAM_REQUIRE: 'categories', // get [idprogram]
+  ADD_PROGRAM_REQUIRE: 'categories', // post
+  FIND_PROGRAM_REQUIRE: 'categories', // get  +/id
+  UPDATE_PROGRAMS_REQUIRE: 'categories',  // put +/id
+  DELETE_PROGRAM_REQUIRE: 'categories', // delete +/id
 
   API: () => {
     let token = null;

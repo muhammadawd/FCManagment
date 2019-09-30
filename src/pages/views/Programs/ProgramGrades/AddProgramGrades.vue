@@ -86,15 +86,16 @@
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
 
+        let idprogram = vm.$route.params.program_id;
         let request_data = vm.prepareData();
         request_data = window.helper.prepareObjectToSend(request_data);
 
         try {
-          window.serviceAPI.API().post(window.serviceAPI.ADD_PROGRAM_GRADES, request_data)
+          window.serviceAPI.API().post(window.serviceAPI.ADD_PROGRAM_GRADES + `?idprogram=${idprogram}`, request_data)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               window.helper.showMessage('success', vm);
-              vm.$router.push({name: 'programs'});
+              vm.$router.push({name: 'show_program', params: {id: idprogram}});
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);

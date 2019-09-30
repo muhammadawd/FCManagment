@@ -22,18 +22,18 @@
               <th width="50"></th>
               </thead>
               <tbody>
-              <!--<tr v-for="(item, index) in data" :key="index">-->
-              <tr>
-                <td>1</td>
-                <td><b>Level One</b></td>
-                <td><b>120</b></td>
+              <tr v-for="(item, index) in all_levels" :key="index" :id="'level'+item.idprogram_levels">
+                <td>{{index +1}}</td>
+                <td><b>{{item.name}}</b></td>
+                <td><b>{{item.requiredHourToBeInThisLevel}}</b></td>
                 <td>
                   <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger" @click="deleteLevel(item)">
                       <i class="ti-trash"></i>
                     </button>
-                    <router-link :to="{name:'edit_program_levels',params:{'program_id':programId,'id':1}}"
-                                 class="btn btn-info">
+                    <router-link
+                      :to="{name:'edit_program_levels',params:{'program_id':programId,'id':item.idprogram_levels}}"
+                      class="btn btn-info">
                       <i class="ti-save"></i>
                     </router-link>
                   </div>
@@ -52,50 +52,67 @@
   import {StatsCard, ChartCard} from "@/components/index";
 
   export default {
-    name: "Lecturer",
+    name: "programLevels",
     components: {
       StatsCard,
     },
     props: ['programId'],
+    mounted() {
+      let vm = this;
+      vm.findProgramLevel();
+    },
     data() {
       return {
-        // statsCards: [],
-        statsCards: [
-          {
-            route: "program_grades",
-            type: "warning",
-            icon: "ti-pulse",
-            title: this.$ml.get('program_grades'),
-            value: "0",
-            footerText: this.$ml.get('show'),
-            footerIcon: "ti-eye"
-          },
-          {
-            route: "program_requires",
-            type: "danger",
-            icon: "ti-pulse",
-            title: this.$ml.get('program_requires'),
-            value: "0",
-            footerText: this.$ml.get('show'),
-            footerIcon: "ti-eye"
-          },
-          {
-            route: "program_levels",
-            type: "info",
-            icon: "ti-pulse",
-            title: this.$ml.get('program_levels'),
-            value: "0",
-            footerText: this.$ml.get('show'),
-            footerIcon: "ti-eye"
+        all_levels: []
+      }
+    },
+    methods: {
+      deleteLevel(level) {
+        let vm = this;
+        vm.$swal({
+          title: vm.$ml.get('confirm_warning'),
+          text: vm.$ml.get('are_you_sure'),
+          type: 'warning',
+          showLoaderOnConfirm: true,
+          showCancelButton: true,
+          confirmButtonText: vm.$ml.get('yes'),
+          cancelButtonText: vm.$ml.get('no')
+        }).then((result) => {
+          if (result.value) {
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_PROGRAM_LEVELS + `/${level.idprogram_levels}`)
+              .then((response) => {
+                vm.$root.$children[0].$refs.loader.show_loader = false;
+                $(`#level${level.idprogram_levels}`).remove()
+              }).catch((error) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.handleError(error, vm);
+            });
+
           }
-        ],
+        });
+      },
+      findProgramLevel() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_PROGRAM_LEVELS + `?idprogram=${vm.programId}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              vm.all_levels = response.data.data.result;
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            vm.all_levels = [];
+            // window.helper.showMessage('danger', vm);
+            // vm.$router.push({name: 'programs'});
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          vm.all_levels = [];
+          // window.helper.showMessage('danger', vm);
+          // vm.$router.push({name: 'programs'});
+          console.log(e)
+        }
       }
     }
   }
 </script>
-
-<
-style
-scoped >
-
-< /style>

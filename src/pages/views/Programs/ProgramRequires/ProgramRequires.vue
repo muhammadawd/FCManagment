@@ -23,53 +23,28 @@
               <th width="50"></th>
               </thead>
               <tbody>
-              <!--<tr v-for="(item, index) in data" :key="index">-->
-              <tr>
-                <td>1</td>
-                <td><b>Basic Science</b></td>
-                <td><b>30</b></td>
-                <td><b>Faculty Requires</b></td>
+              <tr v-for="(item, index) in all_caregories" :key="index" :id="'category'+item.idprogram_categories">
+                <td>{{index+1}}</td>
                 <td>
-                  <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger">
-                      <i class="ti-trash"></i>
-                    </button>
-                    <router-link :to="{name:'edit_program_requires',params:{'program_id':programId,'id':1}}"
-                                 class="btn btn-info">
-                      <i class="ti-save"></i>
-                    </router-link>
-                  </div>
+                  <b>
+                    <span class="text-danger">({{item.idprogram_categories}})</span>
+                    {{item.name}}
+                  </b>
                 </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><b>Basic Technologies</b></td>
-                <td><b>10</b></td>
-                <td><b>-</b></td>
+                <td><b>{{item.hoursRequired}}</b></td>
                 <td>
-                  <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger">
-                      <i class="ti-trash"></i>
-                    </button>
-                    <router-link :to="{name:'edit_program_requires',params:{'program_id':programId,'id':1}}"
-                                 class="btn btn-info">
-                      <i class="ti-save"></i>
-                    </router-link>
-                  </div>
+                  <b>
+                    <span class="text-danger" v-if="item.parentIdprogram_categories">({{item.parentIdprogram_categories}})</span>
+                  </b>
                 </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td><b>Introduction To Computer Science</b></td>
-                <td><b>15</b></td>
-                <td><b>Optional</b></td>
                 <td>
                   <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger" @click="deleteRequire(item)">
                       <i class="ti-trash"></i>
                     </button>
-                    <router-link :to="{name:'edit_program_requires',params:{'program_id':programId,'id':1}}"
-                                 class="btn btn-info">
+                    <router-link
+                      :to="{name:'edit_program_requires',params:{'program_id':programId,'id':item.idprogram_categories}}"
+                      class="btn btn-info">
                       <i class="ti-save"></i>
                     </router-link>
                   </div>
@@ -88,43 +63,66 @@
   import {StatsCard, ChartCard} from "@/components/index";
 
   export default {
-    name: "Lecturer",
+    name: "programRequires",
     components: {
       StatsCard,
     },
     props: ['programId'],
+    mounted() {
+      let vm = this;
+      vm.findProgramRequire();
+    },
     data() {
       return {
-        // statsCards: [],
-        statsCards: [
-          {
-            route: "program_grades",
-            type: "warning",
-            icon: "ti-pulse",
-            title: this.$ml.get('program_grades'),
-            value: "0",
-            footerText: this.$ml.get('show'),
-            footerIcon: "ti-eye"
-          },
-          {
-            route: "program_requires",
-            type: "danger",
-            icon: "ti-pulse",
-            title: this.$ml.get('program_requires'),
-            value: "0",
-            footerText: this.$ml.get('show'),
-            footerIcon: "ti-eye"
-          },
-          {
-            route: "program_levels",
-            type: "info",
-            icon: "ti-pulse",
-            title: this.$ml.get('program_levels'),
-            value: "0",
-            footerText: this.$ml.get('show'),
-            footerIcon: "ti-eye"
+        all_caregories: []
+      }
+    },
+    methods: {
+      deleteRequire(required) {
+        let vm = this;
+        vm.$swal({
+          title: vm.$ml.get('confirm_warning'),
+          text: vm.$ml.get('are_you_sure'),
+          type: 'warning',
+          showLoaderOnConfirm: true,
+          showCancelButton: true,
+          confirmButtonText: vm.$ml.get('yes'),
+          cancelButtonText: vm.$ml.get('no')
+        }).then((result) => {
+          if (result.value) {
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_PROGRAM_REQUIRE + `/${required.idprogram_categories}`)
+              .then((response) => {
+                vm.$root.$children[0].$refs.loader.show_loader = false;
+                $(`#category${required.idprogram_categories}`).remove()
+              }).catch((error) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.handleError(error, vm);
+            });
+
           }
-        ],
+        });
+      },
+      findProgramRequire() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_PROGRAM_REQUIRE + `?idprogram=${vm.programId}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              vm.all_caregories = response.data.data.result;
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            vm.all_caregories = [];
+            // window.helper.showMessage('danger', vm);
+            // vm.$router.push({name: 'programs'});
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          vm.all_caregories = [];
+          // window.helper.showMessage('danger', vm);
+          // vm.$router.push({name: 'programs'});
+          console.log(e)
+        }
       }
     }
   }

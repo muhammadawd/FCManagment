@@ -7,14 +7,18 @@
         <div class="row">
           <div class="col-md-4">
             <fg-input type="text"
+                      v-model="name"
                       :label="$ml.get('name')"
                       :placeholder="$ml.get('name')">
             </fg-input>
+            <div class="text-left text-danger" id="name_error"></div>
           </div>
           <div class="col-md-3">
             <fg-input type="text"
+                      v-model="requiredHourToBeInThisLevel"
                       :label="$ml.get('min_hour_level')"
                       :placeholder="$ml.get('min_hour_level')">
+              <div class="text-left text-danger" id="requiredHourToBeInThisLevel_error"></div>
             </fg-input>
           </div>
         </div>
@@ -22,7 +26,7 @@
         <div class="text-center">
           <p-button type="info"
                     round
-                    @click.native.prevent="updateLecturer">
+                    @click.native.prevent="editProgramLevel">
             {{$ml.get('edit')}}
           </p-button>
         </div>
@@ -34,10 +38,77 @@
 
 <script>
   export default {
-    name: "EditLecturer",
+    name: "EditProgramLevel",
+    data() {
+      return {
+        name: null,
+        requiredHourToBeInThisLevel: null,
+      }
+    },
+    mounted(){
+      this.findProgramLevel()
+    },
     methods: {
-      updateLecturer() {
-        alert('test')
+      prepareData() {
+        let vm = this;
+        return {
+          name: vm.name,
+          requiredHourToBeInThisLevel: vm.requiredHourToBeInThisLevel,
+        };
+      },
+      prepareValidationInputs() {
+        return {
+          name: 'input',
+          requiredHourToBeInThisLevel: 'input',
+        };
+      },
+      findProgramLevel() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        let idprogram = vm.$route.params.program_id;
+        let id = vm.$route.params.id;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.FIND_PROGRAM_LEVELS+ `/${id}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data.data.result;
+              vm.name = response[0].name;
+              vm.requiredHourToBeInThisLevel = response[0].requiredHourToBeInThisLevel;
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.showMessage('danger', vm);
+            vm.$router.push({name: 'show_program', params: {id: idprogram}});
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          window.helper.showMessage('danger', vm);
+          vm.$router.push({name: 'show_program', params: {id: idprogram}});
+          console.log(e)
+        }
+      },
+      editProgramLevel() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        let idprogram = vm.$route.params.program_id;
+        let id = vm.$route.params.id;
+
+        let request_data = vm.prepareData();
+        request_data = window.helper.prepareObjectToSend(request_data);
+
+        try {
+          window.serviceAPI.API().put(window.serviceAPI.UPDATE_PROGRAMS_LEVELS + `/${id}`, request_data)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.showMessage('success', vm);
+              vm.$router.push({name: 'show_program', params: {id: idprogram}});
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          console.log(e)
+        }
       }
     }
   }

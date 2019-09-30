@@ -43,10 +43,10 @@
       <ProgramsGrades :programId="pId"/>
     </card>
     <card class="card">
-      <!--      <ProgramRequires :programId="pId"/>-->
+            <ProgramRequires :programId="pId"/>
     </card>
     <card class="card">
-      <!--      <ProgramsLevels :programId="pId"/>-->
+      <ProgramsLevels :programId="pId"/>
     </card>
   </div>
 </template>
