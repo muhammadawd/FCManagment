@@ -8,14 +8,14 @@
 
               <fg-input type="text"
                         :label="$ml.get('name')"
-                        value="Bio"
+                        v-model="name"
                         :placeholder="$ml.get('name')">
               </fg-input>
             </div>
             <div class="col-md-3">
               <fg-input type="text"
                         :label="$ml.get('hours_need_grade')"
-                        value="150"
+                        v-model="maxPercentageAssignedForFailedCourses"
                         :placeholder="$ml.get('hours_need_grade')">
               </fg-input>
             </div>
@@ -23,27 +23,18 @@
             <div class="col-md-3">
               <fg-input type="text"
                         :label="$ml.get('min_number_grade')"
-                        value="10"
+                        v-model="minSemestersForGrad"
                         :placeholder="$ml.get('min_number_grade')">
               </fg-input>
             </div>
             <div class="col-md-3">
               <fg-input type="text"
                         :label="$ml.get('max_fail_percent')"
-                        value="35"
+                        v-model="maxPercentageAssignedForFailedCourses"
                         :placeholder="$ml.get('max_fail_percent')">
               </fg-input>
             </div>
           </div>
-
-
-          <!--        <div class="text-center">-->
-          <!--          <p-button type="info"-->
-          <!--                    round-->
-          <!--                    @click.native.prevent="updateLecturer">-->
-          <!--            {{$ml.get('edit')}}-->
-          <!--          </p-button>-->
-          <!--        </div>-->
           <div class="clearfix"></div>
         </form>
       </div>
@@ -52,10 +43,10 @@
       <ProgramsGrades :programId="pId"/>
     </card>
     <card class="card">
-      <ProgramRequires :programId="pId"/>
+      <!--      <ProgramRequires :programId="pId"/>-->
     </card>
     <card class="card">
-      <ProgramsLevels :programId="pId"/>
+      <!--      <ProgramsLevels :programId="pId"/>-->
     </card>
   </div>
 </template>
@@ -66,7 +57,7 @@
   import ProgramRequires from '@/pages/views/Programs/ProgramRequires/ProgramRequires'
 
   export default {
-    name: "EditLecturer",
+    name: "showProgram",
     components: {
       ProgramsGrades,
       ProgramsLevels,
@@ -74,17 +65,47 @@
     },
     data() {
       return {
-        pId: null
+        pId: null,
+        name: null,
+        maxPercentageAssignedForFailedCourses: null,
+        minSemestersForGrad: null,
+        numOfHourForGrad: null
       }
     },
-    mounted() {
+    created() {
       let vm = this;
       vm.pId = vm.$route.params.id;
     },
+    mounted() {
+      let vm = this;
+      vm.findProgram();
+    },
     methods: {
-      updateLecturer() {
-        alert('test')
-      }
+      findProgram() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        let id = vm.$route.params.id;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.FIND_PROGRAMS + `/${id}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data.data.result;
+              vm.name = response[0].name;
+              vm.maxPercentageAssignedForFailedCourses = response[0].maxPercentageAssignedForFailedCourses;
+              vm.minSemestersForGrad = response[0].minSemestersForGrad;
+              vm.numOfHourForGrad = response[0].numOfHourForGrad;
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.showMessage('danger', vm);
+            vm.$router.push({name: 'programs'});
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          window.helper.showMessage('danger', vm);
+          vm.$router.push({name: 'programs'});
+          console.log(e)
+        }
+      },
     }
   }
 </script>

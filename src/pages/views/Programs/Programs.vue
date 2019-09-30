@@ -31,11 +31,11 @@
             {{$ml.get('add_program')}}
           </router-link>
         </div>
-        <div class="col-md-3 text-right">
-          <fg-input type="text"
-                    :placeholder="$ml.get('search')">
-          </fg-input>
-        </div>
+<!--        <div class="col-md-3 text-right">-->
+<!--          <fg-input type="text"-->
+<!--                    :placeholder="$ml.get('search')">-->
+<!--          </fg-input>-->
+<!--        </div>-->
         <div class="col-md-12 text-left">
           <div class="table-responsive">
             <table class="table table-striped">
@@ -48,42 +48,21 @@
               <th width="50"></th>
               </thead>
               <tbody>
-              <!--<tr v-for="(item, index) in data" :key="index">-->
-              <tr>
+              <tr v-for="(item, index) in all_programs" :key="index" :id="'program'+item.idprogram">
                 <td>1</td>
-                <td><b>Computer Science DBMS Edition</b></td>
-                <td><b>120</b></td>
-                <td><b>15</b></td>
-                <td><b>80</b></td>
+                <td><b>{{item.name}}</b></td>
+                <td><b>{{item.numOfHourForGrad}}</b></td>
+                <td><b>{{item.minSemestersForGrad}}</b></td>
+                <td><b>{{item.maxPercentageAssignedForFailedCourses}}</b></td>
                 <td>
                   <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger" @click="deleteProgram(item)">
                       <i class="ti-trash"></i>
                     </button>
-                    <router-link :to="{name:'show_program',params:{'id':1}}" class="btn btn-warning">
+                    <router-link :to="{name:'show_program',params:{'id':item.idprogram}}" class="btn btn-warning">
                       <i class="ti-eye"></i>
                     </router-link>
-                    <router-link :to="{name:'edit_program',params:{'id':1}}" class="btn btn-info">
-                      <i class="ti-save"></i>
-                    </router-link>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><b>Oracle DBMS Edition</b></td>
-                <td><b>110</b></td>
-                <td><b>19</b></td>
-                <td><b>89</b></td>
-                <td>
-                  <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger">
-                      <i class="ti-trash"></i>
-                    </button>
-                    <router-link :to="{name:'show_program',params:{'id':1}}" class="btn btn-warning">
-                      <i class="ti-eye"></i>
-                    </router-link>
-                    <router-link :to="{name:'edit_program',params:{'id':1}}" class="btn btn-info">
+                    <router-link :to="{name:'edit_program',params:{'id':item.idprogram}}" class="btn btn-info">
                       <i class="ti-save"></i>
                     </router-link>
                   </div>
@@ -102,12 +81,13 @@
   import {StatsCard, ChartCard} from "@/components/index";
 
   export default {
-    name: "Lecturer",
+    name: "Programs",
     components: {
       StatsCard,
     },
     data() {
       return {
+        all_programs: [],
         statsCards: [],
         // statsCards: [
         //   {
@@ -139,12 +119,60 @@
         //   }
         // ],
       }
+    },
+    methods: {
+      deleteProgram(program) {
+        let vm = this;
+        vm.$swal({
+          title: vm.$ml.get('confirm_warning'),
+          text: vm.$ml.get('are_you_sure'),
+          type: 'warning',
+          showLoaderOnConfirm: true,
+          showCancelButton: true,
+          confirmButtonText: vm.$ml.get('yes'),
+          cancelButtonText: vm.$ml.get('no')
+        }).then((result) => {
+          if (result.value) {
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_PROGRAMS+ `/${program.idprogram}`)
+              .then((response) => {
+                vm.$root.$children[0].$refs.loader.show_loader = false;
+                $(`#program${program.idprogram}`).remove()
+              }).catch((error) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.handleError(error, vm);
+            });
+
+          }
+        });
+      },
+      getAllPrograms() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_PROGRAMS)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                console.log(response.data)
+                vm.all_programs = response.data;
+                return null;
+              }
+              vm.all_programs = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+            vm.all_programs = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    },
+    mounted() {
+      let vm = this;
+      vm.getAllPrograms();
     }
   }
 </script>
-
-<
-style
-scoped >
-
-< /style>

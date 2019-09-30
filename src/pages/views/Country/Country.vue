@@ -63,8 +63,7 @@
               <div class="col-md-3 text-left">
                 <label>{{$ml.get('country')}}</label>
                 <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedCountry" label="name"
-                              track-by="code"
-                              @select="changeContry()"
+                              track-by="name"
                               :options="countries" open-direction="bottom" :multiple="false" :searchable="true"
                               :loading="isLoading" :internal-search="true" :clear-on-select="false"
                               :close-on-select="true"></multi-select>
@@ -74,12 +73,14 @@
               <table class="table table-striped text-left">
                 <thead>
                 <th width="50">#</th>
+                <th>{{$ml.get('country')}}</th>
                 <th>{{$ml.get('government')}}</th>
                 <th width="50"></th>
                 </thead>
                 <tbody>
                 <tr v-for="(item , index) in all_governrates" :key="index" :id="'governorate'+item.idgovernorates">
                   <td>{{index+1}}</td>
+                  <td><b v-if="selectedCountry">{{selectedCountry.name}}</b></td>
                   <td><b>{{item.name}}</b></td>
                   <td>
                     <div class="btn-group direction-inverse">
@@ -99,8 +100,26 @@
           </div>
           <div v-if="currentTab === 'tab3'">
 
+            <div class="row">
+              <div class="col-md-3 text-left">
+                <label>{{$ml.get('country')}}</label>
+                <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedCountry2" label="name"
+                              track-by="name"
+                              :options="countries" open-direction="bottom" :multiple="false" :searchable="true"
+                              :loading="isLoading" :internal-search="true" :clear-on-select="false"
+                              :close-on-select="true"></multi-select>
+              </div>
+              <div class="col-md-3 text-left">
+                <label>{{$ml.get('government')}}</label>
+                <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedGovernment" label="name"
+                              track-by="name"
+                              :options="all_governrates2" open-direction="bottom" :multiple="false" :searchable="true"
+                              :loading="isLoading" :internal-search="true" :clear-on-select="false"
+                              :close-on-select="true"></multi-select>
+              </div>
+            </div>
             <div class="table-responsive">
-              <table class="table table-striped">
+              <table class="table table-striped text-left">
                 <thead>
                 <th width="50">#</th>
                 <th width="200">{{$ml.get('country')}}</th>
@@ -109,19 +128,20 @@
                 <th width="50"></th>
                 </thead>
                 <tbody>
-                <tr v-for="(item , index) in all_countries" :key="index" :id="'country'+item.idcountries">
+                <tr v-for="(item , index) in cities" :key="index" :id="'city'+item.idcities">
                   <td>{{index+1}}</td>
+                  <td><b v-if="selectedCountry2">{{selectedCountry2.name}}</b></td>
+                  <td><b v-if="selectedGovernment">{{selectedGovernment.name}}</b></td>
                   <td><b>{{item.name}}</b></td>
-                  <td><b>-</b></td>
-                  <td><b>-</b></td>
                   <td>
                     <div class="btn-group direction-inverse">
-                      <button class="btn btn-danger" @click="deleteCountry(item)">
-                        <i class="ti-trash"></i>
-                      </button>
-                      <router-link :to="{name:'edit_country',params:{'id':item.idcountries}}" class="btn btn-info">
-                        <i class="ti-save"></i>
-                      </router-link>
+                      &nbsp;
+                      <!--                      <button class="btn btn-danger" @click="deleteCity(item)">-->
+                      <!--                        <i class="ti-trash"></i>-->
+                      <!--                      </button>-->
+                      <!--                      <router-link :to="{name:'edit_country',params:{'id':item.idcities}}" class="btn btn-info">-->
+                      <!--                        <i class="ti-save"></i>-->
+                      <!--                      </router-link>-->
                     </div>
                   </td>
                 </tr>
@@ -150,20 +170,35 @@
     data() {
       return {
         all_countries: [],
-        countries: [{
-          id: 1,
-          name: 'مصر'
-        }],
+        countries: [],
+        cities: [],
         all_governrates: [],
+        all_governrates2: [],
+        selectedCountry: null,
+        selectedCountry2: null,
+        selectedGovernment: null,
         tabs: [
           {title: this.$ml.get('countries'), value: 'tab1'},
           {title: this.$ml.get('governments'), value: 'tab2'},
-          // {title: this.$ml.get('cities'), value: 'tab3',}
+          {title: this.$ml.get('cities'), value: 'tab3',}
         ],
         currentTab: 'tab1',
-        selectedCountry: null,
         isLoading: false,
       }
+    },
+    watch: {
+      selectedCountry: function (newSelectedCountry, oldSelectedCountry) {
+        let vm = this;
+        vm.getAllGovernrates(newSelectedCountry ? newSelectedCountry.idcountries : 1)
+      },
+      selectedCountry2: function (newSelectedCountry, oldSelectedCountry) {
+        let vm = this;
+        vm.getAllGovernrates_2(newSelectedCountry ? newSelectedCountry.idcountries : 1)
+      },
+      selectedGovernment: function (newSelectedGovernment, oldSelectedGovernment) {
+        let vm = this;
+        vm.getAllCities(newSelectedGovernment ? newSelectedGovernment.idgovernorates : 1)
+      },
     },
     mounted() {
       let vm = this;
@@ -212,7 +247,7 @@
             window.serviceAPI.API().delete(window.serviceAPI.DELETE_GOVERNRATES + `/${governrate.idgovernorates}`)
               .then((response) => {
                 vm.$root.$children[0].$refs.loader.show_loader = false;
-                $(`#governorate${country.idcountries}`).hide()
+                $(`#governorate${governrate.idgovernorates}`).hide()
               }).catch((error) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               window.helper.handleError(error, vm);
@@ -249,7 +284,7 @@
       },
       changeContry() {
         let vm = this;
-        vm.getAllGovernrates(vm.selectedCountry ? vm.selectedCountry.idcountries : 1)
+        // vm.getAllGovernrates(vm.selectedCountry ? vm.selectedCountry.idcountries : 1)
       },
       getAllGovernrates(idcountries) {
         let vm = this;
@@ -273,7 +308,53 @@
         } catch (e) {
           console.log(e)
         }
-      }
+      },
+      getAllGovernrates_2(idcountries) {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_GOVERNRATES + `?idcountries=${idcountries}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                vm.all_governrates2 = response.data.result;
+                return null;
+              }
+              vm.all_governrates2 = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+            vm.all_governrates2 = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      getAllCities(idgovernorates) {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_CITIES + `?idgovernorates=${idgovernorates}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                vm.cities = response.data.result;
+                return null;
+              }
+              vm.cities = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+            vm.cities = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
     }
   }
 </script>

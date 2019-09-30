@@ -209,7 +209,7 @@ export default new MLCreate({
       students: '  ادارة الطلاب',
       add_student: 'اضافة طالب',
       edit_student: 'تعديل طالب',
-      ssn: '  رقم البطافة',
+      ssn: '  رقم البطاقة',
       show: 'عرض',
       program_grades: 'تقديرات البرامج',
       add_program_grades: 'اضافة تقديرات البرامج',

@@ -7,64 +7,35 @@
           {{$ml.get('add_sec_section')}}
         </router-link>
       </div>
-      <div class="col-md-3 text-right">
-        <fg-input type="text"
-                  :placeholder="$ml.get('search')">
-        </fg-input>
-      </div>
+<!--      <div class="col-md-3 text-right">-->
+<!--        <fg-input type="text"-->
+<!--                  :placeholder="$ml.get('search')">-->
+<!--        </fg-input>-->
+<!--      </div>-->
       <div class="col-md-12 text-left">
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('name')}}</th>
+            <th>{{$ml.get('note')}}</th>
             <th width="50"></th>
             </thead>
             <tbody>
-            <!--<tr v-for="(item, index) in data" :key="index">-->
-            <tr>
-              <td>1</td>
+            <tr v-for="(item, index) in all_sections" :key="index" :id="'sec_dept'+item.idsecondary_depts">
+              <td>{{index+1}}</td>
               <td>
-                <b>Science</b>
+                <b>{{item.name}}</b>
+              </td>
+              <td>
+                <b>{{item.note}}</b>
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger">
+                  <button class="btn btn-danger" @click="deleteSecDept(item)">
                     <i class="ti-trash"></i>
                   </button>
-                  <router-link :to="{name:'edit_sec_section',params:{'id':1}}" class="btn btn-info">
-                    <i class="ti-save"></i>
-                  </router-link>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>
-                <b>Mathematics </b>
-              </td>
-              <td>
-                <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger">
-                    <i class="ti-trash"></i>
-                  </button>
-                  <router-link :to="{name:'edit_sec_section',params:{'id':2}}" class="btn btn-info">
-                    <i class="ti-save"></i>
-                  </router-link>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>
-                <b>No Science No Math </b>
-              </td>
-              <td>
-                <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger">
-                    <i class="ti-trash"></i>
-                  </button>
-                  <router-link :to="{name:'edit_sec_section',params:{'id':3}}" class="btn btn-info">
+                  <router-link :to="{name:'edit_sec_section',params:{'id':item.idsecondary_depts}}" class="btn btn-info">
                     <i class="ti-save"></i>
                   </router-link>
                 </div>
@@ -80,9 +51,64 @@
 
 <script>
   export default {
-    name: "Lecturer",
+    name: "SecondaryDepartments",
     data() {
-      return {}
+      return {
+        all_sections: []
+      }
+    },
+    methods: {
+      deleteSecDept(dept) {
+        let vm = this;
+        vm.$swal({
+          title: vm.$ml.get('confirm_warning'),
+          text: vm.$ml.get('are_you_sure'),
+          type: 'warning',
+          showLoaderOnConfirm: true,
+          showCancelButton: true,
+          confirmButtonText: vm.$ml.get('yes'),
+          cancelButtonText: vm.$ml.get('no')
+        }).then((result) => {
+          if (result.value) {
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_SEC_DEPTS + `/${dept.idsecondary_depts}`)
+              .then((response) => {
+                vm.$root.$children[0].$refs.loader.show_loader = false;
+                $(`#sec_dept${dept.idsecondary_depts}`).remove()
+              }).catch((error) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.handleError(error, vm);
+            });
+
+          }
+        });
+      },
+      getAllSecDepts() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_SEC_DEPTS)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                vm.all_sections = response.data.result;
+                return null;
+              }
+              vm.all_sections = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+            vm.all_sections = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    },
+    mounted() {
+      let vm = this;
+      vm.getAllSecDepts();
     }
   }
 </script>

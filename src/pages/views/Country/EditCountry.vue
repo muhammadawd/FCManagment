@@ -80,7 +80,6 @@
 
         let request_data = vm.prepareData();
         request_data = window.helper.prepareObjectToSend(request_data);
-        console.log(request_data)
         try {
           window.serviceAPI.API().put(window.serviceAPI.UPDATE_COUNTRIES + `/${id}`, request_data)
             .then((response) => {

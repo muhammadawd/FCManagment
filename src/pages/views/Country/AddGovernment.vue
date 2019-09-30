@@ -7,7 +7,7 @@
           <div class="col-md-3 text-left">
             <label>{{$ml.get('country')}}</label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedCountry" label="name"
-                          track-by="code"
+                          track-by="name"
                           :options="countries" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
