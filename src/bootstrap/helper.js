@@ -5,6 +5,8 @@ export const helper = {
   showMessage: (type,vm) => {
     vm.$notify({
       icon: "ti-info",
+      horizontalAlign:'center',
+      verticalAlign:'top',
       title: `${type == 'success' ? vm.$ml.get('success') : vm.$ml.get('error')}`,
       message: `${type == 'success' ? vm.$ml.get('success_msg') : vm.$ml.get('error_msg')}`,
       type: type
@@ -37,6 +39,8 @@ export const helper = {
 
       vm.$notify({
         icon: "ti-info",
+        horizontalAlign:'center',
+        verticalAlign:'top',
         title: `Server Error Code : ${error.response.status}`,
         message: `${error.response.data.message}`,
         type: 'danger'
@@ -46,6 +50,8 @@ export const helper = {
       // The request was made but no response was received
       vm.$notify({
         icon: "ti-info",
+        horizontalAlign:'center',
+        verticalAlign:'top',
         title: `${vm.$ml.get('error')}`,
         message: `No Response From Server`,
         type: 'danger'
@@ -55,6 +61,8 @@ export const helper = {
       // Something happened in setting up the request that triggered an Error
       vm.$notify({
         icon: "ti-info",
+        horizontalAlign:'center',
+        verticalAlign:'top',
         title: `${vm.$ml.get('error')}`,
         message: error.message,
         type: 'danger'

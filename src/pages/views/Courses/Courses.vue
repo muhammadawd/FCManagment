@@ -7,11 +7,11 @@
           {{$ml.get('add_course')}}
         </router-link>
       </div>
-      <div class="col-md-3 text-right">
-        <fg-input type="text"
-                  :placeholder="$ml.get('search')">
-        </fg-input>
-      </div>
+<!--      <div class="col-md-3 text-right">-->
+<!--        <fg-input type="text"-->
+<!--                  :placeholder="$ml.get('search')">-->
+<!--        </fg-input>-->
+<!--      </div>-->
       <div class="col-md-12 text-left">
         <div class="table-responsive">
           <table class="table table-striped">
@@ -22,46 +22,23 @@
             <th width="50"></th>
             </thead>
             <tbody>
-            <!--<tr v-for="(item, index) in data" :key="index">-->
-            <tr>
-              <td>1</td>
+            <tr v-for="(item, index) in all_courses" :key="index" :id="'course'+item.idcourses">
+              <td>{{index+1}}</td>
               <td>
-                <b>JAVA SE</b>
+                <b>{{item.name}}</b>
               </td>
               <td>
-                <router-link :to="{name:'course_requirement',params:{'course_id':1,program_id:1}}"
+                <router-link :to="{name:'course_requirement',params:{'course_id':item.idcourses}}"
                              class="btn btn-outline-primary">
                   <b>{{$ml.get('requires')}}</b>
                 </router-link>
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger">
+                  <button class="btn btn-danger" @click="deleteCourse(item)">
                     <i class="ti-trash"></i>
                   </button>
-                  <router-link :to="{name:'edit_course',params:{'id':1}}" class="btn btn-info">
-                    <i class="ti-save"></i>
-                  </router-link>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>
-                <b>C#</b>
-              </td>
-              <td>
-                <router-link :to="{name:'course_requirement',params:{'course_id':1,program_id:1}}"
-                             class="btn btn-outline-primary">
-                  <b>{{$ml.get('requires')}}</b>
-                </router-link>
-              </td>
-              <td>
-                <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger">
-                    <i class="ti-trash"></i>
-                  </button>
-                  <router-link :to="{name:'edit_course',params:{'id':2}}" class="btn btn-info">
+                  <router-link :to="{name:'edit_course',params:{'id':item.idcourses}}" class="btn btn-info">
                     <i class="ti-save"></i>
                   </router-link>
                 </div>
@@ -77,15 +54,64 @@
 
 <script>
   export default {
-    name: "Lecturer",
+    name: "Courses",
     data() {
-      return {}
+      return {
+        all_courses: []
+      }
+    },
+    methods: {
+      deleteCourse(course) {
+        let vm = this;
+        vm.$swal({
+          title: vm.$ml.get('confirm_warning'),
+          text: vm.$ml.get('are_you_sure'),
+          type: 'warning',
+          showLoaderOnConfirm: true,
+          showCancelButton: true,
+          confirmButtonText: vm.$ml.get('yes'),
+          cancelButtonText: vm.$ml.get('no')
+        }).then((result) => {
+          if (result.value) {
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_COURSE + `/${course.idcourses}`)
+              .then((response) => {
+                vm.$root.$children[0].$refs.loader.show_loader = false;
+                $(`#course${course.idcourses}`).remove()
+              }).catch((error) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.handleError(error, vm);
+            });
+
+          }
+        });
+      },
+      getAllCourse() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_COURSE)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                vm.all_courses = response.data.result;
+                return null;
+              }
+              vm.all_courses = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+            vm.all_courses = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    },
+    mounted() {
+      let vm = this;
+      vm.getAllCourse();
     }
   }
 </script>
-
-<
-style
-scoped >
-
-< /style>

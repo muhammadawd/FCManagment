@@ -67,6 +67,15 @@ export default {
   UPDATE_PROGRAMS_REQUIRE: 'categories',  // put +/id
   DELETE_PROGRAM_REQUIRE: 'categories', // delete +/id
 
+  ALL_COURSE: 'courses', // get
+  ADD_COURSE: 'courses', // post
+  FIND_COURSE: 'courses', // get  +/id
+  UPDATE_COURSE: 'courses',  // put +/id
+  DELETE_COURSE: 'courses', // delete +/id
+  FIND_COURSE_REQUIRE: 'courseprerequisteListByCourseId', // get  +/id
+  ADD_COURSE_REQUIRE: 'courseprerequiste', // delete  +/id
+  DELETE_COURSE_REQUIRE: 'courseprerequiste', // delete  +/id
+
   API: () => {
     let token = null;
     try {

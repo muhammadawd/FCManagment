@@ -19,3 +19,15 @@ register permissionLevel 1
 lecture type 0
 add student idprogram_levels 4 ??
 edit student idprogram_levels 4 ??
+
+
+----------------
+get levels post request !!
+add course no validation
+add course fk exception
+
+student need program level how come ??
+
+prerequiste course all get current course not related
+prerequiste course add must return after add course with related
+prerequiste course find if not found 404 doesn't work

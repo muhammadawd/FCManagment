@@ -324,7 +324,7 @@ const routes = [
         meta: {requiresAuth: true}
       },
       {
-        path: "courses/course_requirement/:course_id/program/:program_id",
+        path: "courses/course_requirement/:course_id",
         name: "course_requirement",
         component: CoursesRequirement,
         meta: {requiresAuth: true}
