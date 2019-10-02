@@ -11,7 +11,6 @@
                       :placeholder="$ml.get('name')">
             </fg-input>
             <div class="text-danger text-left" id="name_error"></div>
-            <div class="text-danger text-left" id="idprogram_levels_error"></div>
           </div>
         </div>
 
@@ -82,6 +81,15 @@
             <div class="text-danger text-left" id="idsecondary_depts_error"></div>
           </div>
 
+          <div class="col-md-3">
+            <label>{{$ml.get('program_levels')}}</label>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedProgramLevels" label="name"
+                          track-by="name"
+                          :options="programLevels" open-direction="bottom" :multiple="false" :searchable="true"
+                          :loading="isLoading" :internal-search="true" :clear-on-select="false"
+                          :close-on-select="true"></multi-select>
+            <div class="text-danger text-left" id="idprogram_levels_error"></div>
+          </div>
         </div>
 
         <div class="text-center">
@@ -120,13 +128,24 @@
         selectedCity: null,
         secSecondary: [],
         selectedSecondary: null,
+        programId: null,
+        programLevels: [],
+        selectedProgramLevels: null,
       }
     },
     async created() {
       let vm = this;
+      try {
+        let auth_data = window.ls.getFromStorage('auth_data');
+        vm.programId = JSON.parse(auth_data).idprogram;
+      } catch (e) {
+        vm.programId = null;
+      }
+
       await vm.getAllCountries();
       await vm.getAllSecDepts();
-      vm.findStudent();
+      await vm.getAllProgramLevels();
+      await vm.findStudent();
     },
     watch: {
       selectedCountry: function (newSelectedCountry, oldSelectedCountry) {
@@ -145,7 +164,7 @@
           name: vm.name,
           nationalNum: vm.nationalNum,
           address: vm.address,
-          idprogram_levels: 4,
+          idprogram_levels: vm.selectedProgramLevels ? vm.selectedProgramLevels.idprogram_levels : null,
           idsecondary_depts: vm.selectedSecondary ? vm.selectedSecondary.idsecondary_depts : null,
           idcity: vm.selectedCity ? vm.selectedCity.idcities : null,
         };
@@ -169,12 +188,19 @@
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data.data.result;
+              console.log(response)
               vm.name = response[0].name;
               vm.address = response[0].address;
               vm.nationalNum = response[0].nationalNum;
               $.each(vm.secSecondary, function (index, item) {
                 if (response[0].idsecondary_depts == item.idsecondary_depts) {
                   vm.selectedSecondary = item;
+                  return
+                }
+              });
+              $.each(vm.programLevels, function (index, item) {
+                if (response[0].idprogram_levels == item.idprogram_levels) {
+                  vm.selectedProgramLevels = item;
                   return
                 }
               });
@@ -297,6 +323,29 @@
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);
             vm.secSecondary = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      getAllProgramLevels() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_PROGRAM_LEVELS + `?idprogram=${vm.programId}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                vm.programLevels = response.data.result;
+                return null;
+              }
+              vm.programLevels = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+            vm.programLevels = [];
           });
         } catch (e) {
           console.log(e)
