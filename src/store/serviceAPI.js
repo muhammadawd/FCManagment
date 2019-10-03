@@ -67,6 +67,12 @@ export default {
   UPDATE_PROGRAMS_REQUIRE: 'categories',  // put +/id
   DELETE_PROGRAM_REQUIRE: 'categories', // delete +/id
 
+  ALL_SEMESTERS: 'semester', // get [idprogram]
+  ADD_SEMESTERS: 'semester', // post
+  FIND_SEMESTERS: 'semester', // get  +/id
+  UPDATE_SEMESTERS: 'semester',  // put +/id
+  DELETE_SEMESTERS: 'semester', // delete +/id
+
   ALL_COURSE: 'courses', // get
   ADD_COURSE: 'courses', // post
   FIND_COURSE: 'courses', // get  +/id

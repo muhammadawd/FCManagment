@@ -31,3 +31,10 @@ student need program level how come ??
 prerequiste course all get current course not related
 prerequiste course add must return after add course with related
 prerequiste course find if not found 404 doesn't work
+
+
+---------------------
+semester table programid unique ??
+semester table create Column count doesn't match value count at row 1
+semester validation
+semester idprogram doesn't set into db
