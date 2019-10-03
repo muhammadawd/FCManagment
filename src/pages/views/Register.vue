@@ -140,8 +140,9 @@
 </script>
 <style scoped>
   .login-pt-5 {
-    /*padding-top: 120px;*/
+    padding-top: 120px;
     z-index: 99;
+    margin-top:0;
     position: relative;
   }
 

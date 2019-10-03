@@ -67,6 +67,10 @@ export default {
   UPDATE_PROGRAMS_REQUIRE: 'categories',  // put +/id
   DELETE_PROGRAM_REQUIRE: 'categories', // delete +/id
 
+  ALL_HOURS_SEMESTER: 'semConfigHoursBySemId', // get [idprogram]
+  ADD_HOURS_SEMESTER: 'semConfigHours', // post
+  DELETE_HOURS_SEMESTER: 'semConfigHours', // delete +/id
+
   ALL_SEMESTERS: 'semester', // get [idprogram]
   ADD_SEMESTERS: 'semester', // post
   FIND_SEMESTERS: 'semester', // get  +/id
