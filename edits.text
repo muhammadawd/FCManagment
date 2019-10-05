@@ -40,3 +40,5 @@ semester validation
 semester idprogram doesn't set into db
 semester hours add near to greater تقريب الى اقرب عدد صحيح
 
+مواد التيرم لابد ارسال ال id المستخدم فى المسح
+idopen_semester_course غير موجود لعمل فايند المسئولين

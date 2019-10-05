@@ -67,7 +67,16 @@ export default {
   UPDATE_PROGRAMS_REQUIRE: 'categories',  // put +/id
   DELETE_PROGRAM_REQUIRE: 'categories', // delete +/id
 
-  ALL_HOURS_SEMESTER: 'semConfigHoursBySemId', // get [idprogram]
+  ALL_EXCEPTIONS: 'exceptions', //  get
+  DELETE_EXCEPTIONS: 'exceptions', //  delete +/id
+
+  ALL_STUFF_COURSE_SEMESTER: 'Course_StuffMem_Sem', // get [idsemester]
+
+  ALL_OPENED_COURSE_SEMESTER: 'OpenCourseSemesterbySem', // get [idsemester]
+  ADD_OPENED_COURSE_SEMESTER: 'OpenCourseSemester', // post
+  DELETE_OPENED_COURSE_SEMESTER: 'OpenCourseSemester', // delete +/id
+
+  ALL_HOURS_SEMESTER: 'semConfigHoursBySemId', // get [idsemester]
   ADD_HOURS_SEMESTER: 'semConfigHours', // post
   DELETE_HOURS_SEMESTER: 'semConfigHours', // delete +/id
 

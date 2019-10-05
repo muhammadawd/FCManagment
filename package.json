@@ -16,7 +16,7 @@
     "chartist": "^0.11.0",
     "es6-promise": "^4.2.4",
     "jquery": "^3.4.1",
-    "moment": "^2.24.0",
+    "moment": "github:moment/moment",
     "query-string": "^6.8.3",
     "sweet-modal-vue": "^2.0.0",
     "vue": "^2.6.10",
