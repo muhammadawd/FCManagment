@@ -108,7 +108,7 @@
               response = response.data;
               if (response.status) {
                 vm.$router.push({name: 'login'});
-                alert('Register Success');
+                window.helper.showMessage('success', vm);
                 return 0;
               }
               alert('Validation Error');
