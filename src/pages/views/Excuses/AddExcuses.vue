@@ -27,8 +27,8 @@
 
         <div class="text-center">
           <p-button type="info"
-                    round
-                    @click.native.prevent="updateLecturer">
+                    round>
+                    <!--@click.native.prevent="updateLecturer">-->
             {{$ml.get('add')}}
           </p-button>
         </div>

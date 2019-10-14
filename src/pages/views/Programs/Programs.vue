@@ -31,11 +31,10 @@
             {{$ml.get('add_program')}}
           </router-link>
         </div>
-<!--        <div class="col-md-3 text-right">-->
-<!--          <fg-input type="text"-->
-<!--                    :placeholder="$ml.get('search')">-->
-<!--          </fg-input>-->
-<!--        </div>-->
+        <div class="col-md-3 text-right">
+          <input type="text" class="form-control" @keyup.enter="getAllPrograms" v-model="search_query"
+                 :placeholder="$ml.get('search')">
+        </div>
         <div class="col-md-12 text-left">
           <div class="table-responsive">
             <table class="table table-striped">
@@ -89,6 +88,7 @@
       return {
         all_programs: [],
         statsCards: [],
+        search_query: '',
         // statsCards: [
         //   {
         //     route: "program_grades",
@@ -133,7 +133,7 @@
           cancelButtonText: vm.$ml.get('no')
         }).then((result) => {
           if (result.value) {
-            window.serviceAPI.API().delete(window.serviceAPI.DELETE_PROGRAMS+ `/${program.idprogram}`)
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_PROGRAMS + `/${program.idprogram}`)
               .then((response) => {
                 vm.$root.$children[0].$refs.loader.show_loader = false;
                 $(`#program${program.idprogram}`).remove()
@@ -149,7 +149,7 @@
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
         try {
-          window.serviceAPI.API().get(window.serviceAPI.ALL_PROGRAMS)
+          window.serviceAPI.API().get(window.serviceAPI.ALL_PROGRAMS + `?search_query=${vm.search_query}`)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;

@@ -71,6 +71,7 @@ export default {
   DELETE_EXCEPTIONS: 'exceptions', //  delete +/id
 
   ALL_STUFF_COURSE_SEMESTER: 'Course_StuffMem_Sem', // get [idsemester]
+  ADD_STUFF_COURSE_SEMESTER: 'Course_StuffMem_Sem', // post [idsemester]
 
   ALL_OPENED_COURSE_SEMESTER: 'OpenCourseSemesterbySem', // get [idsemester]
   ADD_OPENED_COURSE_SEMESTER: 'OpenCourseSemester', // post

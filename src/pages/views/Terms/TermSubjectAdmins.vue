@@ -6,13 +6,15 @@
         <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedLecturer" label="name"
                       track-by="name"
                       :options="all_lectures"></multi-select>
-        <div class="text-danger text-left" id="idprogram_categories_error"></div>
+        <div class="text-danger text-left" id="idopen_semester_course_error"></div>
+        <div class="text-danger text-left" id="idstuff_members_error"></div>
         <label class="mt-2">{{$ml.get('is_admin')}}</label>
         <select class="form-control" v-model="isAdmin">
           <option value="1">{{$ml.get('yes')}}</option>
           <option value="0">{{$ml.get('no')}}</option>
         </select>
-        <button class="btn btn-black mt-2">{{$ml.get('add')}}</button>
+        <div class="text-danger text-left" id="isAdmin_error"></div>
+        <button class="btn btn-black mt-2" @click="addStuffCourse()">{{$ml.get('add')}}</button>
       </div>
       <div class="col-md-12 text-left">
         <div class="table-responsive">
@@ -113,6 +115,53 @@
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);
             vm.all_stuff = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      prepareData() {
+        let vm = this;
+        return {
+          idstuff_members: vm.selectedLecturer ? vm.selectedLecturer.idstuff_members : null,
+          isAdmin: vm.isAdmin
+        };
+      },
+      prepareValidationInputs() {
+        return {
+          name: 'input',
+          type: 'input',
+          startDate: 'input',
+          endDate: 'input',
+          startStudentRegDate: 'input',
+          endStudentRegDate: 'input',
+          startStudentEditRegDate: 'input',
+          endStudentEditRegDate: 'input',
+          startSubjectRevokeDate: 'input',
+          endSubjectRevokeDate: 'input',
+          idprogram: 'input',
+        };
+      },
+      addStuffCourse() {
+        // ADD_STUFF_COURSE_SEMESTER
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        let idopen_semester_course = null;
+        let _request_data = vm.prepareData();
+        let request_data = window.helper.prepareObjectToSend(_request_data);
+        console.log(vm.$route.params)
+        console.log(_request_data)
+        // return
+        try {
+          window.serviceAPI.API().post(window.serviceAPI.ADD_STUFF_COURSE_SEMESTER + `?idopen_semester_course=${idopen_semester_course}`, request_data)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.showMessage('success', vm);
+              vm.$router.push({name: 'terms'});
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
           });
         } catch (e) {
           console.log(e)
