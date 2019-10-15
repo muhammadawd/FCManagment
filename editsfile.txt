@@ -42,3 +42,5 @@ semester hours add near to greater تقريب الى اقرب عدد صحيح
 
 مواد التيرم لابد ارسال ال id المستخدم فى المسح
 idopen_semester_course غير موجود لعمل فايند المسئولين
+http://localhost:3600/OpenCourseSemester/2 {delete service} need {+/idopen_semester_course} with get all service
+http://localhost:3000/programLevels?idprogram=1  change to get request

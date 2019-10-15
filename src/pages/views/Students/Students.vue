@@ -7,11 +7,10 @@
           {{$ml.get('add_student')}}
         </router-link>
       </div>
-<!--      <div class="col-md-3 text-right">-->
-<!--        <fg-input type="text"-->
-<!--                  :placeholder="$ml.get('search')">-->
-<!--        </fg-input>-->
-<!--      </div>-->
+      <div class="col-md-3 text-right">
+        <input type="text" class="form-control" @keyup.enter="getAllStudents" v-model="search_query"
+               :placeholder="$ml.get('search')">
+      </div>
       <div class="col-md-12 text-left">
         <div class="table-responsive">
           <table class="table table-striped">
@@ -62,7 +61,8 @@
     name: "Students",
     data() {
       return {
-        all_students: []
+        all_students: [],
+        search_query: ''
       }
     },
     methods: {
@@ -94,7 +94,7 @@
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
         try {
-          window.serviceAPI.API().get(window.serviceAPI.ALL_STUDENTS)
+          window.serviceAPI.API().get(window.serviceAPI.ALL_STUDENTS + `?search_query=${vm.search_query}`)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;

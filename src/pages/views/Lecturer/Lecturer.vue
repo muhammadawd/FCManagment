@@ -8,9 +8,8 @@
         </router-link>
       </div>
       <div class="col-md-3 text-right">
-        <fg-input type="text"
-                  :placeholder="$ml.get('search')">
-        </fg-input>
+        <input type="text" class="form-control" @keyup.enter="getAllStuffMembers" v-model="search_query"
+               :placeholder="$ml.get('search')">
       </div>
       <div class="col-md-12 text-left">
         <div class="table-responsive">
@@ -50,7 +49,8 @@
     name: "Lecturer",
     data() {
       return {
-        all_lectures: []
+        all_lectures: [],
+        search_query: ''
       }
     },
     methods: {
@@ -82,7 +82,7 @@
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
         try {
-          window.serviceAPI.API().get(window.serviceAPI.ALL_STUFF_MEMBERS)
+          window.serviceAPI.API().get(window.serviceAPI.ALL_STUFF_MEMBERS + `?search_query=${vm.search_query}`)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;
