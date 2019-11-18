@@ -34,7 +34,7 @@
                 <td><b>{{item.hoursRequired}}</b></td>
                 <td>
                   <b>
-                    <span class="text-danger" v-if="item.parentIdprogram_categories">({{item.parentIdprogram_categories}})</span>
+                    <span class="text-danger" v-if="item.parentIdprogram_categories">({{item.parentName}}-{{item.parentIdprogram_categories}})</span>
                   </b>
                 </td>
                 <td>

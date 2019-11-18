@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// let BASE_URL = 'https://credit-h-system.herokuapp.com/';
-let BASE_URL = 'http://localhost:3000/';
+let BASE_URL = 'https://credit-h-system.herokuapp.com/';
+// let BASE_URL = 'http://172.20.10.4:3000/';
 
 export default {
   REGISTER_NEW_ACCOUNT: 'users',
@@ -55,7 +55,7 @@ export default {
   UPDATE_PROGRAMS_GRADES: 'grades',  // put +/id
   DELETE_PROGRAM_GRADE: 'grades', // delete +/id
 
-  ALL_PROGRAM_LEVELS: 'programLevels', // get [idprogram]
+  ALL_PROGRAM_LEVELS: 'programLevelsByProgramID', // get [idprogram]
   ADD_PROGRAM_LEVELS: 'programLevels', // post
   FIND_PROGRAM_LEVELS: 'programLevels', // get  +/id
   UPDATE_PROGRAMS_LEVELS: 'programLevels',  // put +/id
@@ -72,6 +72,7 @@ export default {
 
   ALL_STUFF_COURSE_SEMESTER: 'Course_StuffMem_Sem', // get [idsemester]
   ADD_STUFF_COURSE_SEMESTER: 'Course_StuffMem_Sem', // post [idsemester]
+  DELETE_STUFF_COURSE_SEMESTER: 'Course_StuffMem_Sem', // delete [idsemester]
 
   ALL_OPENED_COURSE_SEMESTER: 'OpenCourseSemesterbySem', // get [idsemester]
   ADD_OPENED_COURSE_SEMESTER: 'OpenCourseSemester', // post
@@ -95,6 +96,16 @@ export default {
   FIND_COURSE_REQUIRE: 'courseprerequisteListByCourseId', // get  +/id
   ADD_COURSE_REQUIRE: 'courseprerequiste', // delete  +/id
   DELETE_COURSE_REQUIRE: 'courseprerequiste', // delete  +/id
+
+  GET_STUDENT_COURSE_SEM_ATTENDANCE: 'studentCourseSemAttendance',
+  GET_STUDENT_COURSE_SEM_PRACTICAL: 'studentCourseSemPractical',
+  GET_STUDENT_COURSE_SEM_FINAL: 'studentCourseSemFinal',
+  POST_STUDENT_COURSE_SEM_ATTENDANCE: 'studentsAttendancePercentage',
+  POST_STUDENT_COURSE_SEM_PRACTICAL: 'studentsGradesPractical',
+  POST_STUDENT_COURSE_SEM_FINAL: 'studentsFinalMarks',
+  GET_ALL_GRADES_INFO_SPECIFIC: 'studentsAllGradesInfoORSpcefic',
+  GET_DEGREE_STATUS: 'utils/get_status_degree',
+
 
   API: () => {
     let token = null;

@@ -81,8 +81,8 @@ export default new MLCreate({
       min_hours_required: 'Min Hours Required',
       year_working_percent: 'Year Working Percent',
       final_percent: 'Final Percent',
-      year_working_success_percent: 'Year Working Success Percent',
-      final_success_percent: 'Final Success Percent',
+      year_working_success_percent: 'Final Success Percent',
+      final_success_percent: 'Total Success Percent',
       final_degree: 'Final Degree',
       get_started: 'Get Start',
       login: 'Login',
@@ -169,6 +169,7 @@ export default new MLCreate({
       countries: 'Countries',
       governments: 'Governments',
       cities: 'Cities',
+      upload_data: 'Upload Data',
     }),
 
     new MLanguage('ar').create({
@@ -333,6 +334,7 @@ export default new MLCreate({
       countries: 'الدول',
       governments: 'المحافظات',
       cities: 'المدن',
+      upload_data: 'رفع البيانات',
     })
   ]
 })

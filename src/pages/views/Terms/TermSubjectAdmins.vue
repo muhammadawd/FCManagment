@@ -26,17 +26,20 @@
             <th width="50"></th>
             </thead>
             <tbody>
-            <tr v-for="(item, index) in all_stuff" :key="index" :id="'stuff'+item">
-              <td>1</td>
+            <tr v-for="(item, index) in all_stuff" :key="index" :id="'stuff_admin'+item.idsemester">
+              <td>{{index+1}}</td>
               <td>
-                <b>Mohamed Awd</b>
+                <b>{{item.name}}</b>
               </td>
               <td>
-                <b><span class="text-danger">{{$ml.get('no')}}</span></b>
+                <b>
+                  <span v-if="!item.isAdmin" class="text-danger">{{$ml.get('no')}}</span>
+                  <span v-if="item.isAdmin" class="text-success">{{$ml.get('yes')}}</span>
+                </b>
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger">
+                  <button class="btn btn-danger" @click="deleteSemesterAdmin(item)">
                     <i class="ti-trash"></i>
                   </button>
                 </div>
@@ -77,7 +80,7 @@
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
         try {
-          window.serviceAPI.API().get(window.serviceAPI.ALL_STUFF_MEMBERS)
+          window.serviceAPI.API().get(window.serviceAPI.ALL_STUFF_MEMBERS + `?search_query=`)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;
@@ -101,8 +104,10 @@
         vm.$root.$children[0].$refs.loader.show_loader = true;
         let term_id = vm.$route.params.term_id;
         let course_id = vm.$route.params.course_id;
+        let open_course_sem_id = vm.$route.params.open_course_sem_id;
+        console.log(vm.$route.params)
         try {
-          window.serviceAPI.API().get(window.serviceAPI.ALL_STUFF_COURSE_SEMESTER + `?idsemester=${term_id}&course_id=${course_id}`)
+          window.serviceAPI.API().get(window.serviceAPI.ALL_STUFF_COURSE_SEMESTER + `?idsemester=${term_id}&idcourses=${course_id}`)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;
@@ -142,17 +147,39 @@
           idprogram: 'input',
         };
       },
+      deleteSemesterAdmin(term) {
+        let vm = this;
+        let open_course_sem_id = vm.$route.params.open_course_sem_id;
+        vm.$swal({
+          title: vm.$ml.get('confirm_warning'),
+          text: vm.$ml.get('are_you_sure'),
+          type: 'warning',
+          showLoaderOnConfirm: true,
+          showCancelButton: true,
+          confirmButtonText: vm.$ml.get('yes'),
+          cancelButtonText: vm.$ml.get('no')
+        }).then((result) => {
+          if (result.value) {
+              // ?idstuff_members=1&idopen_semester_course=1
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_STUFF_COURSE_SEMESTER + `/?idstuff_members=${term.idstuff_members}&idopen_semester_course=${open_course_sem_id}`)
+              .then((response) => {
+                vm.$root.$children[0].$refs.loader.show_loader = false;
+                $(`#stuff_admin${term.idsemester}`).remove()
+              }).catch((error) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.handleError(error, vm);
+            });
+          }
+        });
+      },
       addStuffCourse() {
         // ADD_STUFF_COURSE_SEMESTER
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
 
-        let idopen_semester_course = null;
+        let idopen_semester_course = vm.$route.params.open_course_sem_id;
         let _request_data = vm.prepareData();
         let request_data = window.helper.prepareObjectToSend(_request_data);
-        console.log(vm.$route.params)
-        console.log(_request_data)
-        // return
         try {
           window.serviceAPI.API().post(window.serviceAPI.ADD_STUFF_COURSE_SEMESTER + `?idopen_semester_course=${idopen_semester_course}`, request_data)
             .then((response) => {

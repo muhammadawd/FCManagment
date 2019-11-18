@@ -33,7 +33,7 @@
                 </b>
               </td>
               <td>
-                <router-link :to="{name:'term_subject_admin',params:{course_id:item.idcourses,term_id:$route.params.term_id}}"
+                <router-link :to="{name:'term_subject_admin',params:{course_id:item.idcourses,open_course_sem_id:item.idopen_semester_course,term_id:$route.params.term_id}}"
                              class="btn btn-outline-primary">
                   {{$ml.get('admins')}}
                 </router-link>

@@ -22,7 +22,7 @@
           </div>
           <div class="col-md-3 text-left">
             <label> {{$ml.get('require_type')}} </label>
-            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedUnder" label="name"
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedUnder" :custom-label="nameWithLang"
                           track-by="name"
                           :options="all_caregories"></multi-select>
           </div>
@@ -184,6 +184,9 @@
 
     },
     methods: {
+      nameWithLang ({ name, parentName }) {
+      return `${name}—${parentName}`
+    },
       findProgramRequire() {
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
