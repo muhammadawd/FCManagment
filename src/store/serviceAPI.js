@@ -126,8 +126,8 @@ export default {
       withCredentials: false,
       headers: {
         'Authorization': token ? `Bearer ${token}` : '',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        // 'Content-Type': 'application/json',
         'Accept': 'application/json'
       }
     })
