@@ -188,7 +188,7 @@
         let request_data = window.helper.prepareObjectToSend(_request_data);
         console.log(request_data)
         try {
-          window.serviceAPI.API().post(window.serviceAPI.ADD_STUDENTS + `?idprogram=${1}`, request_data)
+          window.serviceAPI.API().post(window.serviceAPI.ADD_STUDENTS + `?idprogram=${vm.programId}`, request_data)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               window.helper.showMessage('success', vm);

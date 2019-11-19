@@ -67,7 +67,8 @@ export default {
   UPDATE_PROGRAMS_REQUIRE: 'categories',  // put +/id
   DELETE_PROGRAM_REQUIRE: 'categories', // delete +/id
 
-  ALL_EXCEPTIONS: 'exceptions', //  get
+  ALL_EXCEPTIONS: 'exceptions_with_filter', //  get
+  ADD_EXCEPTIONS: 'exceptions', //  post
   DELETE_EXCEPTIONS: 'exceptions', //  delete +/id
 
   ALL_STUFF_COURSE_SEMESTER: 'Course_StuffMem_Sem', // get [idsemester]
@@ -106,6 +107,9 @@ export default {
   GET_ALL_GRADES_INFO_SPECIFIC: 'studentsAllGradesInfoORSpcefic',
   GET_DEGREE_STATUS: 'utils/get_status_degree',
 
+  GET_STUDENT_COURSE_CONFIG:'getStudentCoursesToSelectAndConfig',
+  REGISTER_STUDENT_COURSE:'registerCourseForStudent',
+
 
   API: () => {
     let token = null;
@@ -122,7 +126,8 @@ export default {
       withCredentials: false,
       headers: {
         'Authorization': token ? `Bearer ${token}` : '',
-        'Content-Type': 'application/x-www-form-urlencoded',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         'Accept': 'application/json'
       }
     })

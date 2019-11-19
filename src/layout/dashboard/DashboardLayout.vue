@@ -9,14 +9,14 @@
         <sidebar-link :to="{name:'students'}" :name="$ml.get('students')" icon="ti-user"/>
         <sidebar-link :to="{name:'programs'}" :name="$ml.get('program')" icon="ti-server"/>
         <sidebar-link :to="{name:'courses'}" :name="$ml.get('courses')" icon="ti-agenda"/>
-        <!--        <sidebar-link :to="{name:'excuses'}" :name="$ml.get('excuses')" icon="ti-alert"/>-->
         <sidebar-link :to="{name:'terms'}" :name="$ml.get('terms')" icon="ti-desktop"/>
-        <!--        <sidebar-link :to="{name:'student_subject'}" :name="$ml.get('student_subject')" icon="ti-face-smile"/>-->
-        <sidebar-link :to="{name:'degrees'}" :name="$ml.get('degrees')" icon="ti-zip"/>
+<!--        <sidebar-link :to="{name:'excuses'}" :name="$ml.get('excuses')" icon="ti-alert"/>-->
+        <sidebar-link :to="{name:'student_subject'}" :name="$ml.get('student_subject')" icon="ti-face-smile"/>
+<!--        <sidebar-link :to="{name:'degrees'}" :name="$ml.get('degrees')" icon="ti-zip"/>-->
       </template>
       <mobile-menu>
         <li class="nav-item">
-          <a class="nav-link"  @click="changeLang()">
+          <a class="nav-link" @click="changeLang()">
             <i class="ti-panel"></i>
             <p>{{$ml.get($ml.current)}}</p>
           </a>

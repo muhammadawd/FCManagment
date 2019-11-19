@@ -4,10 +4,24 @@
       <div class="col-md-9 text-left">
         <div class="row">
 
-          <div class="col-md-6 text-left">
+          <div class="col-md-8 text-left">
             <label> {{$ml.get('student_name')}} </label>
-            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedStudent"
-                          :options="[]"></multi-select>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedStudent" label="name"
+                          track-by="name"
+                          :options="allStudents" open-direction="bottom" :multiple="false" :searchable="true"
+                          :loading="isLoading" :internal-search="true" :clear-on-select="false"
+                          :close-on-select="true"></multi-select>
+            <div class="text-left text-danger" id="idStudent_error"></div>
+          </div>
+
+          <div class="col-md-4 text-left">
+            <label>{{$ml.get('term')}}</label>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedTerm" label="name"
+                          track-by="name"
+                          :options="all_terms" open-direction="bottom" :multiple="false" :searchable="true"
+                          :loading="isLoading" :internal-search="true" :clear-on-select="false"
+                          :close-on-select="true"></multi-select>
+            <div class="text-left text-danger" id="idSemister_error"></div>
           </div>
         </div>
 
@@ -16,6 +30,15 @@
         <!--{{$ml.get('add_lecturer')}}-->
         <!--</router-link>-->
       </div>
+
+      <div class="col-md-12 text-center mt-2">
+        <button class="btn btn-default" @click="getStudentSubjects()">
+          {{$ml.get('search')}}
+        </button>
+        <div class="text-left text-danger" id="idPrograme_error"></div>
+        <div class="text-left text-danger" id="coursesIds_error"></div>
+      </div>
+
       <div class="col-md-3 text-right">
         <!--<fg-input type="text"-->
         <!--:placeholder="$ml.get('search')">-->
@@ -28,59 +51,26 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('course_name')}}</th>
-            <th>{{$ml.get('lecturer_name')}}</th>
-            <th>{{$ml.get('notes')}}</th>
-            <th>{{$ml.get('hour_price')}}</th>
+            <!--            <th>{{$ml.get('lecturer_name')}}</th>-->
+            <!--            <th>{{$ml.get('notes')}}</th>-->
+            <!--            <th>{{$ml.get('hour_price')}}</th>-->
             <th width="50"></th>
             </thead>
             <tbody>
-            <!--<tr v-for="(item, index) in data" :key="index">-->
-            <tr>
+            <tr v-for="(item, index) in allAvailableCourses" :key="index">
               <td>1</td>
-              <td><b>Software Engineering</b></td>
+              <td><b>{{item.name}}</b></td>
+              <!--              <td>-->
+              <!--                <b>{{item}}</b>-->
+              <!--              </td>-->
+              <!--              <td>-->
+              <!--                <b>-</b>-->
+              <!--              </td>-->
+              <!--              <td>-->
+              <!--                <b>130.00 ج م</b>-->
+              <!--              </td>-->
               <td>
-                <b>Dr. Islam Samir Osama Ahmedi</b>
-              </td>
-              <td>
-                <b>-</b>
-              </td>
-              <td>
-                <b>120.00 ج م</b>
-              </td>
-              <td>
-                <input type="checkbox" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td><b>Introduction To Computer Science</b></td>
-              <td>
-                <b>Dr. Hamdi Mousa</b>
-              </td>
-              <td>
-                <b>-</b>
-              </td>
-              <td>
-                <b>80.00 ج م</b>
-              </td>
-              <td>
-                <input type="checkbox" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td><b>Data Mining</b></td>
-              <td>
-                <b>Dr. Osama Emara</b>
-              </td>
-              <td>
-                <b>-</b>
-              </td>
-              <td>
-                <b>130.00 ج م</b>
-              </td>
-              <td>
-                <input type="checkbox" class="form-control">
+                <input type="checkbox" class="form-control" v-model="checked_courses" :value="item.idcourses">
               </td>
             </tr>
             </tbody>
@@ -95,7 +85,8 @@
         </div>
       </div>
       <div class="col-md-12 text-center">
-        <button class="btn btn-secondary" @click="showModal()">{{$ml.get('add')}}</button>
+        <button class="btn btn-secondary" @click="studentRegisterSubjects()">{{$ml.get('add')}}</button>
+<!--        <button class="btn btn-secondary" @click="showModal()">{{$ml.get('add')}}</button>-->
       </div>
     </div>
     <sweet-modal :ref="'invoiceModal'" hide-close-button blocking overlay-theme="dark">
@@ -159,11 +150,155 @@
       SweetModal,
       SweetModalTab
     },
-    name: "Lecturer",
+    name: "AddStudentSubject",
     data() {
-      return {selectedStudent: null}
+      return {
+        isLoading: false,
+        search_query: '',
+        programId: null,
+        notes: null,
+
+        selectedStudent: null,
+        allStudents: [],
+
+        selectedTerm: null,
+        all_terms: [],
+        checked_courses: [],
+
+        allAvailableCourses: [],
+      }
+    },
+    mounted() {
+      let vm = this;
+      try {
+        let auth_data = window.ls.getFromStorage('auth_data');
+        vm.programId = JSON.parse(auth_data).idprogram;
+      } catch (e) {
+        vm.programId = null;
+      }
+      vm.getAllStudents();
+      vm.getAllSemester();
     },
     methods: {
+      getStudentSubjects() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        let program_id = vm.programId;
+        let idstudents = vm.selectedStudent ? vm.selectedStudent.idstudents : null;
+        let idsemester = vm.selectedTerm ? vm.selectedTerm.idsemester : null;
+
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.GET_STUDENT_COURSE_CONFIG + `?idStudent=${idstudents}&idSemister=${idsemester}&idPrograme=${program_id}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              let status = response.data.status;
+              let data = response.data.data;
+              if (status) {
+                vm.allAvailableCourses = data.allAvailableCourses;
+                return
+              }
+              vm.allAvailableCourses = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            vm.allAvailableCourses = [];
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      prepareData() {
+        let vm = this;
+        return {
+          idStudent: vm.selectedStudent ? vm.selectedStudent.idstudents : null,
+          idSemister: vm.selectedTerm ? vm.selectedTerm.idsemester : null,
+          idPrograme: vm.programId,
+          coursesIds: vm.checked_courses,
+        };
+      },
+      prepareValidationInputs() {
+        return {
+          idStudent: 'input',
+          idSemister: 'input',
+          idPrograme: 'input',
+          coursesIds: 'input',
+        };
+      },
+      studentRegisterSubjects() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        let _request_data = vm.prepareData();
+        let request_data = window.helper.prepareObjectToSend(_request_data);
+        console.log(_request_data)
+        console.log(request_data)
+        try {
+          window.serviceAPI.API().post(window.serviceAPI.REGISTER_STUDENT_COURSE, request_data)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              let status = response.data.status;
+              let data = response.data.data;
+              console.log(data)
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+
+      getAllStudents() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_STUDENTS + `?search_query=${vm.search_query}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                vm.allStudents = response.data.result;
+                return null;
+              }
+              vm.allStudents = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+            vm.allStudents = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+
+      getAllSemester() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_SEMESTERS + `?idprogram=${vm.programId}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                vm.all_terms = response.data.result;
+                return null;
+              }
+              vm.all_terms = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+            vm.all_terms = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+
       showModal() {
         let vm = this;
         vm.$refs.invoiceModal.open();

@@ -67,31 +67,33 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('student_name')}}</th>
-            <th>{{$ml.get('course_name')}}</th>
-            <th>{{$ml.get('final')}}</th>
-            <th>{{$ml.get('working_task')}}</th>
+<!--            <th>{{$ml.get('course_name')}}</th>-->
             <th>{{$ml.get('absence_percent')}}</th>
+            <th>{{$ml.get('working_task')}}</th>
+            <th>{{$ml.get('final')}}</th>
             <th>{{$ml.get('student_status')}}</th>
             <th width="50"></th>
             </thead>
             <tbody>
-            <!--<tr v-for="(item, index) in data" :key="index">-->
-            <!--            <tr>-->
-            <!--              <td>1</td>-->
-            <!--              <td><b>Islam Samir Osama Ahmedi</b></td>-->
-            <!--              <td><b>JAVA SE</b></td>-->
-            <!--              <td><b>67</b></td>-->
-            <!--              <td><b>10</b></td>-->
-            <!--              <td><b>8</b></td>-->
-            <!--              <td><b>ناجح</b></td>-->
-            <!--              <td>-->
-            <!--                <div class="btn-group direction-inverse">-->
-            <!--                  <router-link :to="{name:'edit_degrees',params:{'id':1}}" class="btn btn-info">-->
-            <!--                    <i class="ti-save"></i>-->
-            <!--                  </router-link>-->
-            <!--                </div>-->
-            <!--              </td>-->
-            <!--            </tr> -->
+            <tr v-for="(item, index) in allStudentGrades" :key="index">
+              <td>{{item.idstudents}}</td>
+              <td><b>{{item['Student Name']}}</b></td>
+<!--              <td><b>JAVA SE</b></td>-->
+              <td><b>{{item.attendancePercentage}}</b></td>
+              <td><b>{{item.practicalMark}}</b></td>
+              <td><b>{{item.finalMark}}</b></td>
+              <td>
+                <b>{{item['Student Status']}}</b>
+                <span class="text-info">({{item.gradeString}})</span>
+              </td>
+              <td>
+                <div class="btn-group direction-inverse">
+                  <router-link :to="{name:'edit_degrees',params:{'id':item.idstudents}}" class="btn btn-info">
+                    <i class="ti-save"></i>
+                  </router-link>
+                </div>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -157,6 +159,7 @@
       return {
         search_query: null,
         isLoading: false,
+        allStudentGrades:[],
         selectedStudent: null,
         allStudents: [],
         selectedFileType: null,
@@ -245,20 +248,24 @@
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;
               if (response.status) {
+                vm.selectedOpenSemesterCourse = null;
                 vm.all_term_courses = response.data.result;
                 return null;
               }
+              vm.selectedOpenSemesterCourse = null;
               vm.all_term_courses = [];
 
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);
+            vm.selectedOpenSemesterCourse = null;
             vm.all_term_courses = [];
           });
         } catch (e) {
           console.log(e)
         }
       },
+
       switchGetFileService() {
         let vm = this;
         let expression = vm.selectedFileType.id;
@@ -442,18 +449,14 @@
         let student_id = vm.selectedStudent ? vm.selectedStudent.idstudents : null
         let current_course_sem_id = vm.selectedOpenSemesterCourse ? vm.selectedOpenSemesterCourse.idopen_semester_course : null;
         try {
-          window.serviceAPI.API().get(window.serviceAPI.GET_ALL_GRADES_INFO_SPECIFIC + `?idopen_semester_course=${current_course_sem_id}&studentId=${student_id}`)
+          window.serviceAPI.API().post(window.serviceAPI.GET_ALL_GRADES_INFO_SPECIFIC + `?idopen_semester_course=${current_course_sem_id}&studentId=${student_id}`)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               let status = response.data.status;
-              let data = response.data.data;
 
-              // if (status) {
-              //   let data = response.data.data.result;
-              vm.dataFromXlsx = [];
-              vm.preparedDataFromXlsx = [];
-              vm.$refs[modal].close();
-              // }
+              if (status) {
+                vm.allStudentGrades = response.data.data.result;
+              }
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);
