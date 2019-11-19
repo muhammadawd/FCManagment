@@ -59,7 +59,7 @@
             <tbody>
             <tr v-for="(item, index) in allAvailableCourses" :key="index">
               <td>1</td>
-              <td><b>{{item.name}}</b></td>
+              <td><b>{{item.name}}</b> <span class="text-danger">({{item.code}})</span></td>
               <!--              <td>-->
               <!--                <b>{{item}}</b>-->
               <!--              </td>-->
