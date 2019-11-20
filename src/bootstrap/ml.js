@@ -170,6 +170,7 @@ export default new MLCreate({
       governments: 'Governments',
       cities: 'Cities',
       upload_data: 'Upload Data',
+      import_error: 'Error While Uploading Data Please Check Data Correctly',
     }),
 
     new MLanguage('ar').create({
@@ -335,6 +336,7 @@ export default new MLCreate({
       governments: 'المحافظات',
       cities: 'المدن',
       upload_data: 'رفع البيانات',
+      import_error: 'حدث خطأ فى رفع البيانات برجاء مراجعة البيانات بشكل صحيح',
     })
   ]
 })

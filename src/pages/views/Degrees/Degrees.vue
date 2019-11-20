@@ -46,12 +46,14 @@
                       :loading="isLoading" :internal-search="true" :clear-on-select="false"
                       :close-on-select="true"></multi-select>
         <br>
-        <button @click="triggerFileClick()" class="btn btn-success btn-outline-success" :disabled="!selectedFileType || !selectedOpenSemesterCourse">
+        <button @click="triggerFileClick()" class="btn btn-success btn-outline-success"
+                :disabled="!selectedFileType || !selectedOpenSemesterCourse">
           <i class="ti-upload"></i>
           {{$ml.get('upload_file')}}
         </button>
         &nbsp;
-        <button @click="getFileDownload()" class="btn btn-success btn-outline-success" :disabled="!selectedFileType || !selectedOpenSemesterCourse">
+        <button @click="getFileDownload()" class="btn btn-success btn-outline-success"
+                :disabled="!selectedFileType || !selectedOpenSemesterCourse">
           <i class="ti-download"></i>
           {{$ml.get('download_file')}}
         </button>
@@ -67,7 +69,7 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('student_name')}}</th>
-<!--            <th>{{$ml.get('course_name')}}</th>-->
+            <!--            <th>{{$ml.get('course_name')}}</th>-->
             <th>{{$ml.get('absence_percent')}}</th>
             <th>{{$ml.get('working_task')}}</th>
             <th>{{$ml.get('final')}}</th>
@@ -78,7 +80,7 @@
             <tr v-for="(item, index) in allStudentGrades" :key="index">
               <td>{{item.idstudents}}</td>
               <td><b>{{item['Student Name']}}</b></td>
-<!--              <td><b>JAVA SE</b></td>-->
+              <!--              <td><b>JAVA SE</b></td>-->
               <td><b>{{item.attendancePercentage}}</b></td>
               <td><b>{{item.practicalMark}}</b></td>
               <td><b>{{item.finalMark}}</b></td>
@@ -102,6 +104,9 @@
     <sweet-modal :ref="'xlsxModal'" hide-close-button blocking overlay-theme="dark" width="50%">
 
       <div class="row">
+        <div class="col-md-12  text-danger text-left" v-if="import_error">
+         <i class="ti ti-info-alt"></i> {{import_error}}
+        </div>
         <div class="col-md-12">
           <table class="table table-bordered">
             <thead>
@@ -157,9 +162,10 @@
     },
     data() {
       return {
-        search_query: null,
+        search_query: '',
+        import_error: '',
         isLoading: false,
-        allStudentGrades:[],
+        allStudentGrades: [],
         selectedStudent: null,
         allStudents: [],
         selectedFileType: null,
@@ -230,10 +236,10 @@
         }
       },
 
-      termChanged(){
+      termChanged() {
         let vm = this;
         let idsemester = vm.selectedTerm ? vm.selectedTerm.idsemester : null;
-        if (idsemester){
+        if (idsemester) {
           vm.getAllOpenedCourse(idsemester);
         }
       },
@@ -419,7 +425,7 @@
           // _request_data[_key] = JSON.stringify(vm.preparedDataFromXlsx);
           let request_data = window.helper.prepareObjectToSend(_request_data);
           console.log(_request_data)
-          console.log(request_data)
+          // console.log(request_data)
           let current_course_sem_id = vm.selectedOpenSemesterCourse ? vm.selectedOpenSemesterCourse.idopen_semester_course : null;
           window.serviceAPI.API().post(url.imports + `?idopen_semester_course=${current_course_sem_id}`, request_data)
             .then((response) => {
@@ -432,10 +438,12 @@
               vm.dataFromXlsx = [];
               vm.preparedDataFromXlsx = [];
               vm.$refs[modal].close();
+              vm.import_error = '';
               // }
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
-            window.helper.handleError(error, vm);
+            vm.import_error = vm.$ml.get('import_error');
+            // window.helper.handleError(error, vm);
           });
         } catch (e) {
           console.log(e)

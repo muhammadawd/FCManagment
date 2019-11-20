@@ -6,6 +6,9 @@
              tag="li">
     <a class="nav-link">
       <slot>
+        <span class="badge badge-info position-absolute" v-if="soon">
+          غير مكتمل
+        </span>
         <i v-if="icon" :class="icon"></i>
         <p>{{name}}</p>
       </slot>
@@ -32,6 +35,7 @@
     props: {
       name: String,
       icon: String,
+      soon: String,
       tag: {
         type: String,
         default: "router-link"
