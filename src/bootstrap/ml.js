@@ -183,10 +183,14 @@ export default new MLCreate({
       cancel: 'Cancel',
       accept: 'Accept',
       receipt: 'Receipt',
+      email: 'email',
+      crop: 'crop',
     }),
 
     new MLanguage('ar').create({
+      email: 'البريد الالكتروني',
       receipt: 'الايصال',
+      crop: 'قص',
       all: '  الكل',
       accept: 'قبول',
       cancel: 'الغاء',

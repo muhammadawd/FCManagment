@@ -44,7 +44,10 @@ export const helper = {
     }
     for (const [key, value] of Object.entries(errors)) {
       // console.log(key, value)
-      document.getElementById(key + '_error').innerText = value[0].msg;
+      try {
+        document.getElementById(key + '_error').innerText = value[0].msg;
+      } catch (e) {
+      }
     }
   },
   handleError: (error, vm) => {

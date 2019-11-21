@@ -50,13 +50,13 @@
                           :close-on-select="true"></multi-select>
             <div class="text-danger text-left" id="idopen_semester_course_error"></div>
           </div>
-<!--          <div class="col-md-6">-->
-<!--            <select class="form-control mt-3" v-model="status">-->
-<!--              <option value="all">{{$ml.get('all')}}</option>-->
-<!--              <option value="accepted">{{$ml.get('status_accepted')}}</option>-->
-<!--              <option value="rejected">{{$ml.get('status_rejected')}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
+          <!--          <div class="col-md-6">-->
+          <!--            <select class="form-control mt-3" v-model="status">-->
+          <!--              <option value="all">{{$ml.get('all')}}</option>-->
+          <!--              <option value="accepted">{{$ml.get('status_accepted')}}</option>-->
+          <!--              <option value="rejected">{{$ml.get('status_rejected')}}</option>-->
+          <!--            </select>-->
+          <!--          </div>-->
         </div>
         <div class="text-left mt-2">
           <button class="btn btn-secondary" @click="getAllExceptions()">
@@ -94,10 +94,10 @@
                   <button class="btn btn-danger" @click="deleteException(item)">
                     <i class="ti-trash"></i>
                   </button>
-                  <button class="btn btn-primary" @click="acceptException(item)">
+                  <button class="btn btn-primary" v-if="item.status == 'جديد'" @click="acceptException(item)">
                     {{$ml.get('accept')}}
                   </button>
-                  <button class="btn btn-warning" @click="cancelException(item)">
+                  <button class="btn btn-warning" v-if="item.status == 'جديد'" @click="cancelException(item)">
                     {{$ml.get('cancel')}}
                   </button>
                   <router-link :to="{name:'edit_excuses',params:{'id':item.idexception_decision_council}}"
@@ -207,7 +207,7 @@
             window.serviceAPI.API().post(window.serviceAPI.CANCEL_EXCEPTIONS, {'idexception_decision_council': exception.idexception_decision_council})
               .then((response) => {
                 vm.$root.$children[0].$refs.loader.show_loader = false;
-                location.reload()
+                // location.reload()
               }).catch((error) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               window.helper.handleError(error, vm);
@@ -233,7 +233,7 @@
             window.serviceAPI.API().post(exception.url, {'idexception_decision_council': exception.idexception_decision_council})
               .then((response) => {
                 vm.$root.$children[0].$refs.loader.show_loader = false;
-                location.reload()
+                // location.reload()
               }).catch((error) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               window.helper.handleError(error, vm);

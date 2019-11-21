@@ -12,6 +12,14 @@
             </fg-input>
             <div class="text-danger text-left" id="name_error"></div>
           </div>
+          <div class="col-md-3">
+            <fg-input type="text"
+                      v-model="email"
+                      :label="$ml.get('email')"
+                      :placeholder="$ml.get('email')">
+            </fg-input>
+            <div class="text-danger text-left" id="email_error"></div>
+          </div>
         </div>
 
         <div class="row">
@@ -90,6 +98,35 @@
                           :close-on-select="true"></multi-select>
             <div class="text-danger text-left" id="idprogram_levels_error"></div>
           </div>
+          <div class="col-md-4 text-left">
+            <label>{{$ml.get('image')}}</label> <br>
+            <input
+              ref="input"
+              type="file"
+              name="image"
+              accept="image/*"
+              @change="setImage"
+            />
+            <div class="content">
+              <section class="cropper-area">
+                <div class="img-cropper">
+                  <vue-cropper
+                    ref="cropper"
+                    :aspect-ratio="16 / 9"
+                    :src="imgSrc"
+                    preview=".preview"
+                  />
+                </div>
+              </section>
+            </div>
+            <div class="text-center">
+              <button :disabled="!imgSrc" @click="cropImage()" class="btn btn-secondary mt-2">{{$ml.get('crop')}}</button>
+            </div>
+          </div>
+          <div class="col-md-2 text-center" v-if="cropImg">
+            <label class="font-weight-bold mt-3">preview</label>
+            <img class="img-fluid mt-5 shadow" :src="cropImg" alt="">
+          </div>
         </div>
 
         <div class="text-center">
@@ -108,16 +145,24 @@
 <script>
   import multiSelect from 'vue-multiselect'
   import 'vue-multiselect/dist/vue-multiselect.min.css';
+  import VueCropper from 'vue-cropperjs';
+  import 'cropperjs/dist/cropper.css';
 
   export default {
     name: "EditStudent",
     components: {
-      multiSelect
+      multiSelect,
+      VueCropper
     },
     data() {
       return {
         isLoading: false,
         name: null,
+        stu_img: null,
+        imgSrc: '',
+        cropImg: '',
+        data: null,
+        email: null,
         nationalNum: null,
         address: null,
         countries: [],
@@ -158,10 +203,33 @@
       }
     },
     methods: {
+      setImage(e) {
+        const file = e.target.files[0];
+        if (file.type.indexOf('image/') === -1) {
+          console.log('Please select an image file');
+          return;
+        }
+        if (typeof FileReader === 'function') {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            this.imgSrc = event.target.result;
+            this.$refs.cropper.replace(event.target.result);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          console.log('Sorry, FileReader API not supported');
+        }
+      },
+      cropImage() {
+        this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
+      },
       prepareData() {
         let vm = this;
         return {
           name: vm.name,
+          imgSrc: vm.imgSrc,
+          stu_img: vm.stu_img,
+          email: vm.email,
           nationalNum: vm.nationalNum,
           address: vm.address,
           idprogram_levels: vm.selectedProgramLevels ? vm.selectedProgramLevels.idprogram_levels : null,
@@ -172,6 +240,8 @@
       prepareValidationInputs() {
         return {
           name: 'input',
+          stu_img: 'input',
+          email: 'input',
           nationalNum: 'input',
           address: 'input',
           idprogram_levels: 'input',
@@ -190,6 +260,8 @@
               response = response.data.data.result;
               console.log(response)
               vm.name = response[0].name;
+              vm.stu_img = response[0].stu_img;
+              vm.email = response[0].email;
               vm.address = response[0].address;
               vm.nationalNum = response[0].nationalNum;
               $.each(vm.secSecondary, function (index, item) {
