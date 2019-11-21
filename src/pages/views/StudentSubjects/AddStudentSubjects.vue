@@ -51,24 +51,24 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('course_name')}}</th>
-            <!--            <th>{{$ml.get('lecturer_name')}}</th>-->
-            <!--            <th>{{$ml.get('notes')}}</th>-->
-            <!--            <th>{{$ml.get('hour_price')}}</th>-->
+            <th>{{$ml.get('hour_count')}}</th>
+            <th>{{$ml.get('hour_price')}}</th>
+            <th>{{$ml.get('total')}}</th>
             <th width="50"></th>
             </thead>
             <tbody>
             <tr v-for="(item, index) in allAvailableCourses" :key="index">
-              <td>1</td>
-              <td><b>{{item.name}}</b> <span class="text-danger">({{item.code}})</span></td>
-              <!--              <td>-->
-              <!--                <b>{{item}}</b>-->
-              <!--              </td>-->
-              <!--              <td>-->
-              <!--                <b>-</b>-->
-              <!--              </td>-->
-              <!--              <td>-->
-              <!--                <b>130.00 ج م</b>-->
-              <!--              </td>-->
+              <td>{{index+1}}</td>
+              <td><b>{{item.name}} </b> <span class="text-danger" dir="ltr"> ({{item.code}}) </span></td>
+              <td>
+                <b>{{item.actualLectureHourNum + item.actualPracticalHourNum}}</b>
+              </td>
+              <td>
+                <b>300 ج م</b>
+              </td>
+              <td>
+                <b>{{(item.actualLectureHourNum + item.actualPracticalHourNum) * 300}} ج م</b>
+              </td>
               <td>
                 <input type="checkbox" class="form-control" v-model="checked_courses" :value="item.idcourses">
               </td>
@@ -86,7 +86,7 @@
       </div>
       <div class="col-md-12 text-center">
         <button class="btn btn-secondary" @click="studentRegisterSubjects()">{{$ml.get('add')}}</button>
-<!--        <button class="btn btn-secondary" @click="showModal()">{{$ml.get('add')}}</button>-->
+        <!--        <button class="btn btn-secondary" @click="showModal()">{{$ml.get('add')}}</button>-->
       </div>
     </div>
     <sweet-modal :ref="'invoiceModal'" hide-close-button blocking overlay-theme="dark">

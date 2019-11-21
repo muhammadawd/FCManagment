@@ -7,7 +7,7 @@
     <a class="nav-link">
       <slot>
         <span class="badge badge-info position-absolute" v-if="soon">
-          غير مكتمل
+          {{soon}}
         </span>
         <i v-if="icon" :class="icon"></i>
         <p>{{name}}</p>

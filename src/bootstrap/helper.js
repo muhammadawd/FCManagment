@@ -1,12 +1,32 @@
 export const helper = {
   prepareObjectToSend: (request_data) => {
+    // return JSON.stringify(request_data).replace(/\\n/g, "\\n")
+    //   .replace(/\\'/g, "\\'")
+    //   .replace(/\\"/g, '\\"')
+    //   .replace(/\\&/g, "\\&")
+    //   .replace(/\\r/g, "\\r")
+    //   .replace(/\\t/g, "\\t")
+    //   .replace(/\\b/g, "\\b")
+    //   .replace(/\\f/g, "\\f");
+    // return this.JSON_to_URLEncoded(request_data)
+    return request_data;
     return queryString.stringify(request_data);
   },
-  showMessage: (type,vm) => {
+  JSON_to_URLEncoded(element, key, list) {
+    var list = list || [];
+    if (typeof (element) == 'object') {
+      for (var idx in element)
+        JSON_to_URLEncoded(element[idx], key ? key + '[' + idx + ']' : idx, list);
+    } else {
+      list.push(key + '=' + encodeURIComponent(element));
+    }
+    return list.join('&');
+  },
+  showMessage: (type, vm) => {
     vm.$notify({
       icon: "ti-info",
-      horizontalAlign:'center',
-      verticalAlign:'top',
+      horizontalAlign: 'center',
+      verticalAlign: 'top',
       title: `${type == 'success' ? vm.$ml.get('success') : vm.$ml.get('error')}`,
       message: `${type == 'success' ? vm.$ml.get('success_msg') : vm.$ml.get('error_msg')}`,
       type: type
@@ -39,8 +59,8 @@ export const helper = {
 
       vm.$notify({
         icon: "ti-info",
-        horizontalAlign:'center',
-        verticalAlign:'top',
+        horizontalAlign: 'center',
+        verticalAlign: 'top',
         title: `Server Error Code : ${error.response.status}`,
         message: `${error.response.data.message}`,
         type: 'danger'
@@ -50,8 +70,8 @@ export const helper = {
       // The request was made but no response was received
       vm.$notify({
         icon: "ti-info",
-        horizontalAlign:'center',
-        verticalAlign:'top',
+        horizontalAlign: 'center',
+        verticalAlign: 'top',
         title: `${vm.$ml.get('error')}`,
         message: `No Response From Server`,
         type: 'danger'
@@ -61,8 +81,8 @@ export const helper = {
       // Something happened in setting up the request that triggered an Error
       vm.$notify({
         icon: "ti-info",
-        horizontalAlign:'center',
-        verticalAlign:'top',
+        horizontalAlign: 'center',
+        verticalAlign: 'top',
         title: `${vm.$ml.get('error')}`,
         message: error.message,
         type: 'danger'

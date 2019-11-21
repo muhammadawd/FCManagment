@@ -67,9 +67,12 @@ export default {
   UPDATE_PROGRAMS_REQUIRE: 'categories',  // put +/id
   DELETE_PROGRAM_REQUIRE: 'categories', // delete +/id
 
-  ALL_EXCEPTIONS: 'exceptions_with_filter', //  get
+  ALL_EXCEPTIONS: 'exceptions', //  get
   ADD_EXCEPTIONS: 'exceptions', //  post
+  FIND_EXCEPTION: 'exceptions', //   get  +/id
+  UPDATE_EXCEPTION: 'exceptions', //   put +/id
   DELETE_EXCEPTIONS: 'exceptions', //  delete +/id
+  CANCEL_EXCEPTIONS: 'exceptions/cancel', //  delete +/id
 
   ALL_STUFF_COURSE_SEMESTER: 'Course_StuffMem_Sem', // get [idsemester]
   ADD_STUFF_COURSE_SEMESTER: 'Course_StuffMem_Sem', // post [idsemester]
@@ -105,10 +108,15 @@ export default {
   POST_STUDENT_COURSE_SEM_PRACTICAL: 'studentsGradesPractical',
   POST_STUDENT_COURSE_SEM_FINAL: 'studentsFinalMarks',
   GET_ALL_GRADES_INFO_SPECIFIC: 'studentsAllGradesInfoORSpcefic',
+  GET_DEGREE_INFO: 'findStudentsGradeInfo',
+  UPDATE_DEGREE_INFO: 'students/updateStudentGrade',
   GET_DEGREE_STATUS: 'utils/get_status_degree',
 
-  GET_STUDENT_COURSE_CONFIG:'getStudentCoursesToSelectAndConfig',
-  REGISTER_STUDENT_COURSE:'registerCourseForStudent',
+  GET_STUDENT_COURSE_CONFIG: 'getStudentCoursesToSelectAndConfig',
+  REGISTER_STUDENT_COURSE: 'registerCourseForStudent',
+  GET_STUDENT_COURSE_PAYMENTS: 'getTotalPaidAndRemaing',
+  WITHDRAW_STUDENT_COURSE: 'withdrawCourseForStudent',
+  POST_STUDENT_COURSE_PAYMENTS: 'payHours',
 
 
   API: () => {
@@ -126,8 +134,8 @@ export default {
       withCredentials: false,
       headers: {
         'Authorization': token ? `Bearer ${token}` : '',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        // 'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         'Accept': 'application/json'
       }
     })

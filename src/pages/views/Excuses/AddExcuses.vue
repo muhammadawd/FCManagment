@@ -36,6 +36,13 @@
                           :close-on-select="true"></multi-select>
             <div class="text-danger text-left" id="idopen_semester_course_error"></div>
           </div>
+          <div class="col-md-2 text-left">
+            <label>{{$ml.get('type')}}</label>
+            <select class="form-control" v-model="type">
+              <option v-for="(_type, index) in all_types" :value="_type" :key="index">{{$ml.get(_type)}}</option>
+            </select>
+            <div class="text-danger text-left" id="type_error"></div>
+          </div>
         </div>
 
         <div class="row">
@@ -73,10 +80,14 @@
         isLoading: false,
         programId: null,
         notes: null,
+        search_query: '',
 
         selectedStudent: null,
         allStudents: [],
-
+        type: '',
+        all_types: [
+          'final_exam', 'attend'
+        ],
         selectedTerm: null,
         all_terms: [],
 
@@ -84,7 +95,7 @@
         all_term_courses: [],
       }
     },
-    mounted(){
+    mounted() {
       let vm = this;
       try {
         let auth_data = window.ls.getFromStorage('auth_data');
@@ -150,10 +161,10 @@
         }
       },
 
-      termChanged(){
+      termChanged() {
         let vm = this;
         let idsemester = vm.selectedTerm ? vm.selectedTerm.idsemester : null;
-        if (idsemester){
+        if (idsemester) {
           vm.getAllOpenedCourse(idsemester);
         }
       },
@@ -189,18 +200,22 @@
       prepareData() {
         let vm = this;
         return {
+          type: vm.type,
           notes: vm.notes,
           idstudents: vm.selectedStudent ? vm.selectedStudent.idstudents : null,
           idopen_semester_course: vm.selectedOpenSemesterCourse ? vm.selectedOpenSemesterCourse.idopen_semester_course : null,
         };
       },
+
       prepareValidationInputs() {
         return {
+          type: 'input',
           notes: 'input',
           idstudents: 'input',
           idopen_semester_course: 'input',
         };
       },
+
       addExcuse() {
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;

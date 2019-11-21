@@ -98,7 +98,7 @@ const routes = [
         meta: {requiresAuth: true}
       },
       {
-        path: "degrees/edit_degrees/:id",
+        path: "degrees/edit_degrees/:studentId/:idopen_semester_course",
         name: "edit_degrees",
         component: EditDegrees,
         meta: {requiresAuth: true}

@@ -12,6 +12,7 @@
                           :options="allStudents" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
+            <div class="text-danger text-left" id="studentId_error"></div>
             <!--          <div class="text-danger text-left" id="idsecondary_depts_error"></div>-->
           </div>
           <div class="col-md-6">
@@ -22,7 +23,6 @@
                           :options="all_terms" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
-
           </div>
           <div class="col-md-6">
             <label>{{$ml.get('course_name')}}</label>
@@ -31,10 +31,12 @@
                           :options="all_term_courses" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
+            <div class="text-danger text-left" id="idopen_semester_course_error"></div>
           </div>
         </div>
         <br>
-        <button @click="getAllStudentGrades()" class="btn btn-secondary">{{$ml.get('search')}}</button>
+        <button @click="getAllStudentGrades()" class="btn btn-secondary"
+                :disabled="!selectedOpenSemesterCourse">{{$ml.get('search')}}</button>
       </div>
 
 
@@ -90,7 +92,10 @@
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <router-link :to="{name:'edit_degrees',params:{'id':item.idstudents}}" class="btn btn-info">
+                  <!--                  idopen_semester_course=8&studentId=2-->
+                  <router-link
+                    :to="{name:'edit_degrees',params:{'studentId':item.idstudents,'idopen_semester_course':(selectedOpenSemesterCourse ? selectedOpenSemesterCourse.idopen_semester_course : '')}}"
+                    class="btn btn-info">
                     <i class="ti-save"></i>
                   </router-link>
                 </div>
@@ -105,7 +110,7 @@
 
       <div class="row">
         <div class="col-md-12  text-danger text-left" v-if="import_error">
-         <i class="ti ti-info-alt"></i> {{import_error}}
+          <i class="ti ti-info-alt"></i> {{import_error}}
         </div>
         <div class="col-md-12">
           <table class="table table-bordered">
@@ -454,8 +459,8 @@
       getAllStudentGrades() {
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
-        let student_id = vm.selectedStudent ? vm.selectedStudent.idstudents : null
-        let current_course_sem_id = vm.selectedOpenSemesterCourse ? vm.selectedOpenSemesterCourse.idopen_semester_course : null;
+        let student_id = vm.selectedStudent ? vm.selectedStudent.idstudents : ''
+        let current_course_sem_id = vm.selectedOpenSemesterCourse ? vm.selectedOpenSemesterCourse.idopen_semester_course : '';
         try {
           window.serviceAPI.API().post(window.serviceAPI.GET_ALL_GRADES_INFO_SPECIFIC + `?idopen_semester_course=${current_course_sem_id}&studentId=${student_id}`)
             .then((response) => {
