@@ -10,10 +10,10 @@
         <sidebar-link :to="{name:'programs'}" :name="$ml.get('program')" icon="ti-server"/>
         <sidebar-link :to="{name:'courses'}" :name="$ml.get('courses')" icon="ti-agenda"/>
         <sidebar-link :to="{name:'terms'}" :name="$ml.get('terms')" icon="ti-desktop"/>
-        <sidebar-link :to="{name:'excuses'}" :name="$ml.get('excuses')" soon="مؤجل" icon="ti-alert"/>
-        <sidebar-link :to="{name:'student_subject'}" :name="$ml.get('student_subject')" soon="يراجع"
+        <sidebar-link :to="{name:'excuses'}" :name="$ml.get('excuses')" soon="جديد" icon="ti-alert"/>
+        <sidebar-link :to="{name:'student_subject'}" :name="$ml.get('student_subject')" soon="جديد"
                       icon="ti-face-smile"/>
-        <sidebar-link :to="{name:'degrees'}" :name="$ml.get('degrees')" soon="يراجع" icon="ti-zip"/>
+        <sidebar-link :to="{name:'degrees'}" :name="$ml.get('degrees')" soon="جديد" icon="ti-zip"/>
       </template>
       <mobile-menu>
         <li class="nav-item">
