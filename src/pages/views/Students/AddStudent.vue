@@ -180,7 +180,7 @@
       let vm = this;
       try {
         let auth_data = window.ls.getFromStorage('auth_data');
-        vm.programId = JSON.parse(auth_data).idprogram;
+        vm.programId = JSON.parse(auth_data).userInfo.idprogram;
       } catch (e) {
         vm.programId = null;
       }
@@ -250,10 +250,12 @@
       addStudent() {
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
-
         let _request_data = vm.prepareData();
+
         let request_data = window.helper.prepareObjectToSend(_request_data);
         console.log(request_data)
+        // vm.$root.$children[0].$refs.loader.show_loader = false;
+        // return
         try {
           window.serviceAPI.API().post(window.serviceAPI.ADD_STUDENTS + `?idprogram=${vm.programId}`, request_data)
             .then((response) => {

@@ -205,7 +205,7 @@
       let vm = this;
       try {
         let auth_data = window.ls.getFromStorage('auth_data');
-        vm.programId = JSON.parse(auth_data).idprogram;
+        vm.programId = JSON.parse(auth_data).userInfo.idprogram;
       } catch (e) {
         vm.programId = null;
       }
