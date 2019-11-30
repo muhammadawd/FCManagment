@@ -50,6 +50,7 @@ import EditCourse from "@/pages/views/Courses/EditCourse.vue";
 import Country from "@/pages/views/Country/Country.vue";
 import AddCountry from "@/pages/views/Country/AddCountry.vue";
 import AddGovernment from "@/pages/views/Country/AddGovernment.vue";
+import AddCity from "@/pages/views/Country/AddCity.vue";
 import EditCountry from "@/pages/views/Country/EditCountry.vue";
 import EditGovernment from "@/pages/views/Country/EditGovernment.vue";
 
@@ -196,6 +197,12 @@ const routes = [
         path: "countries/add_government",
         name: "add_government",
         component: AddGovernment,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "countries/add_city",
+        name: "add_city",
+        component: AddCity,
         meta: {requiresAuth: true}
       },
 

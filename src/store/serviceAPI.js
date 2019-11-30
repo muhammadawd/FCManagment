@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let BASE_URL = 'https://credit-h-system.herokuapp.com/';
-// let BASE_URL = 'http://172.20.10.4:3000/';
+// let BASE_URL = 'http://localhost:3000/';
 
 export default {
   REGISTER_NEW_ACCOUNT: 'users',

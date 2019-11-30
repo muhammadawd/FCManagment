@@ -11,6 +11,11 @@
           <i class="ti-plus"></i>
           {{$ml.get('add_government')}}
         </router-link>
+        &nbsp;
+        <router-link :to="{name:'add_city'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+          <i class="ti-plus"></i>
+          {{$ml.get('add_city')}}
+        </router-link>
       </div>
       <!--<div class="col-md-3 text-right">-->
       <!--<fg-input type="text"-->
@@ -136,9 +141,9 @@
                   <td>
                     <div class="btn-group direction-inverse">
                       &nbsp;
-                      <!--                      <button class="btn btn-danger" @click="deleteCity(item)">-->
-                      <!--                        <i class="ti-trash"></i>-->
-                      <!--                      </button>-->
+                      <button class="btn btn-danger" @click="deleteCity(item)">
+                        <i class="ti-trash"></i>
+                      </button>
                       <!--                      <router-link :to="{name:'edit_country',params:{'id':item.idcities}}" class="btn btn-info">-->
                       <!--                        <i class="ti-save"></i>-->
                       <!--                      </router-link>-->
@@ -248,6 +253,30 @@
               .then((response) => {
                 vm.$root.$children[0].$refs.loader.show_loader = false;
                 $(`#governorate${governrate.idgovernorates}`).hide()
+              }).catch((error) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              window.helper.handleError(error, vm);
+            });
+
+          }
+        });
+      },
+      deleteCity(city) {
+        let vm = this;
+        vm.$swal({
+          title: vm.$ml.get('confirm_warning'),
+          text: vm.$ml.get('are_you_sure'),
+          type: 'warning',
+          showLoaderOnConfirm: true,
+          showCancelButton: true,
+          confirmButtonText: vm.$ml.get('yes'),
+          cancelButtonText: vm.$ml.get('no')
+        }).then((result) => {
+          if (result.value) {
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_CITIES + `/${city.idcities}`)
+              .then((response) => {
+                vm.$root.$children[0].$refs.loader.show_loader = false;
+                $(`#city${city.idcities}`).hide()
               }).catch((error) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               window.helper.handleError(error, vm);
