@@ -186,6 +186,7 @@ export default new MLCreate({
       receipt: 'Receipt',
       email: 'email',
       crop: 'crop',
+      registered: 'registered',
     }),
 
     new MLanguage('ar').create({
@@ -367,6 +368,7 @@ export default new MLCreate({
       import_error: 'حدث خطأ فى رفع البيانات برجاء مراجعة البيانات بشكل صحيح',
       final_exam: 'عذر امتحان نهائي ',
       attend: 'عذر غياب',
+      registered: 'مسجلة'
     })
   ]
 })

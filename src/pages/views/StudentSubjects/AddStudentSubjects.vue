@@ -73,6 +73,25 @@
                 <input type="checkbox" class="form-control" v-model="checked_courses" :value="item.idcourses">
               </td>
             </tr>
+            <tr v-for="(item, index) in allAvailableSelectedCourses" :key="index">
+              <td>{{index+1}}</td>
+              <td><b>{{item.name}} </b> <span class="text-danger" dir="ltr"> ({{item.code}}) </span></td>
+              <td>
+                <b>{{item.actualLectureHourNum + item.actualPracticalHourNum}}</b>
+              </td>
+              <td>
+                <b>300 ج م</b>
+              </td>
+              <td>
+                <b>{{(item.actualLectureHourNum + item.actualPracticalHourNum) * 300}} ج م</b>
+              </td>
+              <td>
+                <b class="text-success">
+                  <i class="ti ti-check text-success"></i>
+                  <span>{{$ml.get('registered')}}</span>
+                </b>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -166,6 +185,7 @@
         checked_courses: [],
 
         allAvailableCourses: [],
+        allAvailableSelectedCourses: [],
       }
     },
     mounted() {
@@ -195,13 +215,16 @@
               let data = response.data.data;
               if (status) {
                 vm.allAvailableCourses = data.allAvailableCourses;
+                vm.allAvailableSelectedCourses = data.allAvailableSelectedCourses;
                 return
               }
               vm.allAvailableCourses = [];
+              vm.allAvailableSelectedCourses = [];
 
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             vm.allAvailableCourses = [];
+            vm.allAvailableSelectedCourses = [];
             window.helper.handleError(error, vm);
           });
         } catch (e) {
