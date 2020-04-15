@@ -1,8 +1,15 @@
 <template>
   <card class="card-user">
     <div class="row">
+      <div class="col-md-12" v-if="!selectedFileType || !selectedOpenSemesterCourse">
+        <div class="alert alert-danger text-left">
+              <span>
+                  <b> {{$ml.get('note')}} </b>
+                {{$ml.get('degree_hint')}}
+              </span>
+        </div>
+      </div>
       <div class="col-md-8 text-left">
-
 
         <div class="row">
           <div class="col-md-12">
@@ -36,7 +43,8 @@
         </div>
         <br>
         <button @click="getAllStudentGrades()" class="btn btn-secondary"
-                :disabled="!selectedOpenSemesterCourse">{{$ml.get('search')}}</button>
+                :disabled="!selectedOpenSemesterCourse">{{$ml.get('search')}}
+        </button>
       </div>
 
 
@@ -205,7 +213,7 @@
       let vm = this;
       try {
         let auth_data = window.ls.getFromStorage('auth_data');
-        vm.programId = JSON.parse(auth_data).userInfo.idprogram;
+        vm.programId = vm.$helper.getCurrentProgramId();
       } catch (e) {
         vm.programId = null;
       }

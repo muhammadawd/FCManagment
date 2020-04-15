@@ -40,7 +40,11 @@ export const helper = {
   },
   addErrors: (inputs, errors) => {
     for (let input in inputs) {
-      document.getElementById(input + '_error').innerText = ' ';
+      try {
+        document.getElementById(input + '_error').innerText = ' ';
+      } catch (e) {
+        console.log(input)
+      }
     }
     for (const [key, value] of Object.entries(errors)) {
       // console.log(key, value)
@@ -57,6 +61,11 @@ export const helper = {
       if (error.response.status == 422) {
         let validations = window.helper.validationGroupingData(error.response.data.data, 'param');
         window.helper.addErrors(vm.prepareValidationInputs(), validations);
+        return;
+      }
+
+      if (error.response.status == 401) {
+        vm.$router.push({name: 'login'});
         return;
       }
 
@@ -92,5 +101,11 @@ export const helper = {
       });
       // console.log('Error', error.message);
     }
+  },
+  getCurrentProgramId() {
+    let current_program_id = window.ls.getFromStorage('current_program_id');
+    current_program_id = JSON.parse(current_program_id);
+
+    return 1;
   }
-}
+};

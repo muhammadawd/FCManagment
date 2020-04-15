@@ -1,8 +1,10 @@
 <template>
-  <card class="card-user" :title="$ml.get('course_requirement')">
+  <card class="card-user direction"
+        :title="$ml.get('course_requirement') +  ($route.query.name ? '('+$route.query.name+')' : '')">
     <div class="row">
       <div class="col-md-4 text-left">
-        <label>{{$ml.get('name')}}</label>
+        <label>{{$ml.get('name')}}
+        </label>
         <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedUnder" label="name"
                       track-by="name"
                       :options="all_courses" open-direction="bottom" :multiple="false" :searchable="true"
@@ -19,6 +21,7 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('name')}}</th>
+            <th>{{$ml.get('name_en')}}</th>
             <th width="50"></th>
             </thead>
             <tbody>
@@ -27,6 +30,9 @@
               <td>{{index + 1}}</td>
               <td>
                 <b>{{item.name}}</b>
+              </td>
+              <td>
+                <b>{{item.name_en}}</b>
               </td>
               <td>
                 <div class="btn-group direction-inverse">

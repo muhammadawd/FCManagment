@@ -17,6 +17,7 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('name')}}</th>
+            <th>{{$ml.get('name_en')}}</th>
             <th>{{$ml.get('requires')}}</th>
             <th width="50"></th>
             </thead>
@@ -27,8 +28,12 @@
                 <b>{{item.name}}</b>
               </td>
               <td>
-                <router-link :to="{name:'course_requirement',params:{'course_id':item.idcourses}}"
-                             class="btn btn-outline-primary">
+                <b>{{item.name_en}}</b>
+              </td>
+              <td>
+                <router-link
+                  :to="{name:'course_requirement',params:{'course_id':item.idcourses},query:{'name':item.name}}"
+                  class="btn btn-outline-primary">
                   <b>{{$ml.get('requires')}}</b>
                 </router-link>
               </td>

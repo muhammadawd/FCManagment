@@ -21,6 +21,14 @@
             </fg-input>
             <div class="text-danger text-left" id="name_error"></div>
           </div>
+          <div class="col-md-4">
+            <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="name_en_error"></div>
+          </div>
         </div>
 
         <div class="text-center">
@@ -50,6 +58,7 @@
         isLoading: false,
         selectedCountry: null,
         name: null,
+        name_en: null,
         countries: [],
       }
     },
@@ -98,12 +107,14 @@
         let vm = this;
         return {
           name: vm.name,
+          name_en: vm.name_en,
           idcountries: vm.selectedCountry ? vm.selectedCountry.idcountries : null,
         };
       },
       prepareValidationInputs() {
         return {
           name: 'input',
+          name_en: 'input',
           idcountries: 'input',
         };
       },
@@ -138,6 +149,7 @@
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data.data.result;
               vm.name = response[0].name;
+              vm.name_en = response[0].name_en;
               vm.getAllCountries(response[0].idcountries);
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;

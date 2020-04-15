@@ -46,7 +46,10 @@
                 <tbody>
                 <tr v-for="(item , index) in all_countries" :key="index" :id="'country'+item.idcountries">
                   <td>{{index+1}}</td>
-                  <td><b>{{item.name}}</b></td>
+                  <td>
+                    <b>{{item.name}}</b>
+                    <b v-if="item.name_en"> - ({{item.name_en}})</b>
+                  </td>
                   <td>
                     <div class="btn-group direction-inverse">
                       <button class="btn btn-danger" @click="deleteCountry(item)">
@@ -85,8 +88,14 @@
                 <tbody>
                 <tr v-for="(item , index) in all_governrates" :key="index" :id="'governorate'+item.idgovernorates">
                   <td>{{index+1}}</td>
-                  <td><b v-if="selectedCountry">{{selectedCountry.name}}</b></td>
-                  <td><b>{{item.name}}</b></td>
+                  <td>
+                    <b v-if="selectedCountry">{{selectedCountry.name}}</b>
+                    <b v-if="selectedCountry && selectedCountry.name_en"> - ({{selectedCountry.name_en}})</b>
+                  </td>
+                  <td>
+                    <b>{{item.name}}</b>
+                    <b v-if="item.name_en"> - ({{item.name_en}})</b>
+                  </td>
                   <td>
                     <div class="btn-group direction-inverse">
                       <button class="btn btn-danger" @click="deleteGovernrate(item)">
@@ -135,9 +144,18 @@
                 <tbody>
                 <tr v-for="(item , index) in cities" :key="index" :id="'city'+item.idcities">
                   <td>{{index+1}}</td>
-                  <td><b v-if="selectedCountry2">{{selectedCountry2.name}}</b></td>
-                  <td><b v-if="selectedGovernment">{{selectedGovernment.name}}</b></td>
-                  <td><b>{{item.name}}</b></td>
+                  <td>
+                    <b v-if="selectedCountry2">{{selectedCountry2.name}}</b>
+                    <b v-if="selectedCountry2 && selectedCountry2.name_en"> - ({{selectedCountry2.name_en}})</b>
+                  </td>
+                  <td>
+                    <b v-if="selectedGovernment">{{selectedGovernment.name}}</b>
+                    <b v-if="selectedGovernment && selectedGovernment.name_en"> - ({{selectedGovernment.name_en}})</b>
+                  </td>
+                  <td>
+                    <b>{{item.name}}</b>
+                    <b v-if="item.name_en"> - ({{item.name_en}})</b>
+                  </td>
                   <td>
                     <div class="btn-group direction-inverse">
                       &nbsp;

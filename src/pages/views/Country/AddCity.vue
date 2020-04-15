@@ -20,6 +20,7 @@
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
           </div>
+          <div class="col-md-12"></div>
           <div class="col-md-4">
             <fg-input type="text"
                       v-model="name"
@@ -27,6 +28,14 @@
                       :placeholder="$ml.get('name')">
             </fg-input>
             <div class="text-danger text-left" id="name_error"></div>
+          </div>
+          <div class="col-md-4">
+            <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="name_en_error"></div>
           </div>
         </div>
 
@@ -60,6 +69,7 @@
         selectedGovernment: null,
         all_governrates: [],
         name: null,
+        name_en: null,
       }
     },
     mounted() {
@@ -133,12 +143,14 @@
         let vm = this;
         return {
           name: vm.name,
+          name_en: vm.name_en,
           idgovernorates: vm.selectedGovernment ? vm.selectedGovernment.idgovernorates : null,
         };
       },
       prepareValidationInputs() {
         return {
           name: 'input',
+          name_en: 'input',
         };
       },
       addCity() {

@@ -41,6 +41,7 @@
               <thead>
               <th width="50">#</th>
               <th>{{$ml.get('name')}}</th>
+              <th>{{$ml.get('name_en')}}</th>
               <th>{{$ml.get('hours_need_grade')}}</th>
               <th>{{$ml.get('min_number_grade')}}</th>
               <th>{{$ml.get('max_fail_percent')}}</th>
@@ -50,6 +51,7 @@
               <tr v-for="(item, index) in all_programs" :key="index" :id="'program'+item.idprogram">
                 <td>1</td>
                 <td><b>{{item.name}}</b></td>
+                <td><b>{{item.name_en}}</b></td>
                 <td><b>{{item.numOfHourForGrad}}</b></td>
                 <td><b>{{item.minSemestersForGrad}}</b></td>
                 <td><b>{{item.maxPercentageAssignedForFailedCourses}}</b></td>

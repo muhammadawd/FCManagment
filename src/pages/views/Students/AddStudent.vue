@@ -107,7 +107,7 @@
               @change="setImage"
             />
             <div class="content">
-              <section class="cropper-area">
+              <section class="cropper-area" v-if="imgSrc">
                 <div class="img-cropper">
                   <vue-cropper
                     ref="cropper"
@@ -121,6 +121,7 @@
             <div class="text-center">
               <button :disabled="!imgSrc" @click="cropImage()" class="btn btn-secondary mt-2">{{$ml.get('crop')}}</button>
             </div>
+            <div class="text-danger text-left" id="stu_img_error"></div>
           </div>
           <div class="col-md-2 text-center" v-if="cropImg">
             <label class="font-weight-bold mt-3">preview</label>
@@ -180,7 +181,7 @@
       let vm = this;
       try {
         let auth_data = window.ls.getFromStorage('auth_data');
-        vm.programId = JSON.parse(auth_data).userInfo.idprogram;
+        vm.programId = vm.$helper.getCurrentProgramId();
       } catch (e) {
         vm.programId = null;
       }

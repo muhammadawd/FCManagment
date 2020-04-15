@@ -12,6 +12,14 @@
             </fg-input>
             <div class="text-danger text-left" id="name_error"></div>
           </div>
+          <div class="col-md-4">
+            <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="name_en_error"></div>
+          </div>
         </div>
 
         <div class="text-center">
@@ -32,7 +40,8 @@
     name: "AddCountry",
     data() {
       return {
-        name: null
+        name: null,
+        name_en: null,
       }
     },
     methods: {
@@ -40,11 +49,13 @@
         let vm = this;
         return {
           name: vm.name,
+          name_en: vm.name_en,
         };
       },
       prepareValidationInputs() {
         return {
           name: 'input',
+          name_en: 'input',
         };
       },
       addCountry() {

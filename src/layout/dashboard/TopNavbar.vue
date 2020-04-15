@@ -20,14 +20,14 @@
             </a>
           </li>
           <drop-down class="nav-item"
-                     :title="$ml.get('notification')"
+                     :title="$ml.get('selectProgram')"
                      title-classes="nav-link"
-                     icon="ti-bell">
-            <a class="dropdown-item" href="#">Notification 1</a>
-            <a class="dropdown-item" href="#">Notification 2</a>
-            <a class="dropdown-item" href="#">Notification 3</a>
-            <a class="dropdown-item" href="#">Notification 4</a>
-            <a class="dropdown-item" href="#">Another notification</a>
+                     icon="ti-server">
+            <a v-for="(program , key) in programs" class="dropdown-item" href="#"
+               @click.prevent="changeCurrentProgram(program.idprogram)">
+              <i class="fa fa-check text--info" v-if="program.idprogram == $helper.getCurrentProgramId()"></i>
+              {{program.name}}
+            </a>
           </drop-down>
           <li class="nav-item">
             <a href="#" @click="logout()" class="nav-link">
@@ -54,11 +54,42 @@
     },
     data() {
       return {
-        activeNotifications: false
+        activeNotifications: false,
+        programs: [],
       };
     },
+    mounted() {
+      this.getAllPrograms();
+    },
     methods: {
-      logout(){
+      changeCurrentProgram(program_id) {
+        ls.saveToStorage('current_program_id', program_id)
+        location.reload()
+      },
+      getAllPrograms() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.ALL_PROGRAMS)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                vm.programs = response.data;
+                return null;
+              }
+              vm.programs = [];
+
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+            vm.programs = [];
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      logout() {
         ls.clearAllStorage('auth_data');
         this.$router.push({name: 'login'});
       },

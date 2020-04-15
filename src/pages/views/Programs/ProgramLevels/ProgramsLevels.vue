@@ -18,6 +18,7 @@
               <thead>
               <th width="50">#</th>
               <th>{{$ml.get('name')}}</th>
+              <th>{{$ml.get('name_en')}}</th>
               <th>{{$ml.get('min_hour_level')}}</th>
               <th width="50"></th>
               </thead>
@@ -25,6 +26,7 @@
               <tr v-for="(item, index) in all_levels" :key="index" :id="'level'+item.idprogram_levels">
                 <td>{{index +1}}</td>
                 <td><b>{{item.name}}</b></td>
+                <td><b>{{item.name_en}}</b></td>
                 <td><b>{{item.requiredHourToBeInThisLevel}}</b></td>
                 <td>
                   <div class="btn-group direction-inverse">

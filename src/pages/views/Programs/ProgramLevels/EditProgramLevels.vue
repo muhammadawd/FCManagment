@@ -13,6 +13,14 @@
             </fg-input>
             <div class="text-left text-danger" id="name_error"></div>
           </div>
+          <div class="col-md-4">
+            <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-left text-danger" id="name_en_error"></div>
+          </div>
           <div class="col-md-3">
             <fg-input type="text"
                       v-model="requiredHourToBeInThisLevel"
@@ -42,6 +50,7 @@
     data() {
       return {
         name: null,
+        name_en: null,
         requiredHourToBeInThisLevel: null,
       }
     },
@@ -53,12 +62,14 @@
         let vm = this;
         return {
           name: vm.name,
+          name_en: vm.name_en,
           requiredHourToBeInThisLevel: vm.requiredHourToBeInThisLevel,
         };
       },
       prepareValidationInputs() {
         return {
           name: 'input',
+          name_en: 'input',
           requiredHourToBeInThisLevel: 'input',
         };
       },
@@ -73,6 +84,7 @@
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data.data.result;
               vm.name = response[0].name;
+              vm.name_en = response[0].name_en;
               vm.requiredHourToBeInThisLevel = response[0].requiredHourToBeInThisLevel;
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;

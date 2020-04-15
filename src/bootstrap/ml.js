@@ -22,7 +22,8 @@ export default new MLCreate({
       add_lecturer: 'Add Lecturer',
       edit_lecturer: 'Edit Lecturer',
       id: 'ID',
-      name: 'Name',
+      name: 'Name Arabic',
+      name_en: 'Name English',
       sec_section: 'secondary sections',
       add_sec_section: 'Add secondary section',
       edit_sec_section: 'Edit secondary section',
@@ -186,7 +187,9 @@ export default new MLCreate({
       receipt: 'Receipt',
       email: 'email',
       crop: 'crop',
+      degree_hint: 'first, you have to choose file type and subject',
       registered: 'registered',
+      selectProgram: 'select program',
     }),
 
     new MLanguage('ar').create({
@@ -212,7 +215,8 @@ export default new MLCreate({
       edit_lecturer: 'تعديل محاضر',
       id: 'رقم مسلسل',
       type: 'النوع',
-      name: 'الاسم',
+      name: 'الاسم اللغة العربية',
+      name_en: 'الاسم باللغة الانجليزية',
       sec_section: 'اقسام الثانوية العامة',
       add_sec_section: 'اضافة قسم الثانوية العامة',
       edit_sec_section: 'تعديل قسم الثانوية العامة',
@@ -294,11 +298,12 @@ export default new MLCreate({
       course_requirement: 'متطلبات الكورس',
       logout: 'تسجيل الخروج',
       term_subjects: 'مواد التيرم',
-      term_subject_hours: 'ساعات التيرم',
+      term_subject_hours: 'الحدود الدنوى والقصوى لساعات التسجيل',
       admins: 'المسئولون',
       is_admin: 'هل هو مدير',
       yes: 'نعم',
       no: 'ﻻ',
+      degree_hint: 'يجب عليك اختيار المادة وتحديد نوع الملف اولا',
       gpa_from: 'GPA من',
       gpa_to: 'GPA الى',
       max_hours: 'عدد الساعات القصوى',
@@ -368,7 +373,8 @@ export default new MLCreate({
       import_error: 'حدث خطأ فى رفع البيانات برجاء مراجعة البيانات بشكل صحيح',
       final_exam: 'عذر امتحان نهائي ',
       attend: 'عذر غياب',
-      registered: 'مسجلة'
+      registered: 'مسجلة',
+      selectProgram: 'البرامج الحالية'
     })
   ]
 })

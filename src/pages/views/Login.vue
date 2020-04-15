@@ -72,7 +72,13 @@
               response = response.data;
               if (response.status) {
 
-                ls.saveToStorage('auth_data', response.data);
+                window.ls.saveToStorage('auth_data', response.data);
+                let current_program_id = null;
+                if (response.data.userInfo.idprogram.length) {
+                  current_program_id = response.data.userInfo.idprogram[0]
+                }
+
+                window.ls.saveToStorage('current_program_id', current_program_id);
                 window.helper.showMessage('success', vm);
                 vm.$router.push({name: 'dashboard'});
                 return 0;
@@ -94,7 +100,7 @@
   .login-pt-5 {
     padding-top: 120px;
     z-index: 99;
-    margin-top:0;
+    margin-top: 0;
     position: relative;
   }
 

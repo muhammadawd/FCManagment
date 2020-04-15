@@ -12,6 +12,14 @@
             </fg-input>
             <div class="text-left text-danger" id="name_error"></div>
           </div>
+          <div class="col-md-4">
+            <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-left text-danger" id="name_en_error"></div>
+          </div>
           <div class="col-md-8">
             <fg-input type="text"
                       v-model="note"
@@ -41,6 +49,7 @@
     data() {
       return {
         name: null,
+        name_en: null,
         note: null
       }
     },
@@ -59,6 +68,7 @@
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data.data.result;
               vm.name = response[0].name;
+              vm.name_en = response[0].name_en;
               vm.note = response[0].note;
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
@@ -76,6 +86,7 @@
         let vm = this;
         return {
           name: vm.name,
+          name_en: vm.name_en,
           note: vm.note,
         };
       },
@@ -83,6 +94,7 @@
         return {
           note: 'input',
           name: 'input',
+          name_en: 'input',
         };
       },
       editSecDept() {

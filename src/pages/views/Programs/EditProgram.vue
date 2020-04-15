@@ -13,6 +13,15 @@
             </fg-input>
             <div class="text-left text-danger" id="name_error"></div>
           </div>
+          <div class="col-md-3">
+
+            <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-left text-danger" id="name_en_error"></div>
+          </div>
           <div class="col-md-12"></div>
           <div class="col-md-4">
             <fg-input type="text"
@@ -59,6 +68,7 @@
     data() {
       return {
         name: null,
+        name_en: null,
         maxPercentageAssignedForFailedCourses: null,
         minSemestersForGrad: null,
         numOfHourForGrad: null
@@ -79,6 +89,7 @@
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data.data.result;
               vm.name = response[0].name;
+              vm.name_en = response[0].name_en;
               vm.maxPercentageAssignedForFailedCourses = response[0].maxPercentageAssignedForFailedCourses;
               vm.minSemestersForGrad = response[0].minSemestersForGrad;
               vm.numOfHourForGrad = response[0].numOfHourForGrad;
@@ -98,6 +109,7 @@
         let vm = this;
         return {
           name: vm.name,
+          name_en: vm.name_en,
           maxPercentageAssignedForFailedCourses: vm.maxPercentageAssignedForFailedCourses,
           minSemestersForGrad: vm.minSemestersForGrad,
           numOfHourForGrad: vm.numOfHourForGrad,
@@ -107,6 +119,7 @@
         return {
           maxPercentageAssignedForFailedCourses: 'input',
           name: 'input',
+          name_en: 'input',
           minSemestersForGrad: 'input',
           numOfHourForGrad: 'input',
         };

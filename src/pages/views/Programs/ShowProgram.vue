@@ -4,15 +4,14 @@
       <div>
         <form @submit.prevent>
           <div class="row">
-            <div class="col-md-3">
-
+            <div class="col-md-4">
               <fg-input type="text"
                         :label="$ml.get('name')"
                         v-model="name"
                         :placeholder="$ml.get('name')">
               </fg-input>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <fg-input type="text"
                         :label="$ml.get('hours_need_grade')"
                         v-model="maxPercentageAssignedForFailedCourses"
@@ -20,14 +19,14 @@
               </fg-input>
             </div>
             <div class="col-md-12"></div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <fg-input type="text"
                         :label="$ml.get('min_number_grade')"
                         v-model="minSemestersForGrad"
                         :placeholder="$ml.get('min_number_grade')">
               </fg-input>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <fg-input type="text"
                         :label="$ml.get('max_fail_percent')"
                         v-model="maxPercentageAssignedForFailedCourses"
@@ -43,7 +42,7 @@
       <ProgramsGrades :programId="pId"/>
     </card>
     <card class="card">
-            <ProgramRequires :programId="pId"/>
+      <ProgramRequires :programId="pId"/>
     </card>
     <card class="card">
       <ProgramsLevels :programId="pId"/>

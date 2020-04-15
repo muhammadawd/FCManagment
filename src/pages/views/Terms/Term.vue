@@ -18,6 +18,7 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('name')}}</th>
+            <th>{{$ml.get('name_en')}}</th>
             <th>{{$ml.get('term_start')}}</th>
             <th>{{$ml.get('term_end')}}</th>
             <th></th>
@@ -28,6 +29,9 @@
               <td>{{index+1}}</td>
               <td>
                 <b>{{item.name}} </b>
+              </td>
+              <td>
+                <b>{{item.name_en}} </b>
               </td>
               <td>
                 <b>{{item.startDate}}</b>
@@ -71,6 +75,10 @@
         <tr>
           <td>{{$ml.get('name')}}</td>
           <td>{{currentItem.name}}</td>
+        </tr>
+        <tr>
+          <td>{{$ml.get('name_en')}}</td>
+          <td>{{currentItem.name_en}}</td>
         </tr>
         <tr>
           <td>{{$ml.get('term_type')}}</td>
@@ -189,7 +197,7 @@
       let vm = this;
       try {
         let auth_data = window.ls.getFromStorage('auth_data');
-        vm.programId = JSON.parse(auth_data).userInfo.idprogram;
+        vm.programId = vm.$helper.getCurrentProgramId();
       } catch (e) {
         vm.programId = null;
       }

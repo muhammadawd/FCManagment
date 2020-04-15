@@ -1,6 +1,8 @@
 <template>
   <div class="text-center">
-    <h1 class="font-weight-bold">{{$ml.get('dashboard')}}</h1>
+    <h1 class="font-weight-bold">{{$ml.get('dashboard')}}
+      {{$helper.getCurrentProgramId()}}
+    </h1>
   </div>
 </template>
 <script>

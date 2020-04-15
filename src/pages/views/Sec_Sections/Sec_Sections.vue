@@ -18,6 +18,7 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('name')}}</th>
+            <th>{{$ml.get('name_en')}}</th>
             <th>{{$ml.get('note')}}</th>
             <th width="50"></th>
             </thead>
@@ -26,6 +27,9 @@
               <td>{{index+1}}</td>
               <td>
                 <b>{{item.name}}</b>
+              </td>
+              <td>
+                <b>{{item.name_en}}</b>
               </td>
               <td>
                 <b>{{item.note}}</b>

@@ -31,6 +31,10 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 Vue.use(PaperDashboard);
 Vue.use(VueSweetalert2);
 
+import {helper} from "@/bootstrap/helper";
+
+Vue.prototype.$helper = helper;
+
 /* eslint-disable no-new */
 new Vue({
   router,

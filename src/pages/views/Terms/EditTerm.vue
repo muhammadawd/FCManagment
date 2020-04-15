@@ -14,7 +14,15 @@
             <div class="text-danger text-left" id="name_error"></div>
             <div class="text-danger text-left" id="idprogram_error"></div>
           </div>
-          <div class="col-md-3 text-left">
+          <div class="col-md-4">
+            <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="name_en_error"></div>
+          </div>
+          <div class="col-md-4 text-left">
             <label>{{$ml.get('term_type')}}</label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="type"
                           :options="types"></multi-select>
@@ -90,7 +98,7 @@
       let vm = this;
       try {
         let auth_data = window.ls.getFromStorage('auth_data');
-        vm.idprogram = JSON.parse(auth_data).userInfo.idprogram;
+        vm.idprogram = vm.$helper.getCurrentProgramId();
       } catch (e) {
         vm.idprogram = null;
       }
@@ -109,6 +117,7 @@
         endSubjectRevokeDate: moment().format("YYYY-MM-DD"),
         type: null,
         name: null,
+        name_en: null,
         idprogram: null,
       }
     },
@@ -121,6 +130,7 @@
         let vm = this;
         return {
           name: vm.name,
+          name_en: vm.name_en,
           type: vm.type,
           startDate: vm.startDate,
           endDate: vm.endDate,
@@ -137,6 +147,7 @@
       prepareValidationInputs() {
         return {
           name: 'input',
+          name_en: 'input',
           type: 'input',
           startDate: 'input',
           endDate: 'input',
@@ -160,6 +171,7 @@
               response = response.data.data.result;
               console.log(response)
               vm.name = response[0].name
+              vm.name_en = response[0].name_en
               vm.type = response[0].type
               vm.startDate = response[0].startDate
               vm.endDate = response[0].endDate

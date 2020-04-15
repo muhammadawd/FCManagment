@@ -20,6 +20,14 @@
             </fg-input>
             <div class="text-danger text-left" id="name_error"></div>
           </div>
+          <div class="col-md-4">
+            <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="name_en_error"></div>
+          </div>
           <div class="col-md-3 text-left">
             <label> {{$ml.get('require_type')}} </label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedUnder" :custom-label="nameWithLang"
@@ -152,6 +160,7 @@
       return {
         selectedUnder: null,
         name: null,
+        name_en: null,
         code: null,
         actualLectureHourNum: null,
         nonActualLectureHourNum: null,
@@ -174,7 +183,7 @@
       let vm = this;
       try {
         let auth_data = window.ls.getFromStorage('auth_data');
-        vm.programId = JSON.parse(auth_data).userInfo.idprogram;
+        vm.programId = vm.$helper.getCurrentProgramId();
       } catch (e) {
         vm.programId = null;
       }
@@ -234,6 +243,7 @@
         let vm = this;
         return {
           name: vm.name,
+          name_en: vm.name_en,
           code: vm.code,
           actualLectureHourNum: vm.actualLectureHourNum,
           nonActualLectureHourNum: vm.nonActualLectureHourNum,

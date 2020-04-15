@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-let BASE_URL = 'https://credit-h-system.herokuapp.com/';
+let vm = this;
+// let BASE_URL = 'https://credit-h-system.herokuapp.com/';
+let BASE_URL = 'http://approc.com:3000/';
 // let BASE_URL = 'http://localhost:3000/';
 
 export default {
@@ -120,15 +122,18 @@ export default {
 
 
   API: () => {
+    let programId = window.ls.getFromStorage('current_program_id');
+    programId = JSON.parse(programId);
+
     let token = null;
+
     try {
       let auth_data = window.ls.getFromStorage('auth_data');
       auth_data = JSON.parse(auth_data);
       token = auth_data.accessToken;
     } catch (e) {
-      token = null
+      token = null;
     }
-
     return axios.create({
       baseURL: BASE_URL,
       withCredentials: false,
@@ -136,7 +141,8 @@ export default {
         'Authorization': token ? `Bearer ${token}` : '',
         // 'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'idprogram': programId ? programId : 1
       }
     })
   },
