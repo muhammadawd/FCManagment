@@ -20,6 +20,13 @@
             </fg-input>
             <div class="text-danger text-left" id="email_error"></div>
           </div>
+          <div class="col-md-3 text-left">
+            <label>{{$ml.get('year')}}</label>
+            <select class="form-control" v-model="entry_year">
+              <option v-for="year in years" :value="year">{{ year }}</option>
+            </select>
+            <div class="text-danger text-left" id="entry_year_error"></div>
+          </div>
         </div>
 
         <div class="row">
@@ -119,7 +126,8 @@
               </section>
             </div>
             <div class="text-center">
-              <button :disabled="!imgSrc" @click="cropImage()" class="btn btn-secondary mt-2">{{$ml.get('crop')}}</button>
+              <button :disabled="!imgSrc" @click="cropImage()" class="btn btn-secondary mt-2">{{$ml.get('crop')}}
+              </button>
             </div>
             <div class="text-danger text-left" id="stu_img_error"></div>
           </div>
@@ -154,11 +162,18 @@
       multiSelect,
       VueCropper
     },
+    computed: {
+      years() {
+        const year = new Date().getFullYear()
+        return Array.from({length: year - 2009}, (value, index) => 2010 + index)
+      }
+    },
     data() {
       return {
         imgSrc: '',
         cropImg: '',
         data: null,
+        entry_year: new Date().getFullYear(),
         isLoading: false,
         name: null,
         email: null,
@@ -203,6 +218,29 @@
       }
     },
     methods: {
+      b64toBlob(b64Data, contentType, sliceSize) {
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
+
+        var byteCharacters = atob(b64Data);
+        var byteArrays = [];
+
+        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+          var byteNumbers = new Array(slice.length);
+          for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+
+          var byteArray = new Uint8Array(byteNumbers);
+
+          byteArrays.push(byteArray);
+        }
+
+        var blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+      },
       setImage(e) {
         const file = e.target.files[0];
         if (file.type.indexOf('image/') === -1) {
@@ -225,16 +263,27 @@
       },
       prepareData() {
         let vm = this;
-        return {
+        let image_file = null;
+        let object_data = {
           name: vm.name,
-          stu_img: vm.cropImg,
           email: vm.email,
           nationalNum: vm.nationalNum,
           address: vm.address,
+          entry_year: vm.entry_year,
           idprogram_levels: vm.selectedProgramLevels ? vm.selectedProgramLevels.idprogram_levels : null,
           idsecondary_depts: vm.selectedSecondary ? vm.selectedSecondary.idsecondary_depts : null,
           idcity: vm.selectedCity ? vm.selectedCity.idcities : null,
         };
+
+        if (vm.cropImg) {
+          let block = vm.cropImg.split(";");
+          let contentType = block[0].split(":")[1];
+          let realData = block[1].split(",")[1];
+          image_file = vm.b64toBlob(realData, contentType);
+          object_data.stu_img = image_file;
+        }
+
+        return object_data;
       },
       prepareValidationInputs() {
         return {
@@ -246,6 +295,7 @@
           idprogram_levels: 'input',
           idsecondary_depts: 'input',
           idcity: 'input',
+          entry_year: 'input',
         };
       },
       addStudent() {

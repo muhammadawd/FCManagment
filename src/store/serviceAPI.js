@@ -39,6 +39,8 @@ export default {
   UPDATE_SEC_DEPTS: 'secondaryDepts',  // put +/id
   DELETE_SEC_DEPTS: 'secondaryDepts', // delete +/id
 
+  REFERSH_STUDENT_LEVELS: 'refreshStudentLevels', // get
+  GET_TOP_STUDENTS: 'getStudentTop50', // get
   ALL_STUDENTS: 'students', // get
   ADD_STUDENTS: 'students', // post [name,note]
   FIND_STUDENTS: 'students', // get +/id
@@ -106,14 +108,17 @@ export default {
   GET_STUDENT_COURSE_SEM_ATTENDANCE: 'studentCourseSemAttendance',
   GET_STUDENT_COURSE_SEM_PRACTICAL: 'studentCourseSemPractical',
   GET_STUDENT_COURSE_SEM_FINAL: 'studentCourseSemFinal',
+  GET_STUDENT_ALL_DEGREES: 'studentsAllGradesInfoORSpcefic',
   POST_STUDENT_COURSE_SEM_ATTENDANCE: 'studentsAttendancePercentage',
   POST_STUDENT_COURSE_SEM_PRACTICAL: 'studentsGradesPractical',
   POST_STUDENT_COURSE_SEM_FINAL: 'studentsFinalMarks',
+  POST_STUDENT_ALL_DEGREES: 'studentsFinalPracticalAttendanceMarks',
   GET_ALL_GRADES_INFO_SPECIFIC: 'studentsAllGradesInfoORSpcefic',
   GET_DEGREE_INFO: 'findStudentsGradeInfo',
   UPDATE_DEGREE_INFO: 'students/updateStudentGrade',
   GET_DEGREE_STATUS: 'utils/get_status_degree',
 
+  GET_STUDENT_PROFILE_DATA: 'getregistercourses',
   GET_STUDENT_COURSE_CONFIG: 'getStudentCoursesToSelectAndConfig',
   REGISTER_STUDENT_COURSE: 'registerCourseForStudent',
   GET_STUDENT_COURSE_PAYMENTS: 'getTotalPaidAndRemaing',

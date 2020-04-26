@@ -37,6 +37,8 @@ import TermSubjectHours from "@/pages/views/Terms/TermSubjectHours.vue";
 import Students from "@/pages/views/Students/Students.vue";
 import AddStudent from "@/pages/views/Students/AddStudent.vue";
 import EditStudent from "@/pages/views/Students/EditStudent.vue";
+import profileStudent from "@/pages/views/Students/profileStudent.vue";
+import top50Student from "@/pages/views/Students/top50Student.vue";
 
 import Excuses from "@/pages/views/Excuses/Excuses.vue";
 import AddExcuses from "@/pages/views/Excuses/AddExcuses.vue";
@@ -315,6 +317,18 @@ const routes = [
         path: "students/edit_student/:id",
         name: "edit_student",
         component: EditStudent,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "profile_student/:id",
+        name: "profile_student",
+        component: profileStudent,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "top_50_student/:id",
+        name: "top_50_student",
+        component: top50Student,
         meta: {requiresAuth: true}
       },
       {

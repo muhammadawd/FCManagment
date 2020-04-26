@@ -7,6 +7,8 @@
         <sidebar-link :to="{name:'country'}" :name="$ml.get('country_section')" icon="ti-location-pin"/>
         <sidebar-link :to="{name:'sec_section'}" :name="$ml.get('sec_section')" icon="ti-bookmark-alt"/>
         <sidebar-link :to="{name:'students'}" :name="$ml.get('students')" icon="ti-user"/>
+        <sidebar-link :to="{name:'top_50_student',params:{id:id}}" :name="$ml.get('top_50_student')" icon="ti-user"/>
+        <sidebar-link :to="{name:'profile_student',params:{id:id}}" :name="$ml.get('profile_student')" icon="ti-user"/>
         <sidebar-link :to="{name:'programs'}" :name="$ml.get('program')" icon="ti-server"/>
         <sidebar-link :to="{name:'courses'}" :name="$ml.get('courses')" icon="ti-agenda"/>
         <sidebar-link :to="{name:'terms'}" :name="$ml.get('terms')" icon="ti-desktop"/>
@@ -69,7 +71,19 @@
       DashboardContent,
       MobileMenu
     },
+    data() {
+      return {
+        id: 1
+      }
+    },
+    mounted() {
+      this.getUserId();
+    },
     methods: {
+      getUserId() {
+        let auth_data = JSON.parse(localStorage.getItem('auth_data'));
+        this.id = auth_data.userInfo.idusers;
+      },
       changeLang() {
         if (this.$ml.current == 'ar') {
           this.$ml.change('en')

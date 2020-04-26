@@ -57,9 +57,18 @@
             <th width="50"></th>
             </thead>
             <tbody>
+            <tr v-if="allAvailableCourses.length == 0">
+              <td colspan="5" class="text-center">
+                {{$ml.get('no_data')}}
+              </td>
+            </tr>
             <tr v-for="(item, index) in allAvailableCourses" :key="index">
               <td>{{index+1}}</td>
-              <td><b>{{item.name}} </b> <span class="text-danger" dir="ltr"> ({{item.code}}) </span></td>
+              <td>
+                <b>{{item.name}} </b>
+                <!--<span class="text-danger" dir="ltr"> ({{item.code}}) </span>-->
+                <b class="text-success" dir="rtl"> - {{item.program_category}} </b>
+              </td>
               <td>
                 <b>{{item.actualLectureHourNum + item.actualPracticalHourNum}}</b>
               </td>
@@ -75,7 +84,11 @@
             </tr>
             <tr v-for="(item, index) in allAvailableSelectedCourses" :key="index">
               <td>{{index+1}}</td>
-              <td><b>{{item.name}} </b> <span class="text-danger" dir="ltr"> ({{item.code}}) </span></td>
+              <td>
+                <b>{{item.name}} </b>
+                <!--<span class="text-danger" dir="ltr"> ({{item.code}}) </span>-->
+                <b class="text-success" dir="rtl"> - {{item.program_category}} </b>
+              </td>
               <td>
                 <b>{{item.actualLectureHourNum + item.actualPracticalHourNum}}</b>
               </td>

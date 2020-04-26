@@ -32,6 +32,22 @@
         <div class="text-left text-danger" id="coursesIds_error"></div>
       </div>
 
+      <div class="col-md-12 text-left">
+        <div class="row bg-light mt-2">
+          <div class="col-4" v-if="totalNumRegisteredHours">
+            <label>{{$ml.get('totalNumRegisteredHours')}}</label>
+            <h4 class="m-0 p-0">{{totalNumRegisteredHours}}</h4>
+          </div>
+          <div class="col-4" v-if="hourPrice">
+            <label>{{$ml.get('hourPrice')}}</label>
+            <h4 class="m-0 p-0">{{hourPrice}}</h4>
+          </div>
+          <div class="col-4" v-if="hourPrice && totalNumRegisteredHours">
+            <label>{{$ml.get('total')}}</label>
+            <h4 class="m-0 p-0">{{hourPrice * totalNumRegisteredHours}}</h4>
+          </div>
+        </div>
+      </div>
       <div class="col-md-12">
         <div class="row text-left">
           <div class="col-md-3">
@@ -61,17 +77,21 @@
             <th width="50">#</th>
             <th>{{$ml.get('payments')}}</th>
             <th>{{$ml.get('recietNum')}}</th>
+            <th>{{$ml.get('is_confirmed')}}</th>
             <th>{{$ml.get('date')}}</th>
-                        <th width="50"></th>
+            <th width="50"></th>
             </thead>
             <tbody>
-            <tr v-for="(item, index) in transactions" :key="index">
+            <tr v-for="(item, index) in transactions" :key="'0'+index">
               <td>{{index+1}}</td>
               <td>
                 <b>{{item.amount.toFixed(2)}}</b>
               </td>
               <td>
                 <b>{{item.receiptId}}</b>
+              </td>
+              <td>
+                <b>{{item.confirmed ? $ml.get('yes') : $ml.get('no')}}</b>
               </td>
               <td>
                 <b>{{item.date}}</b>
@@ -84,7 +104,7 @@
             <tfoot>
             <tr>
               <td></td>
-              <td colspan="3">
+              <td colspan="5">
                 <b class="text-info">{{totalPaid.toFixed(2)}}</b>
               </td>
             </tr>
@@ -109,10 +129,10 @@
                 <span class="font-weight-bold">{{$ml.get('from_student')}} / </span>
                 <span>{{selectedStudent.name}}</span>
               </h5>
-<!--              <h5>-->
-<!--                <span class="font-weight-bold">{{$ml.get('from_course')}} / </span>-->
-<!--                <span>..................................</span>-->
-<!--              </h5>-->
+              <!--              <h5>-->
+              <!--                <span class="font-weight-bold">{{$ml.get('from_course')}} / </span>-->
+              <!--                <span>..................................</span>-->
+              <!--              </h5>-->
             </div>
             <div class="col-12 text-lefts">
               <h5>

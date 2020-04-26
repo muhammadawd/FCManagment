@@ -24,8 +24,10 @@
                      title-classes="nav-link"
                      icon="ti-server">
             <a v-for="(program , key) in programs" class="dropdown-item" href="#"
+               v-if="getCurrentProgramIds().includes(program.idprogram)"
                @click.prevent="changeCurrentProgram(program.idprogram)">
               <i class="fa fa-check text--info" v-if="program.idprogram == $helper.getCurrentProgramId()"></i>
+              <!--{{getCurrentProgramIds().includes(program.idprogram)}}-->
               {{program.name}}
             </a>
           </drop-down>
@@ -62,6 +64,10 @@
       this.getAllPrograms();
     },
     methods: {
+      getCurrentProgramIds() {
+        let auth_data = JSON.parse(localStorage.getItem('auth_data'));
+        return auth_data.userInfo.idprogram
+      },
       changeCurrentProgram(program_id) {
         ls.saveToStorage('current_program_id', program_id)
         location.reload()

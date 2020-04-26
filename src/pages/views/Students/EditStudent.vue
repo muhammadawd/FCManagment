@@ -20,6 +20,13 @@
             </fg-input>
             <div class="text-danger text-left" id="email_error"></div>
           </div>
+          <div class="col-md-3 text-left">
+            <label>{{$ml.get('year')}}</label>
+            <select class="form-control" v-model="entry_year">
+              <option v-for="year in years" :value="year">{{ year }}</option>
+            </select>
+            <div class="text-danger text-left" id="entry_year_error"></div>
+          </div>
         </div>
 
         <div class="row">
@@ -155,6 +162,12 @@
       multiSelect,
       VueCropper
     },
+    computed: {
+      years() {
+        const year = new Date().getFullYear()
+        return Array.from({length: year - 2009}, (value, index) => 2010 + index)
+      }
+    },
     data() {
       return {
         isLoading: false,
@@ -162,6 +175,7 @@
         stu_img: null,
         imgSrc: '',
         cropImg: '',
+        entry_year: '',
         data: null,
         email: null,
         nationalNum: null,
@@ -232,6 +246,7 @@
           stu_img: vm.stu_img,
           email: vm.email,
           nationalNum: vm.nationalNum,
+          entry_year: vm.entry_year,
           address: vm.address,
           idprogram_levels: vm.selectedProgramLevels ? vm.selectedProgramLevels.idprogram_levels : null,
           idsecondary_depts: vm.selectedSecondary ? vm.selectedSecondary.idsecondary_depts : null,
@@ -242,6 +257,7 @@
         return {
           name: 'input',
           stu_img: 'input',
+          entry_year: 'input',
           email: 'input',
           nationalNum: 'input',
           address: 'input',
@@ -265,6 +281,7 @@
               vm.email = response[0].email;
               vm.address = response[0].address;
               vm.nationalNum = response[0].nationalNum;
+              vm.entry_year = response[0].entry_year;
               $.each(vm.secSecondary, function (index, item) {
                 if (response[0].idsecondary_depts == item.idsecondary_depts) {
                   vm.selectedSecondary = item;

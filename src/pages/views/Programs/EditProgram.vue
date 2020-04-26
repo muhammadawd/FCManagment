@@ -22,6 +22,15 @@
             </fg-input>
             <div class="text-left text-danger" id="name_en_error"></div>
           </div>
+          <div class="col-md-3">
+
+            <fg-input type="text"
+                      v-model="student_prefix"
+                      :label="$ml.get('student_prefix')"
+                      :placeholder="$ml.get('student_prefix')">
+            </fg-input>
+            <div class="text-left text-danger" id="student_prefix_error"></div>
+          </div>
           <div class="col-md-12"></div>
           <div class="col-md-4">
             <fg-input type="text"
@@ -69,6 +78,7 @@
       return {
         name: null,
         name_en: null,
+        student_prefix: null,
         maxPercentageAssignedForFailedCourses: null,
         minSemestersForGrad: null,
         numOfHourForGrad: null
@@ -110,6 +120,7 @@
         return {
           name: vm.name,
           name_en: vm.name_en,
+          student_prefix: vm.student_prefix,
           maxPercentageAssignedForFailedCourses: vm.maxPercentageAssignedForFailedCourses,
           minSemestersForGrad: vm.minSemestersForGrad,
           numOfHourForGrad: vm.numOfHourForGrad,
@@ -120,6 +131,7 @@
           maxPercentageAssignedForFailedCourses: 'input',
           name: 'input',
           name_en: 'input',
+          student_prefix: 'input',
           minSemestersForGrad: 'input',
           numOfHourForGrad: 'input',
         };

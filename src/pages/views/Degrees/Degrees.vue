@@ -194,7 +194,11 @@
           {
             id: 3,
             name: 'Final Degree File'
-          }
+          },
+          {
+            id: 4,
+            name: 'All Student Degrees'
+          },
         ],
 
         selectedTerm: null,
@@ -310,6 +314,13 @@
               exports: window.serviceAPI.GET_STUDENT_COURSE_SEM_FINAL
             };
             break;
+          case 4:
+            return {
+              key: 'allStudentDegrees',
+              imports: window.serviceAPI.POST_STUDENT_ALL_DEGREES,
+              exports: window.serviceAPI.GET_STUDENT_ALL_DEGREES
+            };
+            break;
         }
       },
 
@@ -347,8 +358,9 @@
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
         let current_course_sem_id = vm.selectedOpenSemesterCourse ? vm.selectedOpenSemesterCourse.idopen_semester_course : null;
+        let current_student_id = vm.selectedStudent ? vm.selectedStudent.idstudents : null;
         try {
-          window.serviceAPI.API().post(url.exports + `?idopen_semester_course=${current_course_sem_id}`)
+          window.serviceAPI.API().post(url.exports + `?idopen_semester_course=${current_course_sem_id}&studentId=${current_student_id}`)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               let status = response.data.status;
@@ -388,6 +400,8 @@
         var studentsWS = XLSX.utils.json_to_sheet(arrData)
         var wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, studentsWS, 'students');
+        console.log(arrData)
+        console.log(studentsWS)
         XLSX.writeFile(wb, url.key + '.xlsx')
       },
 

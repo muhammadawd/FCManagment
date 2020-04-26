@@ -21,6 +21,7 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
+    // next()
   } else {
     next() // make sure to always call next()!
   }
