@@ -64,6 +64,11 @@ export const helper = {
         return;
       }
 
+      if (error.response.status == 403) {
+        vm.$router.push({name: 'PermissionDeniedPage'});
+        return;
+      }
+
       if (error.response.status == 401) {
         vm.$router.push({name: 'login'});
         return;
@@ -105,7 +110,17 @@ export const helper = {
   getCurrentProgramId() {
     let current_program_id = window.ls.getFromStorage('current_program_id');
     current_program_id = JSON.parse(current_program_id);
-
-    return 1;
-  }
+    return current_program_id ? current_program_id : 1;
+  },
+  hasAccessPermission: (permission) => {
+    let user = JSON.parse(localStorage.getItem('auth_data'));
+    console.log(user.userInfo.myPermessions)
+    if (permission === 'ALLOW_ALL') {
+      return true
+    } else if (user.userInfo.myPermessions.includes(permission)) {
+      return true;
+    } else {
+      return false;
+    }
+  },
 };

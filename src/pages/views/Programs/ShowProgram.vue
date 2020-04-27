@@ -38,13 +38,13 @@
         </form>
       </div>
     </card>
-    <card class="card">
+    <card class="card" v-if="$helper.hasAccessPermission('get-grades-by-programid')">
       <ProgramsGrades :programId="pId"/>
     </card>
-    <card class="card">
+    <card class="card" v-if="$helper.hasAccessPermission('get-courseprerequiste')">
       <ProgramRequires :programId="pId"/>
     </card>
-    <card class="card">
+    <card class="card" v-if="$helper.hasAccessPermission('get-programLevelsByProgramID')">
       <ProgramsLevels :programId="pId"/>
     </card>
   </div>

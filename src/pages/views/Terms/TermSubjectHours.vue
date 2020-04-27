@@ -51,7 +51,9 @@
         <div class="text-danger text-left" id="exceptionMinHours_error"></div>
       </div>
       <div class="col-md-12 text-center">
-        <button class="btn btn-black mt-2" @click="addHourConfig()">{{$ml.get('add')}}</button>
+        <button class="btn btn-black mt-2" v-if="$helper.hasAccessPermission('add-semConfigHours')"
+                @click="addHourConfig()">{{$ml.get('add')}}
+        </button>
       </div>
       <div class="col-md-12 text-left">
         <div class="table-responsive">
@@ -89,7 +91,8 @@
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger" @click="deleteTermHours(item)">
+                  <button class="btn btn-danger" @click="deleteTermHours(item)"
+                          v-if="$helper.hasAccessPermission('delete-semConfigHours-by-id')">
                     <i class="ti-trash"></i>
                   </button>
                 </div>

@@ -61,29 +61,27 @@
             <th class="font-weight-bold">hours</th>
             <th class="font-weight-bold">year</th>
             <th class="font-weight-bold">grade</th>
-            <th class="font-weight-bold">team work</th>
+            <th class="font-weight-bold">term work</th>
             <th class="font-weight-bold">exam work</th>
             <th class="font-weight-bold">result</th>
             <th class="font-weight-bold">level</th>
             <th class="font-weight-bold">term</th>
             <th class="font-weight-bold">absence</th>
-            <th class="font-weight-bold">exam</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="(co,key) in allAvailableSelectedCourses" :key="key">
             <td>{{co.code}}</td>
             <td>{{co.name}}</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td>{{co.actualLectureHourNum}}</td>
+            <td>{{co.student_course ? co.student_course.year : ''}}</td>
+            <td>{{co.student_course ? co.student_course.total_grade : ''}}</td>
+            <td>{{co.student_course ? co.student_course.practical_grade : ''}}</td>
+            <td>{{co.student_course ? co.student_course.final_grade : ''}}</td>
+            <td>{{co.student_course ? co.student_course.total_degree : ''}}</td>
+            <td>{{co.level}}</td>
+            <td>{{co.term}}</td>
+            <td>{{co.student_course ? co.student_course.attendance_grade : ''}}</td>
           </tr>
           </tbody>
         </table>

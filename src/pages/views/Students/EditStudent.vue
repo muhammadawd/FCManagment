@@ -114,6 +114,7 @@
               accept="image/*"
               @change="setImage"
             />
+            <a v-if="image_path" :href="file_path+image_path" target="_blank">{{$ml.get('show_image')}}</a>
             <div class="content">
               <section class="cropper-area" v-if="imgSrc">
                 <div class="img-cropper">
@@ -127,7 +128,8 @@
               </section>
             </div>
             <div class="text-center">
-              <button :disabled="!imgSrc" @click="cropImage()" class="btn btn-secondary mt-2">{{$ml.get('crop')}}</button>
+              <button :disabled="!imgSrc" @click="cropImage()" class="btn btn-secondary mt-2">{{$ml.get('crop')}}
+              </button>
             </div>
             <div class="text-danger text-left" id="stu_img_error"></div>
           </div>
@@ -175,6 +177,8 @@
         stu_img: null,
         imgSrc: '',
         cropImg: '',
+        file_path: window.serviceAPI.BASE_URL,
+        image_path: '',
         entry_year: '',
         data: null,
         email: null,
@@ -277,7 +281,7 @@
               response = response.data.data.result;
               console.log(response)
               vm.name = response[0].name;
-              vm.stu_img = response[0].stu_img;
+              vm.image_path = response[0].stu_img;
               vm.email = response[0].email;
               vm.address = response[0].address;
               vm.nationalNum = response[0].nationalNum;

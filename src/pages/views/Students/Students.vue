@@ -2,7 +2,8 @@
   <card class="card-user">
     <div class="row">
       <div class="col-md-6 text-left">
-        <router-link :to="{name:'add_student'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+        <router-link :to="{name:'add_student'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                     v-if="$helper.hasAccessPermission('add-students')">
           <i class="ti-plus"></i>
           {{$ml.get('add_student')}}
         </router-link>
@@ -55,17 +56,19 @@
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger" @click="deleteStudent(item)">
+                  <button class="btn btn-danger" @click="deleteStudent(item)"
+                          v-if="$helper.hasAccessPermission('delete-students-by-id')">
                     <i class="ti-trash"></i>
                   </button>
-                  <router-link :to="{name:'edit_student',params:{'id':item.idstudents}}" class="btn btn-info">
+                  <router-link :to="{name:'edit_student',params:{'id':item.idstudents}}" class="btn btn-info"
+                               v-if="$helper.hasAccessPermission('update-students-by-id')">
                     <i class="ti-save"></i>
                   </router-link>
                   <!--<router-link :to="{name:'profile_student',params:{'id':item.idstudents}}" class="btn btn-warning">-->
-                    <!--<i class="ti-user"></i>-->
+                  <!--<i class="ti-user"></i>-->
                   <!--</router-link>-->
                   <!--<router-link :to="{name:'top_50_student',params:{'id':item.idstudents}}" class="btn btn-">-->
-                    <!--<i class="ti-user"></i>-->
+                  <!--<i class="ti-user"></i>-->
                   <!--</router-link>-->
                 </div>
               </td>

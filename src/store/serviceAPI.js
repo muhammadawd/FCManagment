@@ -6,6 +6,7 @@ let BASE_URL = 'http://approc.com:3000/';
 // let BASE_URL = 'http://localhost:3000/';
 
 export default {
+  BASE_URL: 'http://approc.com:3000/',
   REGISTER_NEW_ACCOUNT: 'users',
   AUTH_ACCOUNT: 'auth',
 

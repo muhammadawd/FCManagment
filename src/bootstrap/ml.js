@@ -203,11 +203,13 @@ export default new MLCreate({
       is_confirmed: 'is confirmed',
       address: 'address',
       mobile: 'mobile',
+      show_image: 'show image',
     }),
 
     new MLanguage('ar').create({
       email: 'البريد الالكتروني',
       receipt: 'الايصال',
+      show_image: 'عرض الصورة',
       address: 'العنوان',
       mobile: 'رقم الموبايل',
       is_confirmed: 'تم التأكيد',

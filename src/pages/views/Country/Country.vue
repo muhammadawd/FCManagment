@@ -2,17 +2,20 @@
   <card class="card-user">
     <div class="row">
       <div class="col-md-9 text-left">
-        <router-link :to="{name:'add_country'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+        <router-link :to="{name:'add_country'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                     v-if="$helper.hasAccessPermission('add-countries')">
           <i class="ti-plus"></i>
           {{$ml.get('add_country')}}
         </router-link>
         &nbsp;
-        <router-link :to="{name:'add_government'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+        <router-link :to="{name:'add_government'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                     v-if="$helper.hasAccessPermission('add-governorates')">
           <i class="ti-plus"></i>
           {{$ml.get('add_government')}}
         </router-link>
         &nbsp;
-        <router-link :to="{name:'add_city'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+        <router-link :to="{name:'add_city'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                     v-if="$helper.hasAccessPermission('add-cities')">
           <i class="ti-plus"></i>
           {{$ml.get('add_city')}}
         </router-link>
@@ -52,10 +55,12 @@
                   </td>
                   <td>
                     <div class="btn-group direction-inverse">
-                      <button class="btn btn-danger" @click="deleteCountry(item)">
+                      <button class="btn btn-danger" @click="deleteCountry(item)"
+                              v-if="$helper.hasAccessPermission('delete-countries-by-id')">
                         <i class="ti-trash"></i>
                       </button>
-                      <router-link :to="{name:'edit_country',params:{'id':item.idcountries}}" class="btn btn-info">
+                      <router-link :to="{name:'edit_country',params:{'id':item.idcountries}}" class="btn btn-info"
+                                   v-if="$helper.hasAccessPermission('update-countries-by-id')">
                         <i class="ti-save"></i>
                       </router-link>
                     </div>
@@ -98,10 +103,12 @@
                   </td>
                   <td>
                     <div class="btn-group direction-inverse">
-                      <button class="btn btn-danger" @click="deleteGovernrate(item)">
+                      <button class="btn btn-danger" @click="deleteGovernrate(item)"
+                              v-if="$helper.hasAccessPermission('delete-governorates-by-id')">
                         <i class="ti-trash"></i>
                       </button>
                       <router-link :to="{name:'edit_government',params:{'id':item.idgovernorates}}"
+                                   v-if="$helper.hasAccessPermission('update-governorates-by-id')"
                                    class="btn btn-info">
                         <i class="ti-save"></i>
                       </router-link>
@@ -159,7 +166,8 @@
                   <td>
                     <div class="btn-group direction-inverse">
                       &nbsp;
-                      <button class="btn btn-danger" @click="deleteCity(item)">
+                      <button class="btn btn-danger" @click="deleteCity(item)"
+                              v-if="$helper.hasAccessPermission('delete-cities-by-id')">
                         <i class="ti-trash"></i>
                       </button>
                       <!--                      <router-link :to="{name:'edit_country',params:{'id':item.idcities}}" class="btn btn-info">-->

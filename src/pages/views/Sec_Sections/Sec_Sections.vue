@@ -2,16 +2,17 @@
   <card class="card-user">
     <div class="row">
       <div class="col-md-9 text-left">
-        <router-link :to="{name:'add_sec_section'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+        <router-link :to="{name:'add_sec_section'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                     v-if="$helper.hasAccessPermission('add-secondaryDepts')">
           <i class="ti-plus"></i>
           {{$ml.get('add_sec_section')}}
         </router-link>
       </div>
-<!--      <div class="col-md-3 text-right">-->
-<!--        <fg-input type="text"-->
-<!--                  :placeholder="$ml.get('search')">-->
-<!--        </fg-input>-->
-<!--      </div>-->
+      <!--      <div class="col-md-3 text-right">-->
+      <!--        <fg-input type="text"-->
+      <!--                  :placeholder="$ml.get('search')">-->
+      <!--        </fg-input>-->
+      <!--      </div>-->
       <div class="col-md-12 text-left">
         <div class="table-responsive">
           <table class="table table-striped">
@@ -36,10 +37,12 @@
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger" @click="deleteSecDept(item)">
+                  <button class="btn btn-danger" @click="deleteSecDept(item)"
+                          v-if="$helper.hasAccessPermission('delete-secondaryDepts-by-id')">
                     <i class="ti-trash"></i>
                   </button>
-                  <router-link :to="{name:'edit_sec_section',params:{'id':item.idsecondary_depts}}" class="btn btn-info">
+                  <router-link :to="{name:'edit_sec_section',params:{'id':item.idsecondary_depts}}" class="btn btn-info"
+                               v-if="$helper.hasAccessPermission('update-secondaryDepts-by-id')">
                     <i class="ti-save"></i>
                   </router-link>
                 </div>

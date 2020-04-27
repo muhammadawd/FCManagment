@@ -2,7 +2,8 @@
   <card class="card-user">
     <div class="row">
       <div class="col-md-3 text-left">
-        <router-link :to="{name:'add_excuses'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+        <router-link :to="{name:'add_excuses'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                     v-if="$helper.hasAccessPermission('add-exceptions')">
           <i class="ti-plus"></i>
           {{$ml.get('add_excuses')}}
         </router-link>
@@ -91,16 +92,22 @@
               <td><b class="badge badge-info badge-pill p-2">{{item.status}}</b></td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger" @click="deleteException(item)">
+                  <button class="btn btn-danger" @click="deleteException(item)"
+                          v-if="$helper.hasAccessPermission('delete-exceptions-by-id')">
                     <i class="ti-trash"></i>
                   </button>
-                  <button class="btn btn-primary" v-if="item.status == 'جديد'" @click="acceptException(item)">
-                    {{$ml.get('accept')}}
-                  </button>
-                  <button class="btn btn-warning" v-if="item.status == 'جديد'" @click="cancelException(item)">
-                    {{$ml.get('cancel')}}
-                  </button>
+                  <slot v-if="$helper.hasAccessPermission('accept_exception_final')">
+                    <button class="btn btn-primary" v-if="item.status == 'جديد'" @click="acceptException(item)">
+                      {{$ml.get('accept')}}
+                    </button>
+                  </slot>
+                  <slot v-if="$helper.hasAccessPermission('cancel-exception')">
+                    <button class="btn btn-warning" v-if="item.status == 'جديد'" @click="cancelException(item)">
+                      {{$ml.get('cancel')}}
+                    </button>
+                  </slot>
                   <router-link :to="{name:'edit_excuses',params:{'id':item.idexception_decision_council}}"
+                               v-if="$helper.hasAccessPermission('update-exceptions-by-id')"
                                class="btn btn-info">
                     <i class="ti-save"></i>
                   </router-link>

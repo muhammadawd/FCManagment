@@ -7,6 +7,7 @@
         </div>
         <div class="col-md-9 text-right">
           <router-link :to="{name:'add_program_requires',params:{'program_id':programId}}"
+                       v-if="$helper.hasAccessPermission('add-categories')"
                        class="btn btn-wd btn-default btn-fill btn-rotate">
             <i class="ti-plus"></i>
             {{$ml.get('add_program_requires')}}
@@ -39,10 +40,12 @@
                 </td>
                 <td>
                   <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger" @click="deleteRequire(item)">
+                    <button class="btn btn-danger" @click="deleteRequire(item)"
+                            v-if="$helper.hasAccessPermission('delete-categories-by-id')">
                       <i class="ti-trash"></i>
                     </button>
                     <router-link
+                      v-if="$helper.hasAccessPermission('get-categories-by-programid')"
                       :to="{name:'edit_program_requires',params:{'program_id':programId,'id':item.idprogram_categories}}"
                       class="btn btn-info">
                       <i class="ti-save"></i>

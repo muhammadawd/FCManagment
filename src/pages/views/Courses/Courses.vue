@@ -2,7 +2,8 @@
   <card class="card-user">
     <div class="row">
       <div class="col-md-9 text-left">
-        <router-link :to="{name:'add_course'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+        <router-link :to="{name:'add_course'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                     v-if="$helper.hasAccessPermission('add-courses')">
           <i class="ti-plus"></i>
           {{$ml.get('add_course')}}
         </router-link>
@@ -32,6 +33,7 @@
               </td>
               <td>
                 <router-link
+                  v-if="$helper.hasAccessPermission('get-courseprerequiste')"
                   :to="{name:'course_requirement',params:{'course_id':item.idcourses},query:{'name':item.name}}"
                   class="btn btn-outline-primary">
                   <b>{{$ml.get('requires')}}</b>
@@ -39,10 +41,12 @@
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger" @click="deleteCourse(item)">
+                  <button class="btn btn-danger" @click="deleteCourse(item)"
+                          v-if="$helper.hasAccessPermission('delete-courses-by-id')">
                     <i class="ti-trash"></i>
                   </button>
-                  <router-link :to="{name:'edit_course',params:{'id':item.idcourses}}" class="btn btn-info">
+                  <router-link :to="{name:'edit_course',params:{'id':item.idcourses}}" class="btn btn-info"
+                               v-if="$helper.hasAccessPermission('get-courses-by-id')">
                     <i class="ti-save"></i>
                   </router-link>
                 </div>

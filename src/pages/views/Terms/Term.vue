@@ -2,16 +2,17 @@
   <card class="card-user">
     <div class="row">
       <div class="col-md-9 text-left">
-        <router-link :to="{name:'add_term'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+        <router-link :to="{name:'add_term'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                     v-if="$helper.hasAccessPermission('add-semester')">
           <i class="ti-plus"></i>
           {{$ml.get('add_term')}}
         </router-link>
       </div>
-<!--      <div class="col-md-3 text-right">-->
-<!--        <fg-input type="text"-->
-<!--                  :placeholder="$ml.get('search')">-->
-<!--        </fg-input>-->
-<!--      </div>-->
+      <!--      <div class="col-md-3 text-right">-->
+      <!--        <fg-input type="text"-->
+      <!--                  :placeholder="$ml.get('search')">-->
+      <!--        </fg-input>-->
+      <!--      </div>-->
       <div class="col-md-12 text-left">
         <div class="table-responsive">
           <table class="table table-striped">
@@ -41,24 +42,29 @@
               </td>
               <td>
                 <router-link :to="{name:'term_subject_hours',params:{term_id:item.idsemester,program_id:programId}}"
+                             v-if="$helper.hasAccessPermission('get-semConfigHours-By-SemId')"
                              class="btn btn-outline-info">
                   {{$ml.get('hours')}}
                 </router-link>
                 &nbsp;
                 <router-link :to="{name:'term_subjects',params:{term_id:item.idsemester,program_id:programId}}"
+                             v-if="$helper.hasAccessPermission('get-OpenCourseSemesterbySem-by-SemesterId')"
                              class="btn btn-outline-primary">
                   {{$ml.get('subjects')}}
                 </router-link>
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-secondary" @click="showModal(item)">
+                  <button class="btn btn-secondary" @click="showModal(item)"
+                          v-if="$helper.hasAccessPermission('get-semester-by-id')">
                     <i class="ti-eye"></i>
                   </button>
-                  <button class="btn btn-danger" @click="deleteSemester(item)">
+                  <button class="btn btn-danger" @click="deleteSemester(item)"
+                          v-if="$helper.hasAccessPermission('delete-semester-by-id')">
                     <i class="ti-trash"></i>
                   </button>
-                  <router-link :to="{name:'edit_term',params:{'id':item.idsemester}}" class="btn btn-info">
+                  <router-link :to="{name:'edit_term',params:{'id':item.idsemester}}" class="btn btn-info"
+                               v-if="$helper.hasAccessPermission('update-semester-by-id')">
                     <i class="ti-save"></i>
                   </router-link>
                 </div>

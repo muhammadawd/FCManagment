@@ -1,6 +1,7 @@
 import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
 // GeneralViews
 import NotFound from "@/pages/NotFoundPage.vue";
+import PermissionDeniedPage from "@/pages/PermissionDeniedPage.vue";
 
 // guest pages
 import Login from "@/pages/views/Login.vue";
@@ -74,6 +75,12 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+    meta: {requiresAuth: false}
+  },
+  {
+    path: "/PermissionDeniedPage",
+    name: "PermissionDeniedPage",
+    component: PermissionDeniedPage,
     meta: {requiresAuth: false}
   },
   {

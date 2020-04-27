@@ -7,6 +7,7 @@
         </div>
         <div class="col-md-9 text-right">
           <router-link :to="{name:'add_program_grades',params:{'program_id':programId}}"
+                       v-if="$helper.hasAccessPermission('add-grades')"
                        class="btn btn-wd btn-default btn-fill btn-rotate">
             <i class="ti-plus"></i>
             {{$ml.get('add_program_grades')}}
@@ -32,10 +33,12 @@
                 <td><b>{{item.gradePoints}}</b></td>
                 <td>
                   <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger" @click="deleteGrade(item)">
+                    <button class="btn btn-danger" @click="deleteGrade(item)"
+                            v-if="$helper.hasAccessPermission('delete-grades-by-id')">
                       <i class="ti-trash"></i>
                     </button>
                     <router-link :to="{name:'edit_program_grades',params:{'program_id':programId,'id':item.idgrade}}"
+                                 v-if="$helper.hasAccessPermission('update-grades-by-id')"
                                  class="btn btn-info">
                       <i class="ti-save"></i>
                     </router-link>

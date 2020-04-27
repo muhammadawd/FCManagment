@@ -8,7 +8,9 @@
         </select>
         <div class="text-left text-danger" id="idsemester_error"></div>
         <div class="text-left text-danger" id="idcourses_error"></div>
-        <button class="btn btn-black mt-2" @click="addOpenCourse()">{{$ml.get('add')}}</button>
+        <button class="btn btn-black mt-2" @click="addOpenCourse()"
+                v-if="$helper.hasAccessPermission('add-OpenCourseSemester')">{{$ml.get('add')}}
+        </button>
       </div>
       <div class="col-md-12 text-left">
         <div class="table-responsive">
@@ -33,14 +35,16 @@
                 </b>
               </td>
               <td>
-                <router-link :to="{name:'term_subject_admin',params:{course_id:item.idcourses,open_course_sem_id:item.idopen_semester_course,term_id:$route.params.term_id}}"
-                             class="btn btn-outline-primary">
+                <router-link
+                  :to="{name:'term_subject_admin',params:{course_id:item.idcourses,open_course_sem_id:item.idopen_semester_course,term_id:$route.params.term_id}}"
+                  class="btn btn-outline-primary">
                   {{$ml.get('admins')}}
                 </router-link>
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <button class="btn btn-danger" @click="deleteTermSubject(item)">
+                  <button class="btn btn-danger" v-if="$helper.hasAccessPermission('delete-OpenCourseSemester-by-id')"
+                          @click="deleteTermSubject(item)">
                     <i class="ti-trash"></i>
                   </button>
                 </div>

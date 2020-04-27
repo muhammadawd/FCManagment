@@ -26,7 +26,8 @@
     <card class="card-user">
       <div class="row">
         <div class="col-md-9 text-left">
-          <router-link :to="{name:'add_program'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+          <router-link :to="{name:'add_program'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                       v-if="$helper.hasAccessPermission('add-programs')">
             <i class="ti-plus"></i>
             {{$ml.get('add_program')}}
           </router-link>
@@ -57,13 +58,16 @@
                 <td><b>{{item.maxPercentageAssignedForFailedCourses}}</b></td>
                 <td>
                   <div class="btn-group direction-inverse">
-                    <button class="btn btn-danger" @click="deleteProgram(item)">
+                    <button class="btn btn-danger" @click="deleteProgram(item)"
+                            v-if="$helper.hasAccessPermission('delete-programs-by-id')">
                       <i class="ti-trash"></i>
                     </button>
-                    <router-link :to="{name:'show_program',params:{'id':item.idprogram}}" class="btn btn-warning">
+                    <router-link :to="{name:'show_program',params:{'id':item.idprogram}}" class="btn btn-warning"
+                                 v-if="$helper.hasAccessPermission('get-programs-by-id')">
                       <i class="ti-eye"></i>
                     </router-link>
-                    <router-link :to="{name:'edit_program',params:{'id':item.idprogram}}" class="btn btn-info">
+                    <router-link :to="{name:'edit_program',params:{'id':item.idprogram}}" class="btn btn-info"
+                                 v-if="$helper.hasAccessPermission('update-programs-by-id')">
                       <i class="ti-save"></i>
                     </router-link>
                   </div>

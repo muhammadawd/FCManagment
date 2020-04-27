@@ -307,8 +307,16 @@
         console.log(request_data)
         // vm.$root.$children[0].$refs.loader.show_loader = false;
         // return
+        let form_data = new FormData();
+        $.each(request_data, (key, value) => {
+          form_data.append(key, ((value == null) ? "" : value))
+        })
         try {
-          window.serviceAPI.API().post(window.serviceAPI.ADD_STUDENTS + `?idprogram=${vm.programId}`, request_data)
+          window.serviceAPI.API().post(window.serviceAPI.ADD_STUDENTS + `?idprogram=${vm.programId}`, form_data, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               window.helper.showMessage('success', vm);

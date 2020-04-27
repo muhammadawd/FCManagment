@@ -3,12 +3,14 @@
     <div class="row">
 
       <div class="col-md-12 mb-2 text-left">
-        <router-link :to="{name:'add_student_subject'}" class="btn btn-wd btn-default btn-fill btn-rotate">
+        <router-link :to="{name:'add_student_subject'}" class="btn btn-wd btn-default btn-fill btn-rotate"
+                     v-if="$helper.hasAccessPermission('add-pay-hours')">
           <i class="ti-plus"></i>
           {{$ml.get('add_student_subject')}}
         </router-link>
         &nbsp;
         <router-link :to="{name:'confirm_payment_student_subject'}"
+                     v-if="$helper.hasAccessPermission('confirm-pay-hours')"
                      class="btn btn-wd btn-default btn-fill btn-rotate">
           <i class="ti-money"></i>
           {{$ml.get('confirm_payment_student_subject')}}
@@ -84,6 +86,7 @@
                   <!--                    <i class="ti-trash"></i>-->
                   <!--                  </button>-->
                   <button class="btn btn-info" @click="withDrawCourse(item)"
+                          v-if="$helper.hasAccessPermission('add-withdraw-Course-For-Student')"
                           :disabled="!selectedTerm || !selectedStudent">
                     {{$ml.get('get_back')}}
                   </button>
