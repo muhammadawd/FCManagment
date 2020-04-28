@@ -48,7 +48,7 @@
       </div>
 
 
-      <div class="col-md-3 text-right">
+      <div class="col-md-4 text-right">
         <label> </label>
         <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedFileType" label="name"
                       track-by="name"

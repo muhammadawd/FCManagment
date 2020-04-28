@@ -14,6 +14,14 @@ import Lecturer from "@/pages/views/Lecturer/Lecturer.vue";
 import AddLecturer from "@/pages/views/Lecturer/AddLecturer.vue";
 import EditLecturer from "@/pages/views/Lecturer/EditLecturer.vue";
 
+import Users from "@/pages/views/Users/User.vue";
+import AddUser from "@/pages/views/Users/AddUser.vue";
+import EditUser from "@/pages/views/Users/EditUser.vue";
+
+import Roles from "@/pages/views/Roles/Roles.vue";
+import AddRoles from "@/pages/views/Roles/AddRoles.vue";
+import EditRoles from "@/pages/views/Roles/EditRoles.vue";
+
 import Programs from "@/pages/views/Programs/Programs.vue";
 import AddProgram from "@/pages/views/Programs/AddProgram.vue";
 import EditProgram from "@/pages/views/Programs/EditProgram.vue";
@@ -130,6 +138,44 @@ const routes = [
         path: "lecturer/add_lecturer",
         name: "add_lecturer",
         component: AddLecturer,
+        meta: {requiresAuth: true}
+      },
+
+      {
+        path: "users",
+        name: "users",
+        component: Users,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "users/edit_user/:id",
+        name: "edit_user",
+        component: EditUser,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "users/add_user",
+        name: "add_user",
+        component: AddUser,
+        meta: {requiresAuth: true}
+      },
+
+      {
+        path: "roles",
+        name: "roles",
+        component: Roles,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "roles/edit_role/:id",
+        name: "edit_role",
+        component: EditRoles,
+        meta: {requiresAuth: true}
+      },
+      {
+        path: "roles/add_role",
+        name: "add_role",
+        component: AddRoles,
         meta: {requiresAuth: true}
       },
 

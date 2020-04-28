@@ -16,6 +16,19 @@ export default {
   UPDATE_STUFF_MEMBER: 'stuffMembers', // put +/id
   DELETE_STUFF_MEMBER: 'stuffMembers', // delete +/id
 
+  ALL_PERMISSIONS: 'permission/get_all_permissions', // get
+  ALL_ROLES: 'permission/get_roles', // get
+  ADD_ROLES: 'permission/add_roles', // post , [name , nationalNum , type => 0]
+  FIND_ROLES: 'permission/find_role', // get +/id
+  UPDATE_ROLES: 'permission/change_role_permission', // put +/id
+  DELETE_ROLES: 'permission/del_roles', // delete +/id
+
+  ALL_USERS: 'users_all', // get
+  ADD_USERS: 'users', // post [name]
+  FIND_USERS: 'user', // get +/id
+  UPDATE_USERS: 'users', // put +/id
+  DELETE_USERS: 'user', // delete +/id
+
   ALL_COUNTRIES: 'countries', // get
   ADD_COUNTRIES: 'countries', // post [name]
   FIND_COUNTRIES: 'countries', // get +/id

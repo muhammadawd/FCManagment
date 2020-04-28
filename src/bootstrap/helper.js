@@ -114,7 +114,7 @@ export const helper = {
   },
   hasAccessPermission: (permission) => {
     let user = JSON.parse(localStorage.getItem('auth_data'));
-    console.log(user.userInfo.myPermessions)
+    // console.log(user.userInfo.myPermessions)
     if (permission === 'ALLOW_ALL') {
       return true
     } else if (user.userInfo.myPermessions.includes(permission)) {
