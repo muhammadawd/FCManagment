@@ -115,7 +115,7 @@
       findRole() {
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
-        let id = vm.$route.params.id
+        let id = vm.$route.params.id;
         try {
           window.serviceAPI.API().get(window.serviceAPI.FIND_ROLES + `/${id}`)
             .then((response) => {
