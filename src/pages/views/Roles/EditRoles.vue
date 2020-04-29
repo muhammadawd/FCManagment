@@ -70,6 +70,7 @@
     },
     created() {
       this.role_id = this.$route.params.id
+      this.findRole();
       this.allPermissions();
     },
     methods: {
@@ -103,6 +104,32 @@
               // console.log(response)
               vm.all_permssions = [];
 
+            }).catch((error) => {
+            vm.$root.$children[0].$refs.loader.show_loader = false;
+            window.helper.handleError(error, vm);
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      findRole() {
+        let vm = this;
+        vm.$root.$children[0].$refs.loader.show_loader = true;
+        let id = vm.$route.params.id
+        try {
+          window.serviceAPI.API().get(window.serviceAPI.FIND_ROLES + `/${id}`)
+            .then((response) => {
+              vm.$root.$children[0].$refs.loader.show_loader = false;
+              response = response.data;
+              if (response.status) {
+                let result = response.data.result;
+                vm.name = result[0].name;
+                vm.role_permissions = result[0].role_permissions;
+                console.log(response)
+                return;
+              }
+              window.helper.showMessage('danger', vm);
+              vm.$router.push({name: 'roles'});
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);

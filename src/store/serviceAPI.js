@@ -19,7 +19,7 @@ export default {
   ALL_PERMISSIONS: 'permission/get_all_permissions', // get
   ALL_ROLES: 'permission/get_roles', // get
   ADD_ROLES: 'permission/add_roles', // post , [name , nationalNum , type => 0]
-  FIND_ROLES: 'permission/find_role', // get +/id
+  FIND_ROLES: 'permission/get_roles_permission', // get +/id
   UPDATE_ROLES: 'permission/change_role_permission', // put +/id
   DELETE_ROLES: 'permission/del_roles', // delete +/id
 
