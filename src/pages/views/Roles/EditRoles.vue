@@ -123,9 +123,10 @@
               response = response.data;
               if (response.status) {
                 let result = response.data.result;
+                let role_permissions = response.data.role_permissions;
                 vm.name = result[0].name;
-                vm.role_permissions = result[0].role_permissions;
-                console.log(response)
+                vm.role_permissions = role_permissions;
+                // console.log(role_permissions)
                 return;
               }
               window.helper.showMessage('danger', vm);
