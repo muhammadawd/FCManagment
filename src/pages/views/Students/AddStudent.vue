@@ -14,6 +14,14 @@
           </div>
           <div class="col-md-3">
             <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="name_en_error"></div>
+          </div>
+          <div class="col-md-3">
+            <fg-input type="text"
                       v-model="email"
                       :label="$ml.get('email')"
                       :placeholder="$ml.get('email')">
@@ -176,6 +184,7 @@
         entry_year: new Date().getFullYear(),
         isLoading: false,
         name: null,
+        name_en: null,
         email: null,
         nationalNum: null,
         address: null,
@@ -266,6 +275,7 @@
         let image_file = null;
         let object_data = {
           name: vm.name,
+          name_en: vm.name_en,
           email: vm.email,
           nationalNum: vm.nationalNum,
           address: vm.address,
@@ -288,6 +298,7 @@
       prepareValidationInputs() {
         return {
           name: 'input',
+          name_en: 'input',
           stu_img: 'input',
           email: 'input',
           nationalNum: 'input',

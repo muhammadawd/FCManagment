@@ -14,6 +14,14 @@
           </div>
           <div class="col-md-3">
             <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="name_en_error"></div>
+          </div>
+          <div class="col-md-3">
+            <fg-input type="text"
                       v-model="email"
                       :label="$ml.get('email')"
                       :placeholder="$ml.get('email')">
@@ -174,6 +182,7 @@
       return {
         isLoading: false,
         name: null,
+        name_en: null,
         stu_img: null,
         imgSrc: '',
         cropImg: '',
@@ -246,6 +255,7 @@
         let vm = this;
         return {
           name: vm.name,
+          name_en: vm.name_en,
           imgSrc: vm.imgSrc,
           stu_img: vm.stu_img,
           email: vm.email,
@@ -260,6 +270,7 @@
       prepareValidationInputs() {
         return {
           name: 'input',
+          name_en: 'input',
           stu_img: 'input',
           entry_year: 'input',
           email: 'input',
@@ -281,6 +292,7 @@
               response = response.data.data.result;
               console.log(response)
               vm.name = response[0].name;
+              vm.name_en = response[0].name_en;
               vm.image_path = response[0].stu_img;
               vm.email = response[0].email;
               vm.address = response[0].address;

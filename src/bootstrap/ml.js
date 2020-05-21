@@ -6,7 +6,7 @@ Vue.use(MLInstaller);
 export default new MLCreate({
   initial: 'en',
   // development  , production
-  save: process.env.NODE_ENV === 'production',
+  save: process.env.NODE_ENV === 'development',
   languages: [
     new MLanguage('en').create({
       ar: 'Arabic language',
