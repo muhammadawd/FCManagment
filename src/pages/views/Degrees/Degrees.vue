@@ -13,9 +13,18 @@
 
         <div class="row">
           <div class="col-md-12">
+            <label>{{$ml.get('course_name')}}</label>
+            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedOpenSemesterCourse" label="name"
+                          track-by="name"
+                          :options="all_term_courses" open-direction="bottom" :multiple="false" :searchable="true"
+                          :loading="isLoading" :internal-search="true" :clear-on-select="false"
+                          :close-on-select="true"></multi-select>
+            <div class="text-danger text-left" id="idopen_semester_course_error"></div>
+          </div>
+          <div class="col-md-6">
             <label>{{$ml.get('student_name')}}</label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedStudent" label="name"
-                          track-by="name"
+                          track-by="name" :disabled="!selectedOpenSemesterCourse"
                           :options="allStudents" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
@@ -25,21 +34,13 @@
           <div class="col-md-6">
             <label>{{$ml.get('term')}}</label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedTerm" label="name"
-                          track-by="name"
+                          track-by="name" :disabled="!selectedOpenSemesterCourse"
                           @select="termChanged()"
                           :options="all_terms" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
           </div>
-          <div class="col-md-6">
-            <label>{{$ml.get('course_name')}}</label>
-            <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedOpenSemesterCourse" label="name"
-                          track-by="name"
-                          :options="all_term_courses" open-direction="bottom" :multiple="false" :searchable="true"
-                          :loading="isLoading" :internal-search="true" :clear-on-select="false"
-                          :close-on-select="true"></multi-select>
-            <div class="text-danger text-left" id="idopen_semester_course_error"></div>
-          </div>
+          
         </div>
         <br>
         <button @click="getAllStudentGrades()" class="btn btn-secondary"
@@ -51,7 +52,7 @@
       <div class="col-md-4 text-right">
         <label> </label>
         <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedFileType" label="name"
-                      track-by="name"
+                      track-by="name"  :disabled="!selectedOpenSemesterCourse"
                       :options="allFileTypes" open-direction="bottom" :multiple="false" :searchable="true"
                       :loading="isLoading" :internal-search="true" :clear-on-select="false"
                       :close-on-select="true"></multi-select>
@@ -88,9 +89,9 @@
             </thead>
             <tbody>
             <tr v-for="(item, index) in allStudentGrades" :key="index">
+              
               <td>{{item.idstudents}}</td>
               <td><b>{{item['Student Name']}}</b></td>
-              <!--              <td><b>JAVA SE</b></td>-->
               <td><b>{{item.attendancePercentage}}</b></td>
               <td><b>{{item.practicalMark}}</b></td>
               <td><b>{{item.finalMark}}</b></td>
@@ -100,8 +101,7 @@
               </td>
               <td>
                 <div class="btn-group direction-inverse">
-                  <!--                  idopen_semester_course=8&studentId=2-->
-                  <router-link
+                   <router-link
                     :to="{name:'edit_degrees',params:{'studentId':item.idstudents,'idopen_semester_course':(selectedOpenSemesterCourse ? selectedOpenSemesterCourse.idopen_semester_course : '')}}"
                     class="btn btn-info">
                     <i class="ti-save"></i>
@@ -484,14 +484,16 @@
         let student_id = vm.selectedStudent ? vm.selectedStudent.idstudents : ''
         let current_course_sem_id = vm.selectedOpenSemesterCourse ? vm.selectedOpenSemesterCourse.idopen_semester_course : '';
         try {
-          window.serviceAPI.API().post(window.serviceAPI.GET_ALL_GRADES_INFO_SPECIFIC + `?idopen_semester_course=${current_course_sem_id}&studentId=${student_id}`)
+          // GET_DEGREE_INFO
+          window.serviceAPI.API().post(window.serviceAPI.GET_DEGREE_INFO + `?idopen_semester_course=${current_course_sem_id}&studentId=${student_id}`)
+        //  window.serviceAPI.API().post(window.serviceAPI.GET_ALL_GRADES_INFO_SPECIFIC + `?idopen_semester_course=${current_course_sem_id}&studentId=${student_id}`)
             .then((response) => {
               vm.$root.$children[0].$refs.loader.show_loader = false;
               let status = response.data.status;
-
-              if (status) {
+               if (status) {
                 vm.allStudentGrades = response.data.data.result;
-              }
+ 
+               }
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);

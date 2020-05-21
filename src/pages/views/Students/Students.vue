@@ -116,7 +116,7 @@
           cancelButtonText: vm.$ml.get('no')
         }).then((result) => {
           if (result.value) {
-            window.serviceAPI.API().delete(window.serviceAPI.DELETE_SEC_DEPTS + `/${student.idstudents}`)
+            window.serviceAPI.API().delete(window.serviceAPI.DELETE_STUDENTS + `/${student.idstudents}`)
               .then((response) => {
                 vm.$root.$children[0].$refs.loader.show_loader = false;
                 $(`#student${student.idstudents}`).remove()

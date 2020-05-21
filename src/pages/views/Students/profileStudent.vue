@@ -27,7 +27,7 @@
 
     <card class="card" :title="$ml.get('filter')">
       <div class="row  direction text-left">
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <label>{{$ml.get('year')}}</label>
           <select class="form-control" v-model="year">
             <option v-for="_year in years" :value="_year">{{ _year }}</option>
@@ -38,7 +38,7 @@
           <select class="form-control" v-model="idprogram_levels">
             <option v-for="(level ,key) in programLevels" :value="level.idprogram_levels">{{level.name}}</option>
           </select>
-        </div>
+        </div> -->
         <div class="col-md-4">
           <label>{{$ml.get('term')}}</label>
           <select class="form-control" v-model="idSemester">
@@ -64,7 +64,7 @@
             <th class="font-weight-bold">term work</th>
             <th class="font-weight-bold">exam work</th>
             <th class="font-weight-bold">result</th>
-            <th class="font-weight-bold">level</th>
+            <!-- <th class="font-weight-bold">level</th> -->
             <th class="font-weight-bold">term</th>
             <th class="font-weight-bold">absence</th>
           </tr>
@@ -74,14 +74,14 @@
             <td>{{co.code}}</td>
             <td>{{co.name}}</td>
             <td>{{co.actualLectureHourNum}}</td>
-            <td>{{co.student_course ? co.student_course.year : ''}}</td>
-            <td>{{co.student_course ? co.student_course.total_grade : ''}}</td>
-            <td>{{co.student_course ? co.student_course.practical_grade : ''}}</td>
-            <td>{{co.student_course ? co.student_course.final_grade : ''}}</td>
-            <td>{{co.student_course ? co.student_course.total_degree : ''}}</td>
-            <td>{{co.level}}</td>
+            <td>{{co.year }}</td>
+            <td>{{co.total_grade }}</td>
+            <td>{{co.practical_grade  }}</td>
+            <td>{{co.final_grade}}</td>
+            <td>{{co.total_degree}}</td>
+            <!-- <td>{{co.level}}</td> -->
             <td>{{co.term}}</td>
-            <td>{{co.student_course ? co.student_course.attendance_grade : ''}}</td>
+            <td>{{co.attendence_grade}}</td>
           </tr>
           </tbody>
         </table>

@@ -19,7 +19,7 @@
             <thead>
             <th width="50">#</th>
             <th>{{$ml.get('name')}}</th>
-            <th>{{$ml.get('name_en')}}</th>
+            <th>{{$ml.get('term_type')}}</th>
             <th>{{$ml.get('term_start')}}</th>
             <th>{{$ml.get('term_end')}}</th>
             <th></th>
@@ -32,7 +32,7 @@
                 <b>{{item.name}} </b>
               </td>
               <td>
-                <b>{{item.name_en}} </b>
+                <b>{{item.type}} </b>
               </td>
               <td>
                 <b>{{item.startDate}}</b>

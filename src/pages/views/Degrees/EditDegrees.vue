@@ -178,7 +178,7 @@
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data;
               if (response.status) {
-                vm.degree = response.data.result;
+                vm.degree = response.data.result[0];
                 vm.attendancePercentage = vm.degree.attendancePercentage;
                 vm.finalMark = vm.degree.finalMark;
                 vm.practicalMark = vm.degree.practicalMark;
