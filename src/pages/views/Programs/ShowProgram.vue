@@ -14,7 +14,7 @@
             <div class="col-md-4">
               <fg-input type="text"
                         :label="$ml.get('hours_need_grade')"
-                        v-model="maxPercentageAssignedForFailedCourses"
+                        v-model="numOfHourForGrad"
                         :placeholder="$ml.get('hours_need_grade')">
               </fg-input>
             </div>

@@ -100,6 +100,7 @@
               response = response.data.data.result;
               vm.name = response[0].name;
               vm.name_en = response[0].name_en;
+              vm.student_prefix = response[0].student_prefix;
               vm.maxPercentageAssignedForFailedCourses = response[0].maxPercentageAssignedForFailedCourses;
               vm.minSemestersForGrad = response[0].minSemestersForGrad;
               vm.numOfHourForGrad = response[0].numOfHourForGrad;
