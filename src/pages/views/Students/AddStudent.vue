@@ -43,6 +43,14 @@
 
            <div class="col-md-3">
             <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="name_en_error"></div>
+          </div>
+          <div class="col-md-3">
+            <fg-input type="text"
                       v-model="email"
                       :label="$ml.get('email')"
                       :placeholder="$ml.get('email')">
@@ -343,6 +351,7 @@
         let image_file = null;
         let object_data = {
           name: vm.name,
+          name_en: vm.name_en,
           email: vm.email,
           nationalNum: vm.nationalNum,
           address: vm.address,
@@ -373,7 +382,11 @@
       prepareValidationInputs() {
         return {
           name: 'input',
+<<<<<<< HEAD
           father_full_name_en: 'input',
+=======
+          name_en: 'input',
+>>>>>>> 0658c6171d5b6958ce8ac7b78a0885e04fe868d7
           stu_img: 'input',
           email: 'input',
           nationalNum: 'input',
