@@ -33,6 +33,7 @@
             <th width="50">#</th>
             <th width="160">{{$ml.get('ssn')}}</th>
             <th>{{$ml.get('name')}}</th>
+            <th>{{$ml.get('student_code')}}</th>
             <th>{{$ml.get('country')}}</th>
             <th>{{$ml.get('government')}}</th>
             <th>{{$ml.get('sec_section')}}</th>
@@ -47,6 +48,7 @@
               <td>
                 <b>{{item.name}}</b>
               </td>
+               <td><b>{{item.student_code}}</b></td>
               <td><b>{{item.country_name}}</b></td>
               <td><b>{{item.governate_name}}</b></td>
               <td><b>{{item.secondry_depts_name}}</b></td>

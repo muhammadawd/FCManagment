@@ -71,7 +71,7 @@
           <table class="table table-striped">
             <thead>
             <th width="50">#</th>
-            <th>{{$ml.get('student_father_name')}}</th>
+             <th>{{$ml.get('student_name')}}</th>
             <th>{{$ml.get('house_address')}}</th>
             <th>{{$ml.get('date')}}</th>
             <th>{{$ml.get('type')}}</th>
@@ -83,10 +83,10 @@
                 :id="'exception'+item.idexception_decision_council">
               <td>{{index+1}}</td>
               <td>
-                <b>{{item.father_full_name}}</b> <br>
+                <b>{{item.std_name}}</b> <br>
                 <span class="text-secondary">{{item.mobile}}</span>
               </td>
-              <td><b>{{item.house_address}}</b></td>
+              <td><b>{{item.address}}</b></td>
               <td><b>{{item.created_date}}</b></td>
               <td><b>{{$ml.get(item.ex_type)}}</b></td>
               <td><b class="badge badge-info badge-pill p-2">{{item.status}}</b></td>

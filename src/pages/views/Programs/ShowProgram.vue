@@ -5,29 +5,37 @@
         <form @submit.prevent>
           <div class="row">
             <div class="col-md-4">
-              <fg-input type="text"
+              <fg-input type="text" Disabled  
                         :label="$ml.get('name')"
                         v-model="name"
                         :placeholder="$ml.get('name')">
               </fg-input>
             </div>
             <div class="col-md-4">
-              <fg-input type="text"
+              <fg-input type="text" Disabled
                         :label="$ml.get('hours_need_grade')"
-                        v-model="maxPercentageAssignedForFailedCourses"
+                        v-model="numOfHourForGrad"
                         :placeholder="$ml.get('hours_need_grade')">
+              </fg-input>
+            </div>
+
+             <div class="col-md-4">
+              <fg-input type="text" Disabled
+                        :label="$ml.get('student_prefix')"
+                        v-model="student_prefix"
+                        :placeholder="$ml.get('student_prefix')">
               </fg-input>
             </div>
             <div class="col-md-12"></div>
             <div class="col-md-4">
-              <fg-input type="text"
+              <fg-input type="text" Disabled
                         :label="$ml.get('min_number_grade')"
                         v-model="minSemestersForGrad"
                         :placeholder="$ml.get('min_number_grade')">
               </fg-input>
             </div>
             <div class="col-md-4">
-              <fg-input type="text"
+              <fg-input type="text"  Disabled
                         :label="$ml.get('max_fail_percent')"
                         v-model="maxPercentageAssignedForFailedCourses"
                         :placeholder="$ml.get('max_fail_percent')">
@@ -68,7 +76,8 @@
         name: null,
         maxPercentageAssignedForFailedCourses: null,
         minSemestersForGrad: null,
-        numOfHourForGrad: null
+        numOfHourForGrad: null,
+        student_prefix: null
       }
     },
     created() {
@@ -90,6 +99,7 @@
               vm.$root.$children[0].$refs.loader.show_loader = false;
               response = response.data.data.result;
               vm.name = response[0].name;
+              vm.student_prefix=response[0].student_prefix;
               vm.maxPercentageAssignedForFailedCourses = response[0].maxPercentageAssignedForFailedCourses;
               vm.minSemestersForGrad = response[0].minSemestersForGrad;
               vm.numOfHourForGrad = response[0].numOfHourForGrad;

@@ -22,8 +22,8 @@
             <label>{{$ml.get('term')}}</label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedTerm" label="name"
                           track-by="name"
-                          disabled=""
-                          @select="termChanged()"
+                           
+                          @input="termChanged()"
                           :options="all_terms" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
@@ -33,7 +33,7 @@
             <label>{{$ml.get('course_name')}}</label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedOpenSemesterCourse" label="name"
                           track-by="name"
-                          disabled=""
+                          
                           :options="all_term_courses" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
@@ -205,6 +205,7 @@
               if (response.status) {
                 vm.all_terms = response.data.result;
                 if (vm.all_terms.length > 0) {
+                  vm.selectedTerm=vm.all_terms[0];
                   vm.getAllOpenedCourse(vm.all_terms[0].idsemester, id)
                 }
                 return null;
@@ -243,8 +244,8 @@
                 vm.all_term_courses = response.data.result;
 
                 $.each(vm.all_term_courses, function (index, item) {
-                  console.log(item)
-                  if (item.idcourses == id) {
+                  console.log(item ,"ddd")
+                  if (item.idopen_semester_course == id) {
                     vm.selectedOpenSemesterCourse = item;
                     return
                   }

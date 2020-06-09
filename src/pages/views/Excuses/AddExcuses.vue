@@ -20,8 +20,8 @@
           <div class="col-md-4 text-left">
             <label>{{$ml.get('term')}}</label>
             <multi-select :placeholder="$ml.get('type_to_search')" v-model="selectedTerm" label="name"
-                          track-by="name"
-                          @select="termChanged()"
+                          track-by="idsemester"
+                          @input="termChanged()"
                           :options="all_terms" open-direction="bottom" :multiple="false" :searchable="true"
                           :loading="isLoading" :internal-search="true" :clear-on-select="false"
                           :close-on-select="true"></multi-select>
@@ -163,10 +163,13 @@
 
       termChanged() {
         let vm = this;
+      
         let idsemester = vm.selectedTerm ? vm.selectedTerm.idsemester : null;
         if (idsemester) {
-          vm.getAllOpenedCourse(idsemester);
+            console.log(vm.selectedTerm.idsemester,"Ss");
+         vm.getAllOpenedCourse(idsemester);
         }
+        
       },
 
       getAllOpenedCourse(term_id) {

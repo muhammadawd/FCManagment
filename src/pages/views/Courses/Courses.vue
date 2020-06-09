@@ -19,6 +19,7 @@
             <th width="50">#</th>
             <th>{{$ml.get('name')}}</th>
             <th>{{$ml.get('name_en')}}</th>
+             <th>{{$ml.get('code')}}</th> 
             <th>{{$ml.get('requires')}}</th>
             <th width="50"></th>
             </thead>
@@ -30,6 +31,9 @@
               </td>
               <td>
                 <b>{{item.name_en}}</b>
+              </td>
+               <td>
+                <b>{{item.code}}</b>
               </td>
               <td>
                 <router-link

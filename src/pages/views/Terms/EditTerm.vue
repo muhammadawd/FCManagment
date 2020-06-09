@@ -65,7 +65,7 @@
             <div class="text-danger text-left" id="startSubjectRevokeDate_error"></div>
           </div>
           <div class="col-md-3 text-left">
-            <label>{{$ml.get('term_end_editing')}}</label>
+            <label>{{$ml.get('term_end_ending')}}</label>
             <flat-pickr v-model="endSubjectRevokeDate" class="form-control"></flat-pickr>
             <div class="text-danger text-left" id="endSubjectRevokeDate_error"></div>
           </div>

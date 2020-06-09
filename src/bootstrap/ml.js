@@ -4,7 +4,7 @@ import {MLInstaller, MLCreate, MLanguage} from 'vue-multilanguage'
 Vue.use(MLInstaller);
 
 export default new MLCreate({
-  initial: 'en',
+  initial: 'ar',
   // development  , production
   save: process.env.NODE_ENV === 'production',
   languages: [
@@ -15,6 +15,8 @@ export default new MLCreate({
       settings: 'Settings',
       search: 'Search',
       add: 'Add',
+      male: 'male',
+      female: 'female',
       edit: 'Edit',
       dashboard: 'dashboard',
       lecturer: 'lecturer Management',
@@ -171,6 +173,7 @@ export default new MLCreate({
       image: 'Image',
       success: 'Success',
       error: 'Error',
+      student_code:'student code',
       success_msg: 'Operation Completed Successfully',
       error_msg: 'Error !!',
       confirm_warning: 'Warning',
@@ -213,6 +216,14 @@ export default new MLCreate({
       firstName: 'first name',
       lastName: 'last name',
       password: 'password',
+      father_full_name_en: 'father name en',
+
+      name_en:  'name en',
+      father_full_name:'father full name ' ,
+      gender: 'gender ' ,
+      mobile: ' mobile' ,
+      address:'address ' ,
+      address_en: 'address en ' ,
     }),
 
     new MLanguage('ar').create({
@@ -320,8 +331,8 @@ export default new MLCreate({
       min_hours_required: 'اقل عدد من الساعات المطلوبة',
       year_working_percent: 'نسبة اعمال السنة',
       final_percent: 'نسبة التحريري',
-      year_working_success_percent: 'نسبة النجاح من اعمال السنة',
-      final_success_percent: 'نسبة النجاح من التحريري',
+      year_working_success_percent: 'نسبة النجاح من التحريري',
+      final_success_percent: 'نسبة النجاح في الماده ',
       final_degree: 'الدرجة النهائية',
       program_grade: 'التقديرات الخاصة بالبرنامج  ',
       terms: '  ادراة التيرمات',
@@ -361,6 +372,7 @@ export default new MLCreate({
       type_to_search: 'اكتب للبحث',
       no_data: 'ﻻ توجد بيانات',
       student_name: 'اسم الطالب',
+      student_code:'كود الطالب',
       course_name: 'اسم المادة',
       notes: 'تفاصيل',
       date: 'التاريخ',
@@ -408,6 +420,8 @@ export default new MLCreate({
       image: 'صورة',
       success: 'نجاح',
       error: 'خطأ',
+      male: 'ذكر',
+      female: 'انثي',
       success_msg: 'تمت العملية بنجاح',
       error_msg: 'حدث خطأ',
       confirm_warning: 'تنبيه',
@@ -420,7 +434,15 @@ export default new MLCreate({
       final_exam: 'عذر امتحان نهائي ',
       attend: 'عذر غياب',
       registered: 'مسجلة',
-      selectProgram: 'البرامج الحالية'
+      selectProgram: 'البرامج الحالية',
+      father_full_name_en: 'اسم الاب بالانجليزيه',
+
+      name_en: 'الاسم بالانجليزيه',
+      father_full_name: 'اسم الاب',
+      gender: 'الجنس',
+      mobile: 'الموبايل',
+      address: 'العنوان',
+      address_en: 'العنوان بالانجليزيه',
     })
   ]
 })

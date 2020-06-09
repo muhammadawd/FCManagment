@@ -111,6 +111,7 @@ export default {
   DELETE_SEMESTERS: 'semester', // delete +/id
 
   ALL_COURSE: 'courses', // get
+  ALL_COURSE_search: 'courses', // get
   ADD_COURSE: 'courses', // post
   FIND_COURSE: 'courses', // get  +/id
   UPDATE_COURSE: 'courses',  // put +/id

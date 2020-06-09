@@ -19,6 +19,7 @@
             <th width="50">#</th>
             <th>{{$ml.get('name')}}</th>
             <th>{{$ml.get('email')}}</th>
+             <th>{{$ml.get('roles')}}</th>
             <th width="50"></th>
             </thead>
             <tbody>
@@ -26,6 +27,7 @@
               <td><b>{{index+1}}</b></td>
               <td><b>{{item.firstName}} {{item.lastName}}</b></td>
               <td><b>{{item.email}}</b></td>
+              <td><b>{{item.name}}</b></td>
               <td>
                 <div class="btn-group direction-inverse">
                   <button class="btn btn-danger" @click="deleteUser(item)"

@@ -5,43 +5,45 @@
         <sidebar-link v-if="$helper.hasAccessPermission('ALLOW_ALL')" :to="{name:'dashboard'}"
                       :name="$ml.get('dashboard')"
                       icon="ti-panel"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-stuffMembers-all')" :to="{name:'lecturer'}"
+        <sidebar-link v-if="$helper.hasAccessPermission('stuff_page')" :to="{name:'lecturer'}"
                       :name="$ml.get('lecturer')"
                       icon="ti-user"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-countries')" :to="{name:'country'}"
+        <sidebar-link v-if="$helper.hasAccessPermission('country_magangement_page')" :to="{name:'country'}"
                       :name="$ml.get('country_section')" icon="ti-location-pin"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-secondaryDepts')" :to="{name:'sec_section'}"
+        <sidebar-link v-if="$helper.hasAccessPermission('secondery-depts-page')" :to="{name:'sec_section'}"
                       :name="$ml.get('sec_section')" icon="ti-bookmark-alt"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-students')" :to="{name:'students'}"
+        <sidebar-link v-if="$helper.hasAccessPermission('std-control-page')" :to="{name:'students'}"
                       :name="$ml.get('students')"
                       icon="ti-user"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('top_50_student')" :to="{name:'top_50_student',params:{id:id}}"
+        <sidebar-link v-if="$helper.hasAccessPermission('top-50-page')" :to="{name:'top_50_student',params:{id:id}}"
                       :name="$ml.get('top_50_student')" icon="ti-user"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('profile_student')"
+
+        <sidebar-link v-if="$helper.hasAccessPermission('std-profile-page')"
                       :to="{name:'profile_student',params:{id:id}}"
                       :name="$ml.get('profile_student')" icon="ti-user"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-programs')" :to="{name:'programs'}"
+                      
+        <sidebar-link v-if="$helper.hasAccessPermission('get-programs-page')" :to="{name:'programs'}"
                       :name="$ml.get('program')"
                       icon="ti-server"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-courses')" :to="{name:'courses'}"
+        <sidebar-link v-if="$helper.hasAccessPermission('course-control-page')" :to="{name:'courses'}"
                       :name="$ml.get('courses')"
                       icon="ti-agenda"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-semester')" :to="{name:'terms'}" :name="$ml.get('terms')"
+        <sidebar-link v-if="$helper.hasAccessPermission('terms-control-page')" :to="{name:'terms'}" :name="$ml.get('terms')"
                       icon="ti-desktop"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-exceptions')" :to="{name:'excuses'}"
+        <sidebar-link v-if="$helper.hasAccessPermission('excuse-control-page')" :to="{name:'excuses'}"
                       :name="$ml.get('excuses')"
                       icon="ti-alert"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-getStudentCoursesToSelectAndConfig')"
+        <sidebar-link v-if="$helper.hasAccessPermission('std-course-control-page')"
                       :to="{name:'student_subject'}"
                       :name="$ml.get('student_subject')"
                       icon="ti-face-smile"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('get-find-Students-Grade-Info')" :to="{name:'degrees'}"
+        <sidebar-link v-if="$helper.hasAccessPermission('degree-control-page')" :to="{name:'degrees'}"
                       :name="$ml.get('degrees')"
                       icon="ti-zip"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('show_users')" :to="{name:'users'}"
+        <sidebar-link v-if="$helper.hasAccessPermission('users-control-page')" :to="{name:'users'}"
                       :name="$ml.get('users')"
                       icon="ti-user"/>
-        <sidebar-link v-if="$helper.hasAccessPermission('show_roles')" :to="{name:'roles'}"
+        <sidebar-link v-if="$helper.hasAccessPermission('roles-permission-control-page')" :to="{name:'roles'}"
                       :name="$ml.get('roles')"
                       icon="ti-zip"/>
       </template>

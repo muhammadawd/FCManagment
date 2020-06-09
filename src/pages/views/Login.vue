@@ -31,8 +31,8 @@
                         {{$ml.get('get_started')}}
                       </p-button>
                     </div>
-                    <router-link class="font-weight-bold" :to="{name:'register'}">{{$ml.get('register_new')}}
-                    </router-link>
+                    <!-- <router-link class="font-weight-bold" :to="{name:'register'}">{{$ml.get('register_new')}} -->
+                    <!-- </router-link> -->
                   </div>
                 </form>
               </div>

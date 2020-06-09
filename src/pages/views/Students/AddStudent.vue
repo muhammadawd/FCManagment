@@ -12,7 +12,36 @@
             </fg-input>
             <div class="text-danger text-left" id="name_error"></div>
           </div>
-          <div class="col-md-3">
+
+           <div class="col-md-3">
+            <fg-input type="text"
+                      v-model="name_en"
+                      :label="$ml.get('name_en')"
+                      :placeholder="$ml.get('name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="name_en_error"></div>
+          </div>
+
+          
+             <div class="col-md-3">
+            <fg-input type="text"
+                      v-model="father_full_name"
+                      :label="$ml.get('father_full_name')"
+                      :placeholder="$ml.get('father_full_name')">
+            </fg-input>
+            <div class="text-danger text-left" id="father_full_name_error"></div>
+          </div>
+
+           <div class="col-md-3">
+            <fg-input type="text"
+                      v-model="father_full_name_en"
+                      :label="$ml.get('father_full_name_en')"
+                      :placeholder="$ml.get('father_full_name_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="father_full_name_en_error"></div>
+          </div>
+
+           <div class="col-md-3">
             <fg-input type="text"
                       v-model="email"
                       :label="$ml.get('email')"
@@ -20,6 +49,47 @@
             </fg-input>
             <div class="text-danger text-left" id="email_error"></div>
           </div>
+
+ 
+           <div class="col-md-3 text-left">
+             <label>{{$ml.get('gender')}}</label>
+           <select class="form-control"   
+                      v-model="gender"
+                     >
+                          <option value="1">{{$ml.get('male')}}</option>
+          <option value="0">{{$ml.get('female')}}</option>
+            </select>
+            <div class="text-danger text-left" id="gender_error"></div> 
+          </div>
+
+           <div class="col-md-3">
+            <fg-input type="text"
+                      v-model="mobile"
+                      :label="$ml.get('mobile')"
+                      :placeholder="$ml.get('mobile')">
+            </fg-input>
+            <div class="text-danger text-left" id="mobile_error"></div>
+          </div>
+
+
+          <div class="col-md-3">
+            <fg-input type="text"
+                      v-model="address"
+                      :label="$ml.get('address')"
+                      :placeholder="$ml.get('address')">
+            </fg-input>
+            <div class="text-danger text-left" id="address_error"></div>
+          </div>
+
+           <div class="col-md-3">
+            <fg-input type="text"
+                      v-model="address_en"
+                      :label="$ml.get('address_en')"
+                      :placeholder="$ml.get('address_en')">
+            </fg-input>
+            <div class="text-danger text-left" id="address_en_error"></div>
+          </div>
+
           <div class="col-md-3 text-left">
             <label>{{$ml.get('year')}}</label>
             <select class="form-control" v-model="entry_year">
@@ -68,14 +138,14 @@
             <div class="text-danger text-left" id="idcity_error"></div>
           </div>
 
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <fg-input type="text"
                       v-model="address"
                       :label="$ml.get('full_address')"
                       :placeholder="$ml.get('full_address')">
             </fg-input>
             <div class="text-danger text-left" id="address_error"></div>
-          </div>
+          </div> -->
 
           <!--          <div class="col-md-4">-->
           <!--            <fg-input type="file"-->
@@ -176,6 +246,13 @@
         entry_year: new Date().getFullYear(),
         isLoading: false,
         name: null,
+        name_en: null,
+        father_full_name_en: null,
+        father_full_name: null,
+        gender: null,
+        mobile: null,
+        address: null,
+        address_en: null,
         email: null,
         nationalNum: null,
         address: null,
@@ -273,6 +350,14 @@
           idprogram_levels: vm.selectedProgramLevels ? vm.selectedProgramLevels.idprogram_levels : null,
           idsecondary_depts: vm.selectedSecondary ? vm.selectedSecondary.idsecondary_depts : null,
           idcity: vm.selectedCity ? vm.selectedCity.idcities : null,
+
+          name_en: vm.name_en ,
+          father_full_name_en: vm.father_full_name_en,
+          father_full_name: vm.father_full_name,
+          gender: vm.gender,
+          mobile: vm.mobile,
+          address:vm.address,
+          address_en: vm.address_en,
         };
 
         if (vm.cropImg) {
@@ -288,6 +373,7 @@
       prepareValidationInputs() {
         return {
           name: 'input',
+          father_full_name_en: 'input',
           stu_img: 'input',
           email: 'input',
           nationalNum: 'input',
@@ -296,6 +382,14 @@
           idsecondary_depts: 'input',
           idcity: 'input',
           entry_year: 'input',
+
+          name_en: 'input',
+        father_full_name_en: 'input',
+        father_full_name: 'input',
+        gender: 'input',
+        mobile: 'input',
+        address: 'input',
+        address_en: 'input',
         };
       },
       addStudent() {

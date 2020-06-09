@@ -38,9 +38,17 @@
           </div>
           <div class="col-md-4 text-left">
             <label>{{$ml.get('program')}}</label>
-            <select v-model="program_id" class="form-control">
-              <option v-for="(item , key) in programs" :key="key" :value="item.idprogram">{{item.name}}</option>
+            <select   multiple="true" v-model="program_id" class="form-control">
+               <option v-for="(item , key) in programs" :key="key"  :selected="item" :value="item.idprogram" >{{item.name}}</option>
             </select>
+
+             
+
+             <!-- <multi-select :placeholder="$ml.get('program')" v-model="selectedProgram" label="name"
+                          track-by="idprogram"
+                          :options="programs" open-direction="bottom" :multiple="true" :searchable="true"
+                          :loading="isLoading" :internal-search="true" :clear-on-select="false"
+                          :close-on-select="true"></multi-select> -->
             <div class="text-left text-danger" id="program_id_error"></div>
           </div>
           <div class="col-md-4 text-left">
@@ -66,6 +74,9 @@
 </template>
 
 <script>
+ import multiSelect from 'vue-multiselect';
+  import 'vue-multiselect/dist/vue-multiselect.min.css';
+
   export default {
     name: "AddLecturer",
     data() {
@@ -77,8 +88,13 @@
         password: null,
         email: null,
         role_id: null,
-        program_id: null,
+        program_id: [],
+        isLoading:false,
+        selectedProgram:[],
       }
+    },
+    components: {
+      multiSelect,
     },
     mounted() {
       this.getAllRoles()
@@ -86,6 +102,15 @@
       this.findUser()
     },
     methods: {
+
+ 
+       updateSelectedTagging (value) {
+          
+          this.selectedProgram = value
+       },
+
+
+
       getAllPrograms() {
         let vm = this;
         vm.$root.$children[0].$refs.loader.show_loader = true;
@@ -140,7 +165,7 @@
           email: vm.email,
           password: vm.password,
           role_id: vm.role_id,
-          program_id: vm.program_id,
+          program_id: "["+vm.program_id+"]",
         };
       },
       prepareValidationInputs() {
@@ -166,9 +191,31 @@
               vm.firstName = response[0].firstName
               vm.lastName = response[0].lastName
               vm.email = response[0].email
-              vm.program_id = response[0].idprogram
+            
+            //convert string of program_id to list
+            //here
+              let vprog=response[0].idprogram.replace('[', '');
+              vprog=vprog.replace(']', '');
+              if(!vprog.includes(','))
+              vm.program_id =[vprog];
+              else
+              vm.program_id =vprog.split(',').map(Number);
+              console.log(vm.program_id.length);
+            
+              vm.program_id.forEach(element => {
+               let value=vm.programs.filter(item => 
+               item.idprogram == element);
+               vm.selectedProgram.push(value[0]);
+               
+              });
+
+  
+            console.log(vm.selectedProgram);
+                //to here
+             
               vm.role_id = response[0].role_id
 
+          
             }).catch((error) => {
             vm.$root.$children[0].$refs.loader.show_loader = false;
             window.helper.handleError(error, vm);

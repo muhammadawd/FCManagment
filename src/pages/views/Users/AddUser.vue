@@ -38,7 +38,7 @@
           </div>
           <div class="col-md-4 text-left">
             <label>{{$ml.get('program')}}</label>
-            <select v-model="program_id" class="form-control">
+            <select   multiple="true" v-model="program_id" class="form-control">            
               <option v-for="(item , key) in programs" :key="key" :value="item.idprogram">{{item.name}}</option>
             </select>
             <div class="text-left text-danger" id="program_id_error"></div>
@@ -139,7 +139,7 @@
           email: vm.email,
           password: vm.password,
           role_id: vm.role_id,
-          program_id: vm.program_id,
+          program_id: "["+vm.program_id+"]",
         };
       },
       prepareValidationInputs() {
